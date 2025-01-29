@@ -29,7 +29,8 @@ class User extends Authenticatable // Implement MustVerifyEmail
         'profile',
         'assigned',
         'user_type',
-        'district_id'
+        'district_id',
+        'isApproved'
     ];
 
     /**

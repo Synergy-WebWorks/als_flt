@@ -32,6 +32,7 @@ Route::post('/rate-paragraph', [ChatGPTController::class, 'rateParagraph']);
 
 
 Route::resource('account', AccountController::class);
+Route::post('/approved_account', [AccountController::class, 'approved_account']);
 Route::resource('students', StudentController::class);
 Route::resource('teachers', TeacherController::class);
 Route::resource('examinations', ExaminationController::class);

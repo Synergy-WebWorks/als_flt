@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('profile')->nullable();
             $table->string('assigned')->nullable();
             $table->string('user_type')->nullable();
+            $table->string('isApproved')->nullable();
             $table->timestamp('email_verified_at')->nullable(); 
             $table->rememberToken();
             $table->timestamps();

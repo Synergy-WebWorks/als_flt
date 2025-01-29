@@ -1,6 +1,15 @@
 import axios from "axios";
 
 
+export async function approved_account_service(data) {
+    try {
+        const res = await axios.post('/api/approved_account', data);
+        return res;
+    } catch (error) {
+        return error;
+    }
+}
+
 export async function search_students_service(data) {
     try {
         const res = await axios.post('/api/search_students', data);

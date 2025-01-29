@@ -15,6 +15,7 @@ import { Visibility } from "@mui/icons-material";
 import { router } from "@inertiajs/react";
 import DeleteSection from "./delete-section";
 import UpdateSection from "./update-section";
+import IsApprovedSection from "./is-approved-section";
 
 export default function TableSection() {
     const { teachers } = useSelector((state) => state.teachers);
@@ -65,6 +66,9 @@ export default function TableSection() {
                                         >
                                             <Visibility />
                                         </Button>
+                                        {res.isApproved !== "true" && (
+                                            <IsApprovedSection data={res} />
+                                        )}
                                     </div>
                                 </TableCell>
                             </TableRow>

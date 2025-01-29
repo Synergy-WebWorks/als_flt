@@ -36,6 +36,7 @@ export default function CreateSection() {
             store_teachers_thunk({
                 ...data,
                 user_type: 2,
+                isApproved:'true'
             }),
         );
         if (result.status == 200) {

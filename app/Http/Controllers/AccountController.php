@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Hash;
 class AccountController extends Controller
 {
 
+    public function approved_account(Request $request){
+         User::where('id', $request->id)->update([
+            'isApproved' =>$request->isApproved
+        ]);
+        return response()->json([
+            'response' =>'success',
+        ], 200);
+    }
     public function index(Request $request)
     {
         // Fetch paginated users, you can specify how many items per page, e.g., 10
