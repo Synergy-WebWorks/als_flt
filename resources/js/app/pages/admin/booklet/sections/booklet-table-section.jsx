@@ -13,6 +13,7 @@ import moment from 'moment';
 import { router } from '@inertiajs/react';
 import { Button } from '@mui/material';
 import { Visibility } from '@mui/icons-material';
+import BookletEditSection from './booklet-edit-section';
 // import { Visibility } from '@mui/icons-material';
 // import { Button } from '@mui/material';
 // import { router } from '@inertiajs/react';
@@ -50,10 +51,11 @@ export default function BookletTableSection() {
                                         <Button
                                             onClick={() => router.visit(`/administrator/booklet/${res.id}`)}
                                             size='small'
-                                            variant='contained'
+                                            variant="outlined"
                                             color='success'>
                                             <Visibility />
                                         </Button>
+                                        <BookletEditSection datas={res}/> 
                                     </div>
                                 </TableCell>
                             </TableRow>

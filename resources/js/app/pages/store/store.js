@@ -9,6 +9,7 @@ import questionnairesSlice from "../admin/literacy_test/_redux/questionaires-sli
 import scheduleSlice from "../admin/schedule/redux/schedule-slice";
 import learningCenterSlice from "../admin/learning_center/redux/learning-center-slice";
 import bookletSlice from "../admin/booklet/redux/booklet-slice";
+import districtSlice from "../admin/district/redux/district-slice";
 
 const store = configureStore({
     reducer: {
@@ -21,7 +22,8 @@ const store = configureStore({
         questionnaires: questionnairesSlice,
         schedule: scheduleSlice,
         learning_centers: learningCenterSlice,
-        booklets: bookletSlice
+        booklets: bookletSlice,
+        districts:districtSlice
     },
 });
 

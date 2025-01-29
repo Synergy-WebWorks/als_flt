@@ -32,7 +32,7 @@ class ScheduleController extends Controller
             'unique_id' => 'required',
             'teacher_id' => 'required',
             'booklet_id' => 'required',
-            'learning_center' => 'required',
+            // 'learning_center' => 'required',
             'als_level' => 'required',
             'start_at' => 'required',
             'end_at' => 'required',

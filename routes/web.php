@@ -37,22 +37,26 @@ Route::middleware('auth:sanctum', 'administrator', 'verified')->prefix('administ
         return Inertia::render('admin/dashboard/page');
     })->name('admin.dashboard');
 
+    Route::get('/district', function () {
+        return Inertia::render('admin/district/page');
+    });
+
     Route::prefix('teachers')->group(function () {
         Route::get('/', function () {
             return Inertia::render('admin/teachers/page');
         });
         Route::prefix('{user_id}')->group(function () {
             Route::get('/', function () {
-                return Inertia::render('admin/teachers/id/page1');
+                return Inertia::render('admin/teachers/id/page');
             });
 
-            Route::get('/create_grades', function () {
-                return Inertia::render('admin/teachers/id/page2');
-            });
+            // Route::get('/create_grades', function () {
+            //     return Inertia::render('admin/teachers/id/page2');
+            // });
 
-            Route::get('/students', function () {
-                return Inertia::render('admin/teachers/id/page3');
-            });
+            // Route::get('/students', function () {
+            //     return Inertia::render('admin/teachers/id/page3');
+            // });
         });
     });
     Route::get('/learning_center', function () {

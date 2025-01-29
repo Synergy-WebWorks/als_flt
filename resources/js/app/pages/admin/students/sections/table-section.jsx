@@ -14,6 +14,8 @@ import moment from 'moment';
 import { Button } from '@mui/material';
 import { router } from '@inertiajs/react';
 import { Checklist, ListAlt } from '@mui/icons-material';
+import DeleteSection from './delete-section';
+import UpdateSection from './update-section';
 // import { router } from '@inertiajs/react';
 // import AddEnrollmentSection from './add-enrollment-section';
 
@@ -27,10 +29,7 @@ export default function TableSection() {
           <TableRow>
             <TableCell>Fullname</TableCell>
             <TableCell>Email</TableCell>
-            <TableCell>Mobile</TableCell>
             <TableCell>Age</TableCell>
-
-            <TableCell>Address</TableCell>
             <TableCell>Action</TableCell>
           </TableRow>
         </TableHead>
@@ -48,11 +47,7 @@ export default function TableSection() {
                   {res.name}
                 </TableCell>
                 <TableCell>{res.email}</TableCell>
-                <TableCell>
-                  {res.mobile}
-                </TableCell>
                 <TableCell>{res?.dob ?? ''}</TableCell>
-                <TableCell>{res?.address ?? ''}</TableCell>
                 {/* <TableCell>{age}</TableCell> */}
                 {/* <TableCell>{res.address}</TableCell> */}
                 <TableCell>
@@ -61,8 +56,8 @@ export default function TableSection() {
                       !res.enrollment && <AddEnrollmentSection data={res}/>
                     }
                      */}
-                    {/* <UpdateSection data={res} />
-                    <DeleteSection data={res} /> */}
+                     <UpdateSection datas={res} />
+                    <DeleteSection data={res} />
                     <a target='_blank' href={`/administrator/students/ila_assessment_form/${res.id}`}>
                       <Button
                         size='small'

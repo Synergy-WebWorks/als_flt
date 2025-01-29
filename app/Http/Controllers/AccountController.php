@@ -8,16 +8,16 @@ use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
-   
+
     public function index(Request $request)
     {
         // Fetch paginated users, you can specify how many items per page, e.g., 10
-        if($request->page){
+        if ($request->page) {
             $users = User::where('user_type', $request->user_type)->paginate(10);
             return response()->json([
                 'response' => $users,
             ], 200);
-        }else{
+        } else {
             $users = User::where('user_type', $request->user_type)->get();
             return response()->json([
                 'response' => [
@@ -25,15 +25,15 @@ class AccountController extends Controller
                 ],
             ], 200);
         }
-        
+
 
         // Return the paginated response
-    
+
     }
 
     public function show($id)
     {
-        $user = User::where('id', $id)->with(['score_sheet','examiner'])->first();
+        $user = User::where('id', $id)->with(['score_sheet', 'examiner'])->first();
         return response()->json([
             'response' => $user,
         ], 200);
@@ -47,7 +47,7 @@ class AccountController extends Controller
             // 'address' => 'required|string|max:255',  // Address must be a string with a max length of 255
             'course_id' => 'max:255',  // Course must be a string with a max length of 255
             'department_id' => 'required',  // Department must be a string with a max length of 255
-            // 'dob' => 'required|date',  // Date of birth must be a valid date
+            'dob' => 'required',  // Date of birth must be a valid date
             'fname' => 'required|string|max:255',  // First name must be a string with a max length of 255
             'lname' => 'required|string|max:255',  // Last name must be a string with a max length of 255
             'password' => 'required|string|min:8',  // Password must be a string with a minimum length of 8
@@ -60,7 +60,7 @@ class AccountController extends Controller
             // 'address' => $request->address??'',
             'course_id' => $validatedData['course_id'] ?? null,
             'department_id' => $validatedData['department_id'],
-            // 'dob' =>  $request->dob??'',
+            'dob' =>  $request->dob ?? '',
             'fname' => $validatedData['fname'],
             'lname' => $validatedData['lname'],
             'user_type' => $request->user_type,

@@ -1,37 +1,37 @@
-Examination Type
-* multiple choice
-  - Title
-  - SubTitle
-  - Instructions
+Landing Page
+- in register page add birthdate --done
+- remove verify email --done
 
-* writing 
+admin
+- remove learning center --done
+- learning center add edit and delete --done
+- add district page (add, delete update)-done
+- add district when adding a teacher & remove action add edit and delete -done
+- add delete student -done
+- in teacher, add action that will redirect in specific schedules from the teacher --done
+- add edit in booklet https://capstone-elearning.site/administrator/booklet/9 -done
+ALS
+admin
+
+- display total student, teacher 
+- add admin approval for teacher and students
+- fix ila border form  of student
+- add bordor in scoresheet of student
+- add score for essay in https://capstone-elearning.site/administrator/students/score_sheet/2
+- add edit in ILA grades
+- add breadcrumbs every pages
+- examination title has bugs in https://capstone-elearning.site/administrator/booklet/9
+
+student
+- student can show their ILA
+- student add show ILA and scoresheet
+- add profile
+- add timer when taking an exam 1 hour and 30 mins and automatic submit
+- add confirmation "do you want to submit"
+- dashboard add mission vision.
 
 
-// dinamic form
-  - Questions
-  - Answer Key
-  - Choices
-  - Specification
+teacher 
+- in dashboard add total number of student and teacher profile
+- 
 
-* Individual Learning Agreement (ILA)
-
-* Score Sheet
-
- - user id
- - overall Score
- - Als Level
- - Date
-
-
-Schedule FLT Test
-- unique ID
-- ALS Level 
-- Date and time of exam
-- multiple select student
-- teacher (dropdown)
-- community learning center
-- send email to alls students and teacher selected.
-
--- add start_at and end_at in schedule
-
- 

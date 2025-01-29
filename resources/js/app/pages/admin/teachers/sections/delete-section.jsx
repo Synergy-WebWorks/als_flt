@@ -8,6 +8,7 @@ import { Delete } from '@mui/icons-material';
 import store from '@/app/pages/store/store';
 import { Alert, CircularProgress, Snackbar } from '@mui/material';
 import { useState } from 'react';
+import { delete_teachers_thunk, get_teachers_thunk } from '../redux/teachers-thunk';
 
 const style = {
   position: 'absolute',
@@ -16,7 +17,6 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
@@ -30,9 +30,9 @@ export default function DeleteSection({ data }) {
 
   async function delete_data(params) {
     setLoading(true)
-    const result = await store.dispatch(delete_instructor_thunk(data.id))
+    const result = await store.dispatch(delete_teachers_thunk(data.id))
     if (result.status == 200) {
-      await store.dispatch(get_instructor_thunk())
+      await store.dispatch(get_teachers_thunk())
       setNotify(true)
       setLoading(false)
     } else {
@@ -62,7 +62,7 @@ export default function DeleteSection({ data }) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Delete Instructor
+            Delete Teacher
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Are you sure you want to delete?

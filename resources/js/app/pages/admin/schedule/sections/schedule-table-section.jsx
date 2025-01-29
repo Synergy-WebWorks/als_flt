@@ -6,17 +6,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-// import UpdateSection from './update-section';
-// import DeleteSection from './delete-section';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { router } from '@inertiajs/react';
 import { Button } from '@mui/material';
 import { Visibility } from '@mui/icons-material';
-// import { Visibility } from '@mui/icons-material';
-// import { Button } from '@mui/material';
-// import { router } from '@inertiajs/react';
-// import AddEnrollmentSection from './add-enrollment-section';
 
 
 export default function ScheduleTableSection() {
@@ -29,7 +23,6 @@ export default function ScheduleTableSection() {
                         <TableCell>Reference Test ID</TableCell>
                         <TableCell>Teacher Assigned</TableCell>
                         <TableCell>Als Level</TableCell>
-                        <TableCell>Learning Center</TableCell>
                         <TableCell>Start At</TableCell>
                         <TableCell>End At</TableCell>
                         <TableCell>Action</TableCell>
@@ -49,7 +42,6 @@ export default function ScheduleTableSection() {
                                 </TableCell>
                                 <TableCell>{res.user.name}</TableCell>
                                 <TableCell>{res?.als_level ?? ''}</TableCell>
-                                <TableCell>{res?.learning_center.name ?? ''}</TableCell>
                                 <TableCell>
                                     {moment(res.start_at).format('LLLL')}
                                 </TableCell>

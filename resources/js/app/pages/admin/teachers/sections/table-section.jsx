@@ -13,6 +13,8 @@ import moment from "moment";
 import { Button } from "@mui/material";
 import { Visibility } from "@mui/icons-material";
 import { router } from "@inertiajs/react";
+import DeleteSection from "./delete-section";
+import UpdateSection from "./update-section";
 
 export default function TableSection() {
     const { teachers } = useSelector((state) => state.teachers);
@@ -23,11 +25,8 @@ export default function TableSection() {
                     <TableRow>
                         <TableCell>Fullname</TableCell>
                         <TableCell>Email</TableCell>
-                        <TableCell>Mobile</TableCell>
-                        {/* <TableCell>Course</TableCell> */}
+                        <TableCell>District</TableCell>
                         <TableCell>Age</TableCell>
-                        
-                         <TableCell>Address</TableCell>
                         <TableCell>Action</TableCell>
                     </TableRow>
                 </TableHead>
@@ -35,7 +34,7 @@ export default function TableSection() {
                     {teachers?.data.map((res, i) => {
                         const dob = moment(res.dob, "YYYY-MM-DD"); // Replace with actual date of birth
                         const age = moment().diff(dob, "years");
-                        console.log('res',res)
+                        console.log("res", res);
                         return (
                             <TableRow
                                 key={i}
@@ -47,22 +46,19 @@ export default function TableSection() {
                             >
                                 <TableCell>{res.name}</TableCell>
                                 <TableCell>{res.email}</TableCell>
-                                <TableCell>
-                                    {res?.mobile ?? ""}
-                                </TableCell>
-                                <TableCell>{res.dob}</TableCell> 
-                                <TableCell>{res.address}</TableCell> 
+                                <TableCell>{res.district?.name}</TableCell>
+                                <TableCell>{age}</TableCell>
                                 <TableCell>
                                     <div className="flex gap-2">
-                                        {/* <UpdateSection data={res} /> */}
-                                        {/* <DeleteSection data={res} /> */}
-                                        
+                                        <UpdateSection datas={res} />
+                                        <DeleteSection data={res} />
+
                                         <Button
-                                            // onClick={() =>
-                                            //     router.visit(
-                                            //         `/administrator/teachers/${res.id}/create_grades`,
-                                            //     )
-                                            // }
+                                            onClick={() =>
+                                                router.visit(
+                                                    `/administrator/teachers/${res.id}`,
+                                                )
+                                            }
                                             size="small"
                                             variant="contained"
                                             color="success"

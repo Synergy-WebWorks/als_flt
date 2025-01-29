@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChatGPTController;
+use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\ExaminationController;
 use App\Http\Controllers\ExaminerController;
 use App\Http\Controllers\LearningCenterController;
@@ -42,6 +43,7 @@ Route::resource('schedule', ScheduleController::class);
 Route::resource('learning_centers', LearningCenterController::class);
 Route::resource('answers', AnswerController::class);
 Route::resource('booklet', BookletController::class);
+Route::resource('district', DistrictController::class);
 
 Route::resource('examiner', ExaminerController::class);
 Route::get('/get_examiner_by_examiner_id/{id}', [ExaminerController::class, 'get_examiner_by_examiner_id']);

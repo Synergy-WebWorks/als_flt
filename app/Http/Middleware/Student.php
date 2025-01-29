@@ -21,7 +21,7 @@ class Student
         if ($account->user_type == '1') {
             return Inertia::location(route('admin.dashboard'));
         } else if ($account->user_type =='2') {
-            return Inertia::location(route('instructor.dashboard'));
+            return Inertia::location(route('teacher.dashboard'));
         }
         return $next($request);
     }

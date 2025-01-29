@@ -32,11 +32,11 @@ class QuestionnaireController extends Controller
             'question' => 'required',
             'title' => 'nullable',
             'item_number' => 'nullable',
-            'a' => 'nullable',
-            'b' => 'nullable',
-            'c' => 'nullable',
-            'd' => 'nullable',
-            'e' => 'nullable',
+            // 'a' => 'nullable',
+            // 'b' => 'nullable',
+            // 'c' => 'nullable',
+            // 'd' => 'nullable',
+            // 'e' => 'nullable',
             'examination_id' => 'nullable',
             'specification' => 'nullable',
         ]);
@@ -48,35 +48,35 @@ class QuestionnaireController extends Controller
         $imageA = $request->hasFile('image_a')
             ? $request->file('image_a')->store('als/images', 's3')
             : null;
-        $imageB = $request->hasFile('image_b')
-            ? $request->file('image_b')->store('als/images', 's3')
-            : null;
-        $imageC = $request->hasFile('image_c')
-            ? $request->file('image_c')->store('als/images', 's3')
-            : null;
-        $imageD = $request->hasFile('image_d')
-            ? $request->file('image_d')->store('als/images', 's3')
-            : null;
-        $imageE = $request->hasFile('image_e')
-            ? $request->file('image_e')->store('als/images', 's3')
-            : null;
+        // $imageB = $request->hasFile('image_b')
+        //     ? $request->file('image_b')->store('als/images', 's3')
+        //     : null;
+        // $imageC = $request->hasFile('image_c')
+        //     ? $request->file('image_c')->store('als/images', 's3')
+        //     : null;
+        // $imageD = $request->hasFile('image_d')
+        //     ? $request->file('image_d')->store('als/images', 's3')
+        //     : null;
+        // $imageE = $request->hasFile('image_e')
+        //     ? $request->file('image_e')->store('als/images', 's3')
+        //     : null;
     
         // Generate URLs for the uploaded images
         $url1 = $imageHeader ? Storage::disk('s3')->url($imageHeader) : null;
         $url2 = $imageA ? Storage::disk('s3')->url($imageA) : null;
-        $url3 = $imageB ? Storage::disk('s3')->url($imageB) : null;
-        $url4 = $imageC ? Storage::disk('s3')->url($imageC) : null;
-        $url5 = $imageD ? Storage::disk('s3')->url($imageD) : null;
-        $url6 = $imageE ? Storage::disk('s3')->url($imageE) : null;
+        // $url3 = $imageB ? Storage::disk('s3')->url($imageB) : null;
+        // $url4 = $imageC ? Storage::disk('s3')->url($imageC) : null;
+        // $url5 = $imageD ? Storage::disk('s3')->url($imageD) : null;
+        // $url6 = $imageE ? Storage::disk('s3')->url($imageE) : null;
     
         // Merge validated data with the image URLs
         $data = array_merge($validatedData, [
             'image_header' => $url1,
             'image_a' => $url2,
-            'image_b' => $url3,
-            'image_c' => $url4,
-            'image_d' => $url5,
-            'image_e' => $url6,
+            // 'image_b' => $url3,
+            // 'image_c' => $url4,
+            // 'image_d' => $url5,
+            // 'image_e' => $url6,
         ]);
     
         // Create the Questionnaire record

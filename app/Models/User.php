@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Http\Middleware\Student;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable implements MustVerifyEmail // Implement MustVerifyEmail
+class User extends Authenticatable // Implement MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
@@ -20,9 +22,14 @@ class User extends Authenticatable implements MustVerifyEmail // Implement MustV
     protected $fillable = [
         'name',
         'email',
+        'address',
         'password',
+        'dob',
+        'mobile',
+        'profile',
+        'assigned',
         'user_type',
-        'email_verified_at'
+        'district_id'
     ];
 
     /**
@@ -55,5 +62,18 @@ class User extends Authenticatable implements MustVerifyEmail // Implement MustV
     public function examiner(): HasOne
     {
         return $this->hasOne(Examiner::class,'examiner_id','id')->with(['schedule']);
+    }
+    public function district(): HasOne
+    {
+        return $this->hasOne(District::class,'id','district_id');
+    }
+
+    public function schedules(): HasMany
+    {
+        return $this->hasMany(Schedule::class,'teacher_id','id');
+    }
+    public function students(): HasMany
+    {
+        return $this->hasMany(Student::class,'id','district_id');
     }
 }

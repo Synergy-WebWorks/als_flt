@@ -10,7 +10,7 @@ class TeacherController extends Controller
 {
     public function index()
     {
-        $users = User::where('user_type', 2)->paginate(10);
+        $users = User::where('user_type', 2)->with(['district'])->paginate(10);
         return response()->json([
             'response' => $users,
         ], 200);
@@ -18,9 +18,9 @@ class TeacherController extends Controller
 
     public function show($id)
     {
-        User::where('id', $id)->get();
+        $user = User::where('id', $id)->with(['schedules'])->first();
         return response()->json([
-            'response' => 'success',
+            'response' =>  $user,
         ], 200);
     }
 
@@ -34,36 +34,35 @@ class TeacherController extends Controller
 
     public function update(Request $request, $id)
     {
-
+        // Define validation rules for the incoming data
         $validatedData = $request->validate([
-            // 'user_id' => 'required|unique:users,user_id',
-            // // 'email' => 'required|email|unique:users,email',
-            // 'course_id' => 'max:255',
-            // 'address' => 'required|string|max:255',
-            // 'department' => 'required|string|max:255',
-            // 'dob' => 'required|date',
-            // 'fname' => 'required|string|max:255',
-            // 'lname' => 'required|string|max:255',
-            // 'password' => 'nullable|string|min:8', // Password is nullable
+            'dob' => 'required|date', // Example validation for date of birth
+            'district_id' => 'required|integer',
+            'email' => 'required|email|unique:users,email,' . $id, // Ensure email is unique except for the current user
+            'name' => 'required|string',  // Assuming 'name' is passed instead of 'distnamerict_id'
+            'password' => 'nullable|string|min:8',  // Password is optional
         ]);
 
+        // Find the user by ID or fail if not found
         $user = User::findOrFail($id);
+
         // Prepare data for update
         $dataToUpdate = [
-            // 'user_id' => $validatedData['user_id'],
-            // // 'email' => $validatedData['email'],
-            // 'course_id' => $validatedData['course_id'] ?? null,
-            // 'address' => $validatedData['address'],
-            // 'department' => $validatedData['department'],
-            // 'dob' => $validatedData['dob'],
-            // 'fname' => $validatedData['fname'],
-            // 'lname' => $validatedData['lname'],
+            'dob' => $validatedData['dob'],
+            'district_id' => $validatedData['district_id'],
+            'email' => $validatedData['email'],
+            'name' => $validatedData['name'],
         ];
+
+        // Check if password is provided and update it
         if ($request->filled('password')) {
             $dataToUpdate['password'] = Hash::make($validatedData['password']);
         }
+
+        // Update the user with the validated data
         $user->update($dataToUpdate);
     }
+
 
     public function destroy($id)
     {

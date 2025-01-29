@@ -34,10 +34,10 @@ export default function BookletCreateSection() {
     const [data, setData] = useState({});
     const [error, setError] = useState({});
     const [loading, setLoading] = useState(false);
-    const { teachers } = useSelector((store) => store.teachers)
-    const { learning_centers } = useSelector((state) => state.learning_centers)
+    const { teachers } = useSelector((store) => store.teachers);
+    const { learning_centers } = useSelector((state) => state.learning_centers);
     const { literacyTests } = useSelector((state) => state.literacyTests);
-   
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -54,10 +54,10 @@ export default function BookletCreateSection() {
                 }),
             );
             if (result.status == 200) {
-                await store.dispatch(get_booklet_thunk())
+                await store.dispatch(get_booklet_thunk());
                 setLoading(false);
                 setOpen(false);
-                setData({})
+                setData({});
             } else {
                 setLoading(false);
                 setError(result.response.data.errors);
@@ -69,15 +69,15 @@ export default function BookletCreateSection() {
 
     async function als_level_function(e) {
         setLoading(true);
-        if ('Elementary Level' == e.target.value) {
-            await store.dispatch(get_examinations_thunk('Elementary'));
-        } else if ('Junior High Level' == e.target.value) {
-            await store.dispatch(get_examinations_thunk('Junior High School'));
+        if ("Elementary Level" == e.target.value) {
+            await store.dispatch(get_examinations_thunk("Elementary"));
+        } else if ("Junior High Level" == e.target.value) {
+            await store.dispatch(get_examinations_thunk("Junior High School"));
         }
         setData({
             ...data,
             [e.target.name]: e.target.value,
-        })
+        });
         setLoading(false);
     }
     return (
@@ -92,7 +92,7 @@ export default function BookletCreateSection() {
                         variant="h6"
                         component="div"
                     >
-                      Create Booklet
+                        Create Booklet
                     </Typography>
                     <IconButton
                         edge="start"
@@ -135,9 +135,12 @@ export default function BookletCreateSection() {
                             value={data.als_level ?? ""}
                         >
                             <MenuItem selected disabled></MenuItem>
-                            <MenuItem value="Elementary Level">Elementary Level</MenuItem>
-                            <MenuItem value="Junior High Level">Junior High Level</MenuItem>
-                         
+                            <MenuItem value="Elementary Level">
+                                Elementary Level
+                            </MenuItem>
+                            <MenuItem value="Junior High Level">
+                                Junior High Level
+                            </MenuItem>
                         </Select>
                         {error?.specification && (
                             <FormHelperText>
@@ -146,7 +149,7 @@ export default function BookletCreateSection() {
                         )}
                     </FormControl>
                 </Toolbar>
-                
+
                 <Toolbar>
                     <Typography
                         sx={{ ml: 2, flex: 1 }}

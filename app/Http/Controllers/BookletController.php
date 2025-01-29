@@ -40,4 +40,14 @@ class BookletController extends Controller
         ], 200);
     }
 
+    public function update(Request $request,$id)
+    {
+        Booklet::where('id', $id)->update([
+            'als_level'=>$request->als_level,
+            'title'=>$request->title,
+        ]);
+        return response()->json([
+            'response' => 'success',
+        ], 200);
+    }
 }

@@ -25,8 +25,14 @@ import { LocalizationProvider } from "@mui/x-date-pickers-pro/LocalizationProvid
 import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
 import { DateTimeRangePicker } from "@mui/x-date-pickers-pro/DateTimeRangePicker";
 import { useSelector } from "react-redux";
-import { get_examinations_thunk, store_examinations_thunk } from "../../literacy_test/_redux/literacy-test-thunk";
-import { get_schedule_thunk, store_schedule_thunk } from "../redux/schedule-thunk";
+import {
+    get_examinations_thunk,
+    store_examinations_thunk,
+} from "../../literacy_test/_redux/literacy-test-thunk";
+import {
+    get_schedule_thunk,
+    store_schedule_thunk,
+} from "../redux/schedule-thunk";
 import moment from "moment";
 
 export default function CreateScheduleSection() {
@@ -34,10 +40,10 @@ export default function CreateScheduleSection() {
     const [data, setData] = useState({});
     const [error, setError] = useState({});
     const [loading, setLoading] = useState(false);
-    const { teachers } = useSelector((store) => store.teachers)
-    const { learning_centers } = useSelector((state) => state.learning_centers)
+    const { teachers } = useSelector((store) => store.teachers);
+    const { learning_centers } = useSelector((state) => state.learning_centers);
     const { booklets } = useSelector((state) => state.booklets);
-    console.log('booklets', booklets)
+    console.log("booklets", booklets);
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -54,7 +60,7 @@ export default function CreateScheduleSection() {
                 }),
             );
             if (result.status == 200) {
-                await store.dispatch(get_schedule_thunk())
+                await store.dispatch(get_schedule_thunk());
                 setLoading(false);
                 setOpen(false);
             } else {
@@ -68,15 +74,15 @@ export default function CreateScheduleSection() {
 
     async function als_level_function(e) {
         setLoading(true);
-        if ('Elementary Level' == e.target.value) {
-            await store.dispatch(get_examinations_thunk('Elementary'));
-        } else if ('Junior High Level' == e.target.value) {
-            await store.dispatch(get_examinations_thunk('Junior High School'));
+        if ("Elementary Level" == e.target.value) {
+            await store.dispatch(get_examinations_thunk("Elementary"));
+        } else if ("Junior High Level" == e.target.value) {
+            await store.dispatch(get_examinations_thunk("Junior High School"));
         }
         setData({
             ...data,
             [e.target.name]: e.target.value,
-        })
+        });
         setLoading(false);
     }
     return (
@@ -102,17 +108,17 @@ export default function CreateScheduleSection() {
                         <CloseIcon />
                     </IconButton>
                 </Toolbar>
-                <Toolbar className="flex gap-3 mb-2 w-full">
-                <TextField
-                name="referrence_id"
-                type="text"
-                id="outlined-basic"
-                label="Referrence ID"
-                variant="outlined"
-                className="w-1/2 mr-2"
-                readOnly
-                />
-               <FormControl fullWidth error={!!error?.literacy_level}>
+                {/* <Toolbar className="flex gap-3 mb-2 w-full">
+                    <TextField
+                        name="referrence_id"
+                        type="text"
+                        id="outlined-basic"
+                        label="Referrence ID"
+                        variant="outlined"
+                        className="w-1/2 mr-2"
+                        readOnly
+                    />
+                    <FormControl fullWidth error={!!error?.literacy_level}>
                         <InputLabel id="demo-simple-select-label">
                             Literacy Level
                         </InputLabel>
@@ -130,10 +136,7 @@ export default function CreateScheduleSection() {
                             value={data.specification ?? ""}
                         >
                             <MenuItem selected disabled></MenuItem>
-                            {/* Uncomment and use the map to dynamically render options from departments */}
-                            {/* {specifications.data.map((res, i) => (
-                                <MenuItem key={i} value={res.specification}>{res.specification}</MenuItem>
-                            ))} */}
+                        
                         </Select>
                         {error?.specification && (
                             <FormHelperText>
@@ -141,7 +144,7 @@ export default function CreateScheduleSection() {
                             </FormHelperText>
                         )}
                     </FormControl>
-                </Toolbar>
+                </Toolbar> */}
                 <Toolbar className="flex-col gap-3 flex w-full">
                     <TextField
                         onChange={(e) =>
@@ -171,15 +174,13 @@ export default function CreateScheduleSection() {
                                 onChange={(newValue) => {
                                     setData({
                                         ...data,
-                                        start_at: newValue[0].$d ?? '',
-                                        end_at: newValue[1].$d ?? '',
+                                        start_at: newValue[0].$d ?? "",
+                                        end_at: newValue[1].$d ?? "",
                                     });
                                 }}
                             />
                         </DemoContainer>
                     </LocalizationProvider>
-
-
                 </div>
                 <Toolbar className="flex-col gap-3 flex w-full py-4">
                     <FormControl fullWidth error={!!error?.teacher_id}>
@@ -202,7 +203,9 @@ export default function CreateScheduleSection() {
                             <MenuItem selected disabled></MenuItem>
                             {/* Uncomment and use the map to dynamically render options from departments */}
                             {teachers.data.map((res, i) => (
-                                <MenuItem key={i} value={res.id}>{res.name}</MenuItem>
+                                <MenuItem key={i} value={res.id}>
+                                    {res.name}
+                                </MenuItem>
                             ))}
                         </Select>
                         {error?.specification && (
@@ -212,7 +215,7 @@ export default function CreateScheduleSection() {
                         )}
                     </FormControl>
                 </Toolbar>
-                <Toolbar className="flex-col gap-3 flex w-full ">
+                {/* <Toolbar className="flex-col gap-3 flex w-full ">
                     <FormControl fullWidth error={!!error?.learning_center}>
                         <InputLabel id="demo-simple-select-label">
                             Community Center
@@ -231,9 +234,10 @@ export default function CreateScheduleSection() {
                             value={data.learning_center ?? ""}
                         >
                             <MenuItem selected disabled></MenuItem>
-                            {/* Uncomment and use the map to dynamically render options from departments */}
                             {learning_centers.map((res, i) => (
-                                <MenuItem key={i} value={res.id}>{res.name}</MenuItem>
+                                <MenuItem key={i} value={res.id}>
+                                    {res.name}
+                                </MenuItem>
                             ))}
                         </Select>
                         {error?.specification && (
@@ -242,7 +246,7 @@ export default function CreateScheduleSection() {
                             </FormHelperText>
                         )}
                     </FormControl>
-                </Toolbar>
+                </Toolbar> */}
                 <Toolbar className="flex-col gap-3 flex w-full mt-2">
                     <FormControl fullWidth error={!!error?.als_level}>
                         <InputLabel id="demo-simple-select-label">
@@ -257,8 +261,12 @@ export default function CreateScheduleSection() {
                             value={data.als_level ?? ""}
                         >
                             <MenuItem selected disabled></MenuItem>
-                            <MenuItem value="Elementary Level">Elementary Level</MenuItem>
-                            <MenuItem value="Junior High Level">Junior High Level</MenuItem>
+                            <MenuItem value="Elementary Level">
+                                Elementary Level
+                            </MenuItem>
+                            <MenuItem value="Junior High Level">
+                                Junior High Level
+                            </MenuItem>
                             {/* Uncomment and use the map to dynamically render options from departments */}
                             {/* {specifications.data.map((res, i) => (
                                 <MenuItem key={i} value={res.specification}>{res.specification}</MenuItem>
@@ -290,7 +298,9 @@ export default function CreateScheduleSection() {
                             value={data.booklet_id ?? ""}
                         >
                             {booklets?.map((res, i) => (
-                                <MenuItem key={i} value={res.id}>{res.title}</MenuItem>
+                                <MenuItem key={i} value={res.id}>
+                                    {res.title}
+                                </MenuItem>
                             ))}
                         </Select>
                         {error?.specification && (

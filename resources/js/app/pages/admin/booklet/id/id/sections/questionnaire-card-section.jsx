@@ -31,16 +31,13 @@ export default function QuestionnaireCardSection() {
     console.log("questionnaires", questionnaires.data);
 
     const HtmlRenderer = ({ htmlContent }) => (
-        <div
-            dangerouslySetInnerHTML={{ __html: htmlContent }}
-        />
+        <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
     );
     return (
         <div className="flex flex-col gap-5">
             {questionnaires?.data?.map((res, i) => {
                 return (
                     <>
-
                         <Card sx={{ minWidth: 275 }}>
                             <div className="flex w-full items-end justify-end">
                                 <DeleteQuestionnaireSection data={res} />
@@ -48,7 +45,10 @@ export default function QuestionnaireCardSection() {
                             <CardContent>
                                 <Typography variant="body2">
                                     <div className="flex gap-4">
-                                        {i + 1}. <HtmlRenderer htmlContent={res.question} />
+                                        {i + 1}.{" "}
+                                        <HtmlRenderer
+                                            htmlContent={res.question}
+                                        />
                                     </div>
                                     <br />
                                 </Typography>
@@ -71,7 +71,18 @@ export default function QuestionnaireCardSection() {
                                     />
                                 )}
                             </div>
-
+                            <div className="w-1/5">
+                                {res?.image_header && (
+                                    <CardMedia
+                                        component="img"
+                                        height="full"
+                                        width="25"
+                                        image={res?.image_a}
+                                        alt="Your Image Description"
+                                    />
+                                )}
+                                {/* {res.a} */}
+                            </div>
                             <CardActions>
                                 <div className="flex items-start justify-start w-full px-3">
                                     <FormControl>
@@ -97,18 +108,6 @@ export default function QuestionnaireCardSection() {
                                                 checked={res.answer_key == "A"}
                                                 disabled={res.answer_key != "A"}
                                             />{" "}
-                                            <div className="w-1/5">
-                                                {res?.image_header && (
-                                                    <CardMedia
-                                                        component="img"
-                                                        height="full"
-                                                        width="25"
-                                                        image={res?.image_a}
-                                                        alt="Your Image Description"
-                                                    />
-                                                )}
-                                                {res.a}
-                                            </div>
                                             <FormControlLabel
                                                 value="B"
                                                 control={<Radio />}
@@ -116,7 +115,7 @@ export default function QuestionnaireCardSection() {
                                                 checked={res.answer_key == "B"}
                                                 disabled={res.answer_key != "B"}
                                             />
-                                            <div className="w-1/5">
+                                            {/* <div className="w-1/5">
                                                 {res?.image_header && (
                                                     <CardMedia
                                                         component="img"
@@ -127,7 +126,7 @@ export default function QuestionnaireCardSection() {
                                                     />
                                                 )}
                                                 {res.b}
-                                            </div>
+                                            </div> */}
                                             <FormControlLabel
                                                 value="C"
                                                 control={<Radio />}
@@ -135,7 +134,7 @@ export default function QuestionnaireCardSection() {
                                                 checked={res.answer_key == "C"}
                                                 disabled={res.answer_key != "C"}
                                             />
-                                            <div className="w-1/5">
+                                            {/* <div className="w-1/5">
                                                 {res?.image_header && (
                                                     <CardMedia
                                                         component="img"
@@ -146,7 +145,7 @@ export default function QuestionnaireCardSection() {
                                                     />
                                                 )}
                                                 {res.c}
-                                            </div>
+                                            </div> */}
                                             <FormControlLabel
                                                 value="D"
                                                 control={<Radio />}
@@ -154,7 +153,7 @@ export default function QuestionnaireCardSection() {
                                                 checked={res.answer_key == "D"}
                                                 disabled={res.answer_key != "D"}
                                             />
-                                            <div className="w-1/5">
+                                            {/* <div className="w-1/5">
                                                 {res?.image_header && (
                                                     <CardMedia
                                                         component="img"
@@ -165,15 +164,15 @@ export default function QuestionnaireCardSection() {
                                                     />
                                                 )}
                                                 {res.d}
-                                            </div>
-                                            <FormControlLabel
+                                            </div> */}
+                                            {/* <FormControlLabel
                                                 value="E"
                                                 control={<Radio />}
                                                 label="E"
                                                 checked={res.answer_key == "E"}
                                                 disabled={res.answer_key != "E"}
-                                            />
-                                            <div className="w-1/5">
+                                            /> */}
+                                            {/* <div className="w-1/5">
                                                 {res?.image_header && (
                                                     <CardMedia
                                                         component="img"
@@ -184,7 +183,7 @@ export default function QuestionnaireCardSection() {
                                                     />
                                                 )}
                                                 {res.e}
-                                            </div>
+                                            </div> */}
                                         </RadioGroup>
                                     </FormControl>
                                 </div>

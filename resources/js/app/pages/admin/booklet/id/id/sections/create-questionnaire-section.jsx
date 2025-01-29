@@ -227,8 +227,6 @@ export default function CreateQuestionnaireSection() {
                                     })
                                 } />
                         </div>
-
-
                     </div>
                     <div className="flex items-start justify-start w-full mt-12">
                         <FormControl error={!!error?.answer_key}>
@@ -283,7 +281,45 @@ export default function CreateQuestionnaireSection() {
                             )}
                         </FormControl>
                     </div>
-
+                    <div className="flex gap-3 w-full">
+                        <Button
+                            component="label"
+                            role={undefined}
+                            variant="contained"
+                            className="w-full"
+                            size="large"
+                            startIcon={data?.image_a ? <Check /> : <CloudUpload />}
+                        >
+                            <VisuallyHiddenInput
+                                name="image_a"
+                                type="file"
+                                // onChange={(event) => console.log(event.target.files)}
+                                onChange={(e) =>
+                                    setData({
+                                        ...data,
+                                        [e.target.name]: e.target.files[0],
+                                    })
+                                }
+                                accept="image/*"
+                            />
+                        </Button>
+                        {/* <TextField
+                            onChange={(e) =>
+                                setData({
+                                    ...data,
+                                    [e.target.name]: e.target.value,
+                                })
+                            }
+                            error={error?.a ? true : false}
+                            helperText={error?.a ?? ""}
+                            name="a"
+                            type="text"
+                            id="outlined-basic"
+                            label="Answer A"
+                            variant="outlined"
+                            className="w-full"
+                        /> */}
+                    </div>
                     <FormControl fullWidth error={!!error?.specification}>
                         <InputLabel id="demo-simple-select-label">
                             Specification
@@ -316,45 +352,8 @@ export default function CreateQuestionnaireSection() {
                             </FormHelperText>
                         )}
                     </FormControl>
-                    {data?.image_a?.name ?? ''}
-                    <div className="flex gap-3 w-full">
-                        <Button
-                            component="label"
-                            role={undefined}
-                            variant="contained"
-                            startIcon={data?.image_a ? <Check /> : <CloudUpload />}
-                        >
-                            <VisuallyHiddenInput
-                                name="image_a"
-                                type="file"
-                                // onChange={(event) => console.log(event.target.files)}
-                                onChange={(e) =>
-                                    setData({
-                                        ...data,
-                                        [e.target.name]: e.target.files[0],
-                                    })
-                                }
-                                accept="image/*"
-                            />
-                        </Button>
-                        <TextField
-                            onChange={(e) =>
-                                setData({
-                                    ...data,
-                                    [e.target.name]: e.target.value,
-                                })
-                            }
-                            error={error?.a ? true : false}
-                            helperText={error?.a ?? ""}
-                            name="a"
-                            type="text"
-                            id="outlined-basic"
-                            label="Answer A"
-                            variant="outlined"
-                            className="w-full"
-                        />
-                    </div>
-                    {data?.image_b?.name ?? ''}
+                    
+                    {/* {data?.image_b?.name ?? ''}
                     <div className="flex gap-3 w-full">
                         <Button
                             component="label"
@@ -467,7 +466,7 @@ export default function CreateQuestionnaireSection() {
                             variant="outlined"
                             className="w-full"
                         />
-                    </div>
+                    </div> */}
                     {/* {data?.image_e?.name ?? ''}
                     <div className="flex gap-3 w-full">
                         <Button

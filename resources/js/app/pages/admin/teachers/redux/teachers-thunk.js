@@ -22,7 +22,8 @@ export function get_teachers_thunk() {
 
 export function get_teachers_by_id_thunk(id) {
   return async function (dispatch, getState) {
-    const res = get_teachers_by_id_service(id)
+    const res = await get_teachers_by_id_service(id)
+    dispatch(teachersSlice.actions.setTeacher(res.data.response));
     return res
   };
 }

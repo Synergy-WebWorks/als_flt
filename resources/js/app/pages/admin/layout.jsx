@@ -14,10 +14,11 @@ import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { router as route } from "@inertiajs/react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPathname } from "@/app/redux/app-slice";
-import { AssignmentInd, AutoStories, CalendarMonth, Diversity1, Diversity3, Engineering, FolderShared, Groups, Groups2, HistoryEdu, HomeWork, PowerSettingsNew, Quiz, School, SupervisedUserCircle } from "@mui/icons-material";
+import { AssignmentInd, AutoStories, CalendarMonth, Diversity1, Diversity3, Engineering, FolderShared, Groups, Groups2, HistoryEdu, HomeWork, PowerSettingsNew, Quiz, School, SchoolSharp, SupervisedUserCircle } from "@mui/icons-material";
 import LogoutSection from "../_sections/logout-section";
 import store from "../store/store";
 import { get_user_login_thunk } from "@/app/redux/app-thunk";
+import { get_district_thunk } from "./district/redux/district-thunk";
 
 const NAVIGATION = [
     {
@@ -30,6 +31,11 @@ const NAVIGATION = [
         icon: <DashboardIcon />,
     },
     {
+        segment: "district",
+        title: "District",
+        icon: <SchoolSharp />,
+    },
+    {
         segment: "teachers",
         title: "Teachers",
         icon: <Diversity1 />,
@@ -39,11 +45,11 @@ const NAVIGATION = [
         title: "Students",
         icon: <Groups />,
     },
-    {
-        segment: "learning_center",
-        title: "Learning Center",
-        icon: <HomeWork />,
-    },
+    // {
+    //     segment: "learning_center",
+    //     title: "Learning Center",
+    //     icon: <HomeWork />,
+    // },
     // {
     //     segment: "literacy_test",
     //     title: "Literacy Test",
@@ -117,6 +123,7 @@ const NAVIGATION = [
     },
 ];
 
+
 const demoTheme = createTheme({
     cssVariables: {
         colorSchemeSelector: "data-toolpad-color-scheme",
@@ -141,8 +148,11 @@ function AdminLayout({ children }, props) {
 
     useEffect(()=>{
         store.dispatch(get_user_login_thunk())
+        
+        store.dispatch(get_district_thunk());
     },[])
 
+    
     const router = React.useMemo(() => {
         return {
             pathname,
