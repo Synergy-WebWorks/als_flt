@@ -121,7 +121,7 @@ console.log('data',booklet.als_level)
                                     {ress.image_header && (
                                         <CardMedia
                                             component="img"
-                                            height="200"
+                                            height="full"
                                             image={ress.image_header}
                                             alt="Question header image"
                                         />
@@ -151,18 +151,7 @@ console.log('data',booklet.als_level)
                                                         checked={find_answer?.answer == "A" ? true : undefined}
                                                         disabled={find_answer?.answer == "A" ? true : false}
                                                     />{" "}
-                                                    <div className="w-1/5">
-                                                        {ress?.image_header && (
-                                                            <CardMedia
-                                                                component="img"
-                                                                height="full"
-                                                                width="25"
-                                                                image={ress?.image_a}
-                                                                alt="Your Image Description"
-                                                            />
-                                                        )}
-                                                        {ress.a}
-                                                    </div>
+                                                 
                                                     <FormControlLabel
                                                         value="B"
                                                         control={<Radio />}
@@ -170,18 +159,7 @@ console.log('data',booklet.als_level)
                                                         checked={find_answer?.answer == "B" ? true : undefined}
                                                         disabled={find_answer?.answer == "B" ? true : false}
                                                     />
-                                                    <div className="w-1/5">
-                                                        {ress?.image_header && (
-                                                            <CardMedia
-                                                                component="img"
-                                                                height="full"
-                                                                width="25"
-                                                                image={ress?.image_b}
-                                                                alt="Your Image Description"
-                                                            />
-                                                        )}
-                                                        {ress.b}
-                                                    </div>
+                                                 
                                                     <FormControlLabel
                                                         value="C"
                                                         control={<Radio />}
@@ -189,18 +167,7 @@ console.log('data',booklet.als_level)
                                                         checked={find_answer?.answer == "C" ? true : undefined}
                                                         disabled={find_answer?.answer == "C" ? true : false}
                                                     />
-                                                    <div className="w-1/5">
-                                                        {ress?.image_header && (
-                                                            <CardMedia
-                                                                component="img"
-                                                                height="full"
-                                                                width="25"
-                                                                image={ress?.image_c}
-                                                                alt="Your Image Description"
-                                                            />
-                                                        )}
-                                                        {ress.c}
-                                                    </div>
+                                               
                                                     <FormControlLabel
                                                         value="D"
                                                         control={<Radio />}
@@ -208,38 +175,8 @@ console.log('data',booklet.als_level)
                                                         checked={find_answer?.answer == "D" ? true : undefined}
                                                         disabled={find_answer?.answer == "D" ? true : false}
                                                     />
-                                                    <div className="w-1/5">
-                                                        {ress?.image_header && (
-                                                            <CardMedia
-                                                                component="img"
-                                                                height="full"
-                                                                width="25"
-                                                                image={ress?.image_d}
-                                                                alt="Your Image Description"
-                                                            />
-                                                        )}
-                                                        {ress.d}
-                                                    </div>
-                                                    {/* <FormControlLabel
-                                                        value="E"
-                                                        control={<Radio />}
-                                                        label="E"
-                                                        // checked={ress.answer_key == "A"}
-                                                        checked={find_answer?.answer == "E" ? true : undefined}
-                                                        disabled={find_answer?.answer == "E" ? true : false}
-                                                    />
-                                                    <div className="w-1/5">
-                                                        {ress?.image_header && (
-                                                            <CardMedia
-                                                                component="img"
-                                                                height="full"
-                                                                width="25"
-                                                                image={ress?.image_a}
-                                                                alt="Your Image Description"
-                                                            />
-                                                        )}
-                                                        {ress.e}
-                                                    </div> */}
+                                               
+                                                  
                                                 </RadioGroup>
                                             </FormControl>
                                         </div>

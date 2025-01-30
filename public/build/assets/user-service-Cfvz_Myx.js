@@ -1,1 +1,0 @@
-import{e as t}from"./app-RXZuEmFL.js";async function s(r){try{return await t.post("/api/approved_account",r)}catch(e){return e}}async function c(){try{return(await t.get("/api/user")).data}catch(r){return r}}export{s as a,c as g};

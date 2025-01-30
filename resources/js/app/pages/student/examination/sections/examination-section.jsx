@@ -30,7 +30,6 @@ export default function ExaminationSection() {
                         <TableCell>Reference Test ID</TableCell>
                         <TableCell>Teacher Assigned</TableCell>
                         <TableCell>Als Level</TableCell>
-                        <TableCell>Learning Center</TableCell>
                         <TableCell>Start At</TableCell>
                         <TableCell>End At</TableCell>
                         <TableCell>Action</TableCell>
@@ -50,7 +49,6 @@ export default function ExaminationSection() {
                                 </TableCell>
                                 <TableCell>{res.user.name}</TableCell>
                                 <TableCell>{res?.schedule?.als_level ?? ''}</TableCell>
-                                <TableCell>{res?.schedule.learning_center.name ?? ''}</TableCell>
                                 <TableCell>
                                     {moment(res.start_at).format('LLLL')}
                                 </TableCell>
