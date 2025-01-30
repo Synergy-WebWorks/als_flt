@@ -45,7 +45,7 @@ export default function QuestionnaireCardSection() {
                             <CardContent>
                                 <Typography variant="body2">
                                     <div className="flex gap-4">
-                                        {i + 1}.{" "}
+                                        {res.item_number}.{" "}
                                         <HtmlRenderer
                                             htmlContent={res.question}
                                         />
