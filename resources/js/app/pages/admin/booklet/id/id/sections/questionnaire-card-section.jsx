@@ -60,29 +60,33 @@ export default function QuestionnaireCardSection() {
                             >
                                 Specification: {res.specification}
                             </Typography>
-                            <div className="w-1/5">
+                           <div className="w-full flex flex-col items-center justify-center">
+                           <div className="flex w-1/2 items-center justify-center">
                                 {res?.image_header && (
                                     <CardMedia
                                         component="img"
                                         height="full"
-                                        width="25"
+                                        width="full"
+                                        className="w-full flex"
                                         image={res?.image_header}
                                         alt="Your Image Description"
                                     />
                                 )}
                             </div>
-                            <div className="w-1/5">
+                            <div className="flex items-center justify-center">
                                 {res?.image_a && (
                                     <CardMedia
                                         component="img"
                                         height="full"
-                                        width="25"
+                                        width="full"
+                                        className="w-full flex"
                                         image={res?.image_a}
                                         alt="Your Image Description"
                                     />
                                 )}
                                 {/* {res.a} */}
                             </div>
+                           </div>
                             <CardActions>
                                 <div className="flex items-start justify-start w-full px-3">
                                     <FormControl>
