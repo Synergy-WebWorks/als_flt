@@ -27,6 +27,7 @@ class Questionnaire extends Model
         'image_c',
         'image_d',
         'image_e',
+        'isEssay'
     ];
 
     public function examination(): HasOne

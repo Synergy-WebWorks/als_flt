@@ -28,7 +28,7 @@ class QuestionnaireController extends Controller
     {
         // Validate the request data
         $validatedData = $request->validate([
-            'answer_key' => 'required',
+            'answer_key' => 'nullable',
             'question' => 'required',
             'title' => 'nullable',
             'item_number' => 'nullable',
@@ -39,6 +39,7 @@ class QuestionnaireController extends Controller
             // 'e' => 'nullable',
             'examination_id' => 'nullable',
             'specification' => 'nullable',
+            'isEssay' => 'nullable',
         ]);
     
         // Handle image uploads

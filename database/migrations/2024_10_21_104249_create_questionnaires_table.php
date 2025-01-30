@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('image_c')->nullable();
             $table->string('image_d')->nullable();
             $table->string('image_e')->nullable();
+            $table->string('isEssay')->nullable();
             $table->timestamps();
         });
     }
