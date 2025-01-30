@@ -13,6 +13,8 @@ import moment from "moment";
 import { router } from "@inertiajs/react";
 import { Visibility } from "@mui/icons-material";
 import { Button } from "@mui/material";
+import EditExaminationSection from "./edit-examination-section";
+import DeleteExaminationSection from "./delete-examination-section";
 // import { Visibility } from '@mui/icons-material';
 // import { Button } from '@mui/material';
 // import { router } from '@inertiajs/react';
@@ -57,8 +59,8 @@ export default function ExaminationsTableSection() {
                       !res.enrollment && <AddEnrollmentSection data={res}/>
                     }
                      */}
-                                        {/* <UpdateSection data={res} />
-                    <DeleteSection data={res} /> */}
+                                     <EditExaminationSection datas={res}/>
+                                     <DeleteExaminationSection data={res} />
                                         <Button
                                             onClick={() =>
                                                 router.visit(
@@ -66,7 +68,7 @@ export default function ExaminationsTableSection() {
                                                 )
                                             }
                                             size="small"
-                                            variant="contained"
+                                            variant="outlined"
                                             color="success"
                                         >
                                             <Visibility />

@@ -43,7 +43,7 @@ export default function CreateExaminationSection() {
             const result = await store.dispatch(store_examinations_thunk({
                 booklet_id:booklet_id,
                 ...data,
-                ...booklet
+                als_level:booklet.als_level
             }));
             if (result.status == 200) {
                 await store.dispatch(get_examinations_by_id_thunk(booklet_id));

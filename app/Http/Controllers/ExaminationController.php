@@ -9,7 +9,7 @@ class ExaminationController extends Controller
 {
     public function index(Request $request)
     {
-        $examinations = Examination::where('als_level',$request->als_level)->paginate(10);
+        $examinations = Examination::where('als_level', $request->als_level)->paginate(10);
         return response()->json([
             'response' => $examinations,
         ], 200);
@@ -23,7 +23,7 @@ class ExaminationController extends Controller
             'als_level' => 'required',
             'booklet_id' => 'required',
         ]);
-      
+
         Examination::create($validatedData);
         return response()->json([
             'response' => 'success',
@@ -32,9 +32,32 @@ class ExaminationController extends Controller
     public function show($id)
     {
         $booklets = Examination::where('booklet_id', $id)
-        ->orderBy('created_at', 'asc')->get();
+            ->orderBy('created_at', 'asc')->get();
         return response()->json([
-            'response' =>$booklets,
+            'response' => $booklets,
+        ], 200);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'instruction' => 'required',
+            'sub_title' => 'required',
+            'title' => 'required',
+            'als_level' => 'required',
+            'booklet_id' => 'required',
+        ]);
+
+        Examination::where('id', $id)->update($validatedData);
+        return response()->json([
+            'response' => 'success',
+        ], 200);
+    }
+    public function destroy($id)
+    {
+        Examination::where('id', $id)->delete();
+        return response()->json([
+            'response' => 'success',
         ], 200);
     }
 }

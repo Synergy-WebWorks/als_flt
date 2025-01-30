@@ -5,21 +5,21 @@ Landing Page
 admin
 - remove learning center --done
 - learning center add edit and delete --done
-- add district page (add, delete update)-done
-- add district when adding a teacher & remove action add edit and delete -done
-- add delete student -done
+- add district page (add, delete update)--done
+- add district when adding a teacher & remove action add edit and delete --done
+- add delete student --done
 - in teacher, add action that will redirect in specific schedules from the teacher --done
-- add edit in booklet https://capstone-elearning.site/administrator/booklet/9 -done
+- add edit in booklet https://capstone-elearning.site/administrator/booklet/9 --done
+- add admin approval for teacher and students --done
+- add breadcrumbs every pages --done
 ALS
 admin
 
 - display total student, teacher 
-- add admin approval for teacher and students
 - fix ila border form  of student
 - add bordor in scoresheet of student
 - add score for essay in https://capstone-elearning.site/administrator/students/score_sheet/2
 - add edit in ILA grades
-- add breadcrumbs every pages
 - examination title has bugs in https://capstone-elearning.site/administrator/booklet/9
 
 student
@@ -33,5 +33,5 @@ student
 
 teacher 
 - in dashboard add total number of student and teacher profile
-- 
+
 

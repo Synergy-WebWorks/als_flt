@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import store from '../../store/store';
 import { get_booklet_thunk } from './redux/booklet-thunk';
 import BookletTableSection from './sections/booklet-table-section';
+import BookletBreadCrumbsSection from './sections/booklet-bread-crumbs-section';
 
 export default function BookletPage() {
 
@@ -13,6 +14,7 @@ export default function BookletPage() {
     }, []);
     return (
         <AdminLayout>
+            <BookletBreadCrumbsSection />
             <BookletCreateSection />
             <div className='py-5'>
                 <BookletTableSection />

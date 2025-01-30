@@ -9,6 +9,7 @@ import QuestionnaireTabsSection from "./sections/questionnaire-tabs-section";
 import CreateSpecificationSection from "./sections/create-specification-section";
 import SpecificationCardSection from "./sections/specification-card-section";
 import { get_questionnaires_by_id_thunk, get_specifications_by_id_thunk } from "../../../literacy_test/_redux/questionaires-thunk";
+import BookletBreadCrumbsSection from "../../sections/booklet-bread-crumbs-section";
 
 export default function LiteracyTestIDPage() {
     const examination_id = window.location.pathname.split("/")[4];
@@ -18,6 +19,7 @@ export default function LiteracyTestIDPage() {
     }, []);
     return (
         <AdminLayout>
+            <BookletBreadCrumbsSection />
             <QuestionnaireTabsSection
                 tab1={
                     <>
