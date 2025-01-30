@@ -12,6 +12,7 @@ admin
 - add edit in booklet https://capstone-elearning.site/administrator/booklet/9 --done
 - add admin approval for teacher and students --done
 - add breadcrumbs every pages --done
+- examination title has bugs in https://capstone-elearning.site/administrator/booklet/9 --done
 ALS
 admin
 
@@ -20,7 +21,6 @@ admin
 - add bordor in scoresheet of student
 - add score for essay in https://capstone-elearning.site/administrator/students/score_sheet/2
 - add edit in ILA grades
-- examination title has bugs in https://capstone-elearning.site/administrator/booklet/9
 
 student
 - student can show their ILA

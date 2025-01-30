@@ -72,7 +72,7 @@ export default function QuestionnaireCardSection() {
                                 )}
                             </div>
                             <div className="w-1/5">
-                                {res?.image_header && (
+                                {res?.image_a && (
                                     <CardMedia
                                         component="img"
                                         height="full"
