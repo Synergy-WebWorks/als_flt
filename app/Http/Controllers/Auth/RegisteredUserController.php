@@ -34,6 +34,7 @@ class RegisteredUserController extends Controller
             'name' => 'required',
             'user_type' => 'required',
             'dob' => 'required',
+            'mobile' => 'required',
             'email' => 'required|unique:users',
             'password' => ['required', 'confirmed', 'min:8'],
         ]);
@@ -41,6 +42,7 @@ class RegisteredUserController extends Controller
         User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'mobile' => $request->mobile,
             'user_type' => $request->user_type,
             'dob' => $request->dob,
             'password' => Hash::make($request->password),

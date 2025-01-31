@@ -128,8 +128,9 @@ export default function QuestionnaireCardSection() {
                                 );
                             }
                             return (
-                                <div className="px-3" key={i}>
-                                    <div className="flex gap-3">
+                                <Box sx={{ borderBottom: 2,borderColor: 'primary.main' }}>
+                                <div className="px-3 mt-6" key={i}>
+                                    <div className="flex gap-3 ">
                                         <div>{ress.item_number}.</div>
                                         <div className="-mt-4">
                                             <HtmlRenderer
@@ -137,14 +138,27 @@ export default function QuestionnaireCardSection() {
                                             />
                                         </div>
                                     </div>
-                                    {ress.image_header && (
-                                        <CardMedia
-                                            component="img"
-                                            height="full"
-                                            image={ress.image_header}
-                                            alt="Question header image"
-                                        />
-                                    )}
+                                    <div className="w-full flex items-center justify-center">
+                                        <div className="w-1/2">
+                                            {ress.image_a && (
+                                                <CardMedia
+                                                    component="img"
+                                                    height="full"
+                                                    image={ress.image_a}
+                                                    alt="Question header image"
+                                                />
+                                            )}
+
+                                            {ress.image_header && (
+                                                <CardMedia
+                                                    component="img"
+                                                    height="full"
+                                                    image={ress.image_header}
+                                                    alt="Question header image"
+                                                />
+                                            )}
+                                        </div>
+                                    </div>
 
                                     <CardActions>
                                         <div className="flex items-start justify-start w-full px-3">
@@ -263,8 +277,10 @@ export default function QuestionnaireCardSection() {
                                         </div>
                                     </CardActions>
                                 </div>
+                                </Box>
                             );
                         })}
+                        
                     </Card>
                 );
             })}

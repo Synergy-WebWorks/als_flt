@@ -6,3 +6,12 @@
 .MuiStack-root.css-1d9cypr-MuiStack-root{
   display: none;
 } */
+
+@page {
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}

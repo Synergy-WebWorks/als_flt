@@ -13,24 +13,22 @@ admin
 - add admin approval for teacher and students --done
 - add breadcrumbs every pages --done
 - examination title has bugs in https://capstone-elearning.site/administrator/booklet/9 --done
+- student can show their ILA--done
+- student add show ILA and scoresheet--done
+- add score for essay in https://capstone-elearning.site/administrator/students/score_sheet/2 --done
+- fix ila border form  of student--done
+- add confirmation "do you want to submit" --done
 ALS
 admin
 
 - display total student, teacher 
-- fix ila border form  of student
 - add bordor in scoresheet of student
-- add score for essay in https://capstone-elearning.site/administrator/students/score_sheet/2
 - add edit in ILA grades
 
 student
-- student can show their ILA
-- student add show ILA and scoresheet
 - add profile
 - add timer when taking an exam 1 hour and 30 mins and automatic submit
-- add confirmation "do you want to submit"
 - dashboard add mission vision.
-
-
 teacher 
 - in dashboard add total number of student and teacher profile
 

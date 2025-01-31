@@ -143,7 +143,7 @@ Route::middleware('auth:sanctum', 'teacher', 'verified')->prefix('teacher')->gro
         Route::get('/{id}', function () {
             return Inertia::render('teacher/schedule/id/page');
         });
-        
+
         Route::get('/{id}/ila_assessment_form/{user_id}', function () {
             return Inertia::render('teacher/schedule/id/ila_assessment_form/page');
         });
@@ -195,9 +195,19 @@ Route::middleware('auth:sanctum', 'student', 'verified')->prefix('student')->gro
         return Inertia::render('student/subjects/page');
     })->name('student.subject');
 
+
+
     Route::get('/examination', function () {
         return Inertia::render('student/examination/page');
     })->name('student.examination');
+
+    Route::get('/examination/score_sheet/{id}', function () {
+        return Inertia::render('admin/students/score_sheet/page');
+    });
+
+    Route::get('/examination/ila_assessment_form/{id}', function () {
+        return Inertia::render('admin/students/ila_assessment_form/page');
+    });
 
     Route::get('/examination/{reference_id}', function () {
         return Inertia::render('student/examination/id/page');

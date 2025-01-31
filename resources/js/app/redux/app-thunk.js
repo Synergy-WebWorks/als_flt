@@ -12,6 +12,7 @@ export function addCartProducts(product_id) {
 export function get_user_login_thunk() {
   return async function (dispatch, getState) {
     const res = await get_user_login_service(3)
+    console.log('res',res)
     dispatch(appSlice.actions.setUser(res));
     return res
   }

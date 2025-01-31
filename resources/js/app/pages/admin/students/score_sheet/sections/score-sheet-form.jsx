@@ -1,6 +1,10 @@
+import store from "@/app/pages/store/store";
 import EditScoreSection from "@/app/pages/student/examination/id/sections/edit-score-section";
+import { get_user_login_thunk } from "@/app/redux/app-thunk";
 import { Check, Close } from "@mui/icons-material";
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
 const HtmlRenderer = ({ htmlContent }) => (
@@ -9,9 +13,31 @@ const HtmlRenderer = ({ htmlContent }) => (
 
 export default function ScoreSheetForm() {
     const { student } = useSelector((store) => store.students);
+    const { user } = useSelector((store) => store.app);
+    const [overall, setOverall] = useState(0);
     const scoreSheet = student?.score_sheet;
     const examinations = scoreSheet?.booklet?.examinations ?? [];
     const answers = scoreSheet?.answers || [];
+    console.log("userusedadsadr", user.user_type);
+
+    useEffect(() => {
+        store.dispatch(get_user_login_thunk());
+    }, []);
+    useEffect(() => {
+        const totalScore = examinations.reduce((totalExamScore, exam) => {
+            return (
+                totalExamScore +
+                exam.question.reduce((total, question) => {
+                    const answer = answers.find(
+                        (resp) => resp.questionnaire_id === question.id,
+                    );
+                    return total + (parseInt(answer?.score) || 0);
+                }, 0)
+            );
+        }, 0);
+
+        setOverall(totalScore);
+    }, [examinations, answers]);
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -24,9 +50,7 @@ export default function ScoreSheetForm() {
                         <div>Name: {student?.name || "N/A"}</div>
                         <div>Date: {scoreSheet?.date || "N/A"}</div>
                     </div>
-                    <div>
-                        Overall Score: {scoreSheet?.overall_score ?? "N/A"}
-                    </div>
+                    <div>Overall Score: {overall ?? "0"}</div>
                     <div>ALS Level: {scoreSheet?.als_level ?? "N/A"}</div>
                 </div>
 
@@ -42,7 +66,6 @@ export default function ScoreSheetForm() {
                             },
                             0,
                         );
-
                         return (
                             <li
                                 key={examIndex}
@@ -91,10 +114,15 @@ export default function ScoreSheetForm() {
                                                                 aria-label="Incorrect"
                                                             />
                                                         )}
-                                                        {answer.answer.length !=
+                                                        {user.user_type == '1' && answer.answer.length !=
                                                             1 && (
                                                             <>
-                                                               {answer.score} <EditScoreSection data={answer}/>
+                                                                {answer.score}{" "}
+                                                                <EditScoreSection
+                                                                    data={
+                                                                        answer
+                                                                    }
+                                                                />
                                                             </>
                                                         )}
                                                     </div>

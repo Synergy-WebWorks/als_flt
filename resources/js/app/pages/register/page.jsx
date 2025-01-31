@@ -5,14 +5,16 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, router, useForm } from "@inertiajs/react";
 import { FormControl, MenuItem, Select, TextField } from "@mui/material";
+import moment from "moment";
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
         email: "",
         password: "",
+        mobile: "",
         user_type:'',
-        dob: "",
+        dob: moment().format('d-m-Y'),
         password_confirmation: "",
     });
 
@@ -75,6 +77,20 @@ export default function Register() {
                                     label="Email"
                                     variant="outlined"
                                 />
+                                  <TextField
+                                    value={data.mobile}
+                                    className="w-full"
+                                    onChange={(e) =>
+                                        setData("mobile", e.target.value)
+                                    }
+                                    error={errors.mobile ? true : false}
+                                    helperText={errors.mobile ?? ""}
+                                    name="mobile"
+                                    type="number"
+                                    id="outlined-basic"
+                                    label="Mobile"
+                                    variant="outlined"
+                                />
                                 <TextField
                                     value={data.dob}
                                     className="w-full"
@@ -86,7 +102,7 @@ export default function Register() {
                                     name="dob"
                                     type="date"
                                     id="outlined-basic"
-                                    label=""
+                                    label="Date of Birth"
                                     variant="outlined"
                                 />
 

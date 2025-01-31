@@ -23,7 +23,7 @@ export default function EditScoreSection({ data }) {
             try {
                 await update_answers_service({
                     ...data,
-                    score: score,
+                    score: score ?? 0,
                 });
                 await store.dispatch(get_students_by_id_thunk(student_id));
                 setIsEdit(false);
@@ -33,14 +33,13 @@ export default function EditScoreSection({ data }) {
                 setLoading(false);
             }
         }
-       
     }
     return (
         <div>
             {isEdit && (
                 <input
                     type="number"
-                    onKeyDown={(e)=>submit_edit_score(e)}
+                    onKeyDown={(e) => submit_edit_score(e)}
                     value={score}
                     onChange={(e) => setScore(e.target.value)}
                 />
@@ -51,7 +50,7 @@ export default function EditScoreSection({ data }) {
                 </Button>
             )}
             {isEdit && (
-                <Button onClick={() => submit_edit_score({key:'Enter'})}>
+                <Button onClick={() => submit_edit_score({ key: "Enter" })}>
                     <Save />
                 </Button>
             )}
