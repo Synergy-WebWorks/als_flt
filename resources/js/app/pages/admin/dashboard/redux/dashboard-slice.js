@@ -13,6 +13,9 @@ export const dashboardSlice = createSlice({
     setCouses: (state, action) => {
       state.dashboards = action.payload
     },
+    setDashboard: (state, action) => {
+      state.dashboard = action.payload
+    },
     setCouse: (state, action) => {
       state.dashboard = action.payload
     },

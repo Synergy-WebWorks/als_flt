@@ -18,11 +18,11 @@ admin
 - add score for essay in https://capstone-elearning.site/administrator/students/score_sheet/2 --done
 - fix ila border form  of student--done
 - add confirmation "do you want to submit" --done
+- add bordor in scoresheet of student --done
+- display total student, teacher --done
 ALS
 admin
 
-- display total student, teacher 
-- add bordor in scoresheet of student
 - add edit in ILA grades
 
 student

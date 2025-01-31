@@ -1,0 +1,1 @@
+import{o as n,f as o}from"./identifier-nOZk-E48.js";import{r}from"./app-DEDPh4vx.js";function s(e){return Object.keys(e).length===0}function m(e=null){const t=r.useContext(n);return!t||s(t)?e:t}const u=o();function f(e=u){return m(e)}export{m as a,f as u};

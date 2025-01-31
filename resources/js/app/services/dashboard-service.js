@@ -1,5 +1,15 @@
 import axios from "axios";
 
+
+export async function get_administrator_dashboard_service() {
+    try {
+        const res = await axios.get("/api/administrator_dashboard");
+        return res;
+    } catch (error) {
+        return error;
+    }
+}
+
 export async function get_dashboard_service() {
     try {
         const res = await axios.get("/api/dashboard");
