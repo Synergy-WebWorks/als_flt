@@ -1,1 +1,0 @@
-import{o as n,f as o}from"./identifier-B3giBdPC.js";import{r}from"./app-CH7RSuZ6.js";function s(e){return Object.keys(e).length===0}function m(e=null){const t=r.useContext(n);return!t||s(t)?e:t}const u=o();function f(e=u){return m(e)}export{m as a,f as u};
