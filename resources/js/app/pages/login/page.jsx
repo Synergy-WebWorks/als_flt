@@ -4,22 +4,23 @@ import { useState } from "react";
 
 export default function LoginPage() {
     const { data, setData, post, processing, errors, reset } = useForm({
-        email: '',
-        password: '',
+        email: "",
+        password: "",
         remember: false,
     });
+
+    const params = new URLSearchParams(window.location.search);
+
+    const searchQuery = params.get("error");
+
     const submit = (e) => {
         e.preventDefault();
-        console.log('data', data)
-        post(route('login.auth'), {
-            onFinish: () => reset('password'),
-        });
+        post(route("login.auth"));
     };
     return (
         <>
             <div className="absolute inset-0 -z-10 items-center px-5 py-24 bg-gray-300"></div>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 ">
-
                 <div className="mt-20 sm:mx-auto sm:w-full sm:max-w-sm bg-white p-5 rounded-md">
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm flex w-full items-center justify-center">
                         <div className="flex items-center justify-center flex-col">
@@ -31,16 +32,22 @@ export default function LoginPage() {
                             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight ">
                                 Educational Portal
                             </h2>
+                            {searchQuery == "true" && (
+                                <div className="my-3 text-red-600">
+                                    You're account are not verify yet!
+                                </div>
+                            )}
                         </div>
                     </div>
+
                     <form onSubmit={submit} className="space-y-6">
                         <TextField
                             className="w-full"
-                            onChange={(e) => setData('email', e.target.value)}
+                            onChange={(e) => setData("email", e.target.value)}
                             error={errors?.email ? true : false}
-                            helperText={errors?.email ?? ''}
+                            helperText={errors?.email ?? ""}
                             name="email"
-                            type='text'
+                            type="text"
                             id="outlined-basic"
                             label="Email"
                             variant="outlined"
@@ -48,26 +55,38 @@ export default function LoginPage() {
 
                         <TextField
                             className="w-full"
-                            onChange={(e) => setData('password', e.target.value)}
+                            onChange={(e) =>
+                                setData("password", e.target.value)
+                            }
                             error={errors?.password ? true : false}
-                            helperText={errors?.password ?? ''}
+                            helperText={errors?.password ?? ""}
                             name="password"
-                            type='password'
+                            type="password"
                             id="outlined-basic"
                             label="Password"
                             variant="outlined"
                         />
                         <div className="block mt-4">
                             <label className="flex flex-row items-center justify-between">
-                               <div>
-                               <Checkbox
-                                    name="remember"
-                                    checked={data.remember}
-                                    onChange={(e) => setData('remember', e.target.checked)}
-                                />
-                                <span className="ms-2 text-sm text-gray-600">Remember me</span>
-                               </div>
-                                <a onClick={()=>router.visit('/register')} className="ms-2 text-sm text-gray-600 underline">
+                                <div>
+                                    <Checkbox
+                                        name="remember"
+                                        checked={data.remember}
+                                        onChange={(e) =>
+                                            setData(
+                                                "remember",
+                                                e.target.checked,
+                                            )
+                                        }
+                                    />
+                                    <span className="ms-2 text-sm text-gray-600">
+                                        Remember me
+                                    </span>
+                                </div>
+                                <a
+                                    onClick={() => router.visit("/register")}
+                                    className="ms-2 text-sm text-gray-600 underline"
+                                >
                                     Account Registration
                                 </a>
                             </label>
@@ -76,8 +95,17 @@ export default function LoginPage() {
                             <Button
                                 type="submit"
                                 disabled={processing}
-                                variant="contained" className="w-full">
-                                {processing ? <CircularProgress  size={24} color="inherit" /> : ' Sign in'}
+                                variant="contained"
+                                className="w-full"
+                            >
+                                {processing ? (
+                                    <CircularProgress
+                                        size={24}
+                                        color="inherit"
+                                    />
+                                ) : (
+                                    " Sign in"
+                                )}
                             </Button>
                         </div>
                     </form>
