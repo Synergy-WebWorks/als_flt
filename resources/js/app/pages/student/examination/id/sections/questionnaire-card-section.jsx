@@ -11,8 +11,10 @@ import {
     FormControl,
     FormControlLabel,
     FormLabel,
+    Modal,
     Radio,
     RadioGroup,
+    TextField,
 } from "@mui/material";
 import { useState } from "react";
 import store from "@/app/pages/store/store";
@@ -20,25 +22,28 @@ import { store_answers_thunk } from "@/app/pages/admin/students/redux/students-t
 import moment from "moment";
 import { get_user_login_thunk } from "@/app/redux/app-thunk";
 
-
 export default function QuestionnaireCardSection() {
     const { questionnaires } = useSelector((store) => store.questionnaires);
     const { booklet } = useSelector((store) => store.booklets);
     const { user } = useSelector((store) => store.app);
     const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
     const booklet_id = window.location.pathname.split("/")[3];
     const HtmlRenderer = ({ htmlContent }) => (
         <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
     );
 
-    const handleOptionChange = (dataValue, value) => {
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
+    const handleOptionChange = (dataValue, value) => {
         setData((prevData) => {
             // Ensure answers is always an array, defaulting to an empty array if undefined
             const answers = prevData.answers || [];
 
             const existingAnswerIndex = answers.findIndex(
-                (answer) => answer.questionnaire_id === dataValue.id
+                (answer) => answer.questionnaire_id === dataValue.id,
             );
 
             let updatedAnswers;
@@ -47,8 +52,12 @@ export default function QuestionnaireCardSection() {
                 // Update the existing answer
                 updatedAnswers = answers.map((answer, index) =>
                     index === existingAnswerIndex
-                        ? { ...answer, answer: value, isCorrect: dataValue.answer_key === value }
-                        : answer
+                        ? {
+                              ...answer,
+                              answer: value,
+                              isCorrect: dataValue.answer_key === value,
+                          }
+                        : answer,
                 );
             } else {
                 // Add new answer if questionnaire_id does not exist
@@ -57,8 +66,8 @@ export default function QuestionnaireCardSection() {
                     {
                         questionnaire_id: dataValue.id,
                         answer: value,
-                        isCorrect: dataValue.answer_key === value // Check if the new answer is correct
-                    }
+                        isCorrect: dataValue.answer_key === value, // Check if the new answer is correct
+                    },
                 ];
             }
 
@@ -69,24 +78,32 @@ export default function QuestionnaireCardSection() {
         });
     };
 
-    console.log(data)
-
+    console.log(data);
 
     function submit_answer(params) {
-        store.dispatch(store_answers_thunk({
-            ...data,
-            user,
-            date: moment().format('LLLL'),
-            als_level: booklet.als_level,
-            booklet_id:booklet_id
-        }))
-        store.dispatch(get_user_login_thunk())
+        setLoading(true);
+        try {
+            store.dispatch(
+                store_answers_thunk({
+                    ...data,
+                    user,
+                    date: moment().format("LLLL"),
+                    als_level: booklet.als_level,
+                    booklet_id: booklet_id,
+                }),
+            );
+            store.dispatch(get_user_login_thunk());
+            setOpen(false);
+            setLoading(false);
+        } catch (error) {
+            setOpen(false);
+            setLoading(false);
+        }
     }
-console.log('data',booklet.als_level)
+    console.log("datassss", data);
     return (
         <div className="flex flex-col gap-5">
             {booklet.examinations?.map((res, i) => {
-
                 return (
                     <Card key={i} sx={{ minWidth: 275 }}>
                         <CardContent>
@@ -98,24 +115,26 @@ console.log('data',booklet.als_level)
                                     <div className="text-xl">
                                         {res.sub_title}
                                     </div>
-
                                 </div>
                             </Typography>
                         </CardContent>
 
-                        {
-                            res.question.map((ress, i) => {
-                                let find_answer = {};
-                                if (user?.score_sheet?.answers && ress.id) {
-                                    find_answer = user.score_sheet.answers.find(answer => answer.questionnaire_id === ress.id);
-                                }
-                                return <div className="px-3" key={i}>
+                        {res.question.map((ress, i) => {
+                            let find_answer = {};
+                            if (user?.score_sheet?.answers && ress.id) {
+                                find_answer = user.score_sheet.answers.find(
+                                    (answer) =>
+                                        answer.questionnaire_id === ress.id,
+                                );
+                            }
+                            return (
+                                <div className="px-3" key={i}>
                                     <div className="flex gap-3">
-                                        <div>
-                                            {ress.item_number}.
-                                        </div>
+                                        <div>{ress.item_number}.</div>
                                         <div className="-mt-4">
-                                            <HtmlRenderer htmlContent={ress.question} />
+                                            <HtmlRenderer
+                                                htmlContent={ress.question}
+                                            />
                                         </div>
                                     </div>
                                     {ress.image_header && (
@@ -129,73 +148,174 @@ console.log('data',booklet.als_level)
 
                                     <CardActions>
                                         <div className="flex items-start justify-start w-full px-3">
-                                            <FormControl>
-                                                <RadioGroup
-                                                    onChange={(e) =>
-                                                        // setData({
-                                                        //     ...data,
-                                                        //     [e.target.name]:
-                                                        //         e.target.value,
-                                                        // })
-                                                        handleOptionChange(ress, e.target.value)
-                                                    }
-                                                    row
-                                                    aria-labelledby="demo-row-radio-buttons-group-label"
-                                                    name="answer_key"
-                                                >
-                                                    <FormControlLabel
-                                                        value="A"
-                                                        control={<Radio />}
-                                                        label="A"
-
-                                                        checked={find_answer?.answer == "A" ? true : undefined}
-                                                        disabled={find_answer?.answer == "A" ? true : false}
-                                                    />{" "}
-                                                 
-                                                    <FormControlLabel
-                                                        value="B"
-                                                        control={<Radio />}
-                                                        label="B"
-                                                        checked={find_answer?.answer == "B" ? true : undefined}
-                                                        disabled={find_answer?.answer == "B" ? true : false}
+                                            {ress.isEssay == "true" && (
+                                                <>
+                                                    <TextField
+                                                        onChange={(e) =>
+                                                            handleOptionChange(
+                                                                ress,
+                                                                e.target.value,
+                                                            )
+                                                        }
+                                                        disabled={
+                                                            find_answer?.answer
+                                                                ? true
+                                                                : false
+                                                        }
+                                                        value={
+                                                            find_answer?.answer
+                                                        }
+                                                        multiline
+                                                        rows={3}
+                                                        name="answer"
+                                                        type="text"
+                                                        id="outlined-basic"
+                                                        label="Write Here..."
+                                                        variant="outlined"
+                                                        className="w-full"
                                                     />
-                                                 
-                                                    <FormControlLabel
-                                                        value="C"
-                                                        control={<Radio />}
-                                                        label="C"
-                                                        checked={find_answer?.answer == "C" ? true : undefined}
-                                                        disabled={find_answer?.answer == "C" ? true : false}
-                                                    />
-                                               
-                                                    <FormControlLabel
-                                                        value="D"
-                                                        control={<Radio />}
-                                                        label="D"
-                                                        checked={find_answer?.answer == "D" ? true : undefined}
-                                                        disabled={find_answer?.answer == "D" ? true : false}
-                                                    />
-                                               
-                                                  
-                                                </RadioGroup>
-                                            </FormControl>
+                                                </>
+                                            )}
+                                            {ress.isEssay != "true" && (
+                                                <FormControl>
+                                                    <RadioGroup
+                                                        onChange={(e) =>
+                                                            handleOptionChange(
+                                                                ress,
+                                                                e.target.value,
+                                                            )
+                                                        }
+                                                        row
+                                                        aria-labelledby="demo-row-radio-buttons-group-label"
+                                                        name="answer_key"
+                                                    >
+                                                        <FormControlLabel
+                                                            value="A"
+                                                            control={<Radio />}
+                                                            label="A"
+                                                            checked={
+                                                                find_answer?.answer ==
+                                                                "A"
+                                                                    ? true
+                                                                    : undefined
+                                                            }
+                                                            disabled={
+                                                                find_answer?.answer ==
+                                                                "A"
+                                                                    ? true
+                                                                    : false
+                                                            }
+                                                        />{" "}
+                                                        <FormControlLabel
+                                                            value="B"
+                                                            control={<Radio />}
+                                                            label="B"
+                                                            checked={
+                                                                find_answer?.answer ==
+                                                                "B"
+                                                                    ? true
+                                                                    : undefined
+                                                            }
+                                                            disabled={
+                                                                find_answer?.answer ==
+                                                                "B"
+                                                                    ? true
+                                                                    : false
+                                                            }
+                                                        />
+                                                        <FormControlLabel
+                                                            value="C"
+                                                            control={<Radio />}
+                                                            label="C"
+                                                            checked={
+                                                                find_answer?.answer ==
+                                                                "C"
+                                                                    ? true
+                                                                    : undefined
+                                                            }
+                                                            disabled={
+                                                                find_answer?.answer ==
+                                                                "C"
+                                                                    ? true
+                                                                    : false
+                                                            }
+                                                        />
+                                                        <FormControlLabel
+                                                            value="D"
+                                                            control={<Radio />}
+                                                            label="D"
+                                                            checked={
+                                                                find_answer?.answer ==
+                                                                "D"
+                                                                    ? true
+                                                                    : undefined
+                                                            }
+                                                            disabled={
+                                                                find_answer?.answer ==
+                                                                "D"
+                                                                    ? true
+                                                                    : false
+                                                            }
+                                                        />
+                                                    </RadioGroup>
+                                                </FormControl>
+                                            )}
                                         </div>
                                     </CardActions>
                                 </div>
-                            })
-                        }
-
+                            );
+                        })}
                     </Card>
-                )
+                );
             })}
 
-            {
-                !user.score_sheet && <Button
-                    onClick={submit_answer}
-                    variant="contained">
+            {!user.score_sheet && (
+                <Button onClick={handleOpen} variant="contained">
                     SUBMIT ANSWER
                 </Button>
-            }
+            )}
+
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box
+                    sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        width: 400,
+                        bgcolor: "background.paper",
+                        p: 4,
+                    }}
+                >
+                    <Typography id="modal-modal-description">
+                        Are you sure you want to submit your answer?
+                    </Typography>
+                    <div className="w-full flex gap-3 mt-12">
+                        <Button
+                            onClick={handleClose}
+                            variant="outlined"
+                            className="w-full"
+                            color="error"
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            disabled={loading}
+                            onClick={submit_answer}
+                            variant="contained"
+                            className="w-full"
+                            color="primary"
+                        >
+                            Submit
+                        </Button>
+                    </div>
+                </Box>
+            </Modal>
         </div>
     );
 }

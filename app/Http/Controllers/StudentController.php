@@ -68,4 +68,12 @@ class StudentController extends Controller
             'response' => 'success',
         ], 200);
     }
+
+    public function show($id)
+    {
+      $user=  User::where('id', $id)->with(['score_sheet'])->first();
+        return response()->json([
+            'response' =>  $user,
+        ], 200);
+    }
 }

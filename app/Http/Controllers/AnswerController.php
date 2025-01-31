@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 
 class AnswerController extends Controller
 {
+    public function update(Request $request,$id)
+    {
+        Answer::where('id',$id)->update([
+            'score'=>$request->score
+        ]);
+        return response()->json([
+            'response' =>'success',
+        ], 200);
+    }
     public function index()
     {
         $answers = Answer::get();
