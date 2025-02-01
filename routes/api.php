@@ -44,6 +44,7 @@ Route::resource('specifications', SpecificationController::class);
 Route::resource('schedule', ScheduleController::class);
 Route::resource('learning_centers', LearningCenterController::class);
 Route::resource('answers', AnswerController::class);
+Route::put('/edit_ila/{id}', [AnswerController::class, 'edit_ila']);
 Route::resource('booklet', BookletController::class);
 Route::resource('district', DistrictController::class);
 

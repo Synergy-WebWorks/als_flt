@@ -29,25 +29,35 @@ export default function Register() {
         },
     });
     };
-
     return (
-        <>
-            <div className=" items-center  h-full bg-gray-300">
-                <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 ">
-                    <div className="mt-20 sm:mx-auto sm:w-full sm:max-w-sm bg-white p-5 rounded-md">
+      <>
+      
+        <div className="flex min-h-screen flex-1">
+      
+          <div className="relative hidden w-0 flex-1 lg:block">
+            <img
+              alt=""
+              src="images/registration.gif"
+              className="absolute inset-0 size-full object-cover"
+            />
+          </div>
+          <div className="flex flex-1 flex-col justify-center px-4 sm:px-6 lg:flex-none lg:px-20">
+            <div className="mx-auto w-full  lg:w-[500px]">
+            <div className="flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8 ">
+                    <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm bg-white rounded-md">
                         <div className="sm:mx-auto sm:w-full sm:max-w-sm flex w-full items-center justify-center">
                             <div className="flex items-center justify-center flex-col">
-                                <img
+                                {/* <img
                                     alt="Your Company"
                                     src="/images/logo.png"
                                     className="mx-auto h-32 w-32 "
-                                />
-                                <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight ">
-                                    Educational Portal
+                                /> */}
+                                <h2 className=" text-center text-2xl font-bold m-0 leading-9 tracking-tight ">
+                                   Registration Portal
                                 </h2>
                             </div>
                         </div>
-                        <form onSubmit={submit}>
+                        <form onSubmit={submit} className="w-full">
                             <div className="flex flex-col gap-4 mt-4">
                                 <TextField
                                     value={data.name}
@@ -182,6 +192,9 @@ export default function Register() {
                     </div>
                 </div>
             </div>
-        </>
-    );
-}
+          </div>
+        </div>
+      </>
+    )
+  }
+  

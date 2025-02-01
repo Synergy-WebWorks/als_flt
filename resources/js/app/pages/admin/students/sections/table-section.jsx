@@ -30,6 +30,7 @@ export default function TableSection() {
                         <TableCell>Fullname</TableCell>
                         <TableCell>Email</TableCell>
                         <TableCell>Age</TableCell>
+                        <TableCell>Phone #</TableCell>
                         <TableCell>Action</TableCell>
                     </TableRow>
                 </TableHead>
@@ -50,6 +51,7 @@ export default function TableSection() {
                                 <TableCell>{res.name}</TableCell>
                                 <TableCell>{res.email}</TableCell>
                                 <TableCell>{res?.dob ?? ""}</TableCell>
+                                <TableCell>{res?.mobile ?? ""}</TableCell>
                                 {/* <TableCell>{age}</TableCell> */}
                                 {/* <TableCell>{res.address}</TableCell> */}
                                 <TableCell>

@@ -8,13 +8,23 @@ use Illuminate\Http\Request;
 
 class AnswerController extends Controller
 {
-    public function update(Request $request,$id)
+
+    public function edit_ila(Request $request, $id)
     {
-        Answer::where('id',$id)->update([
-            'score'=>$request->score
+        Answer::where('id', $id)->update([
+            $request->column => $request->value
         ]);
         return response()->json([
-            'response' =>'success',
+            'response' => 'success',
+        ], 200);
+    }
+    public function update(Request $request, $id)
+    {
+        Answer::where('id', $id)->update([
+            'score' => $request->score
+        ]);
+        return response()->json([
+            'response' => 'success',
         ], 200);
     }
     public function index()
@@ -42,7 +52,7 @@ class AnswerController extends Controller
 
         if (!$score_sheet) {
             $ss = ScoreSheet::create([
-                'booklet_id'=>$request->booklet_id,
+                'booklet_id' => $request->booklet_id,
                 'user_id' => $request->user['id'],
                 'overall_score' => 0,
                 'als_level' => $request->als_level,
@@ -57,7 +67,7 @@ class AnswerController extends Controller
                     'score' => $value['isCorrect'] ? 1 : 0,
                 ]);
             }
-            
+
             $overall = Answer::where('score_sheet_id', $ss->id)->sum('score');
             $ss->update([
                 'overall_score' => $overall
@@ -66,8 +76,7 @@ class AnswerController extends Controller
             return response()->json([
                 'response' => 'success',
             ], 200);
-
-        }else{
+        } else {
             return response()->json([
                 'response' => 'exist',
             ], 200);

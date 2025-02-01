@@ -14,6 +14,12 @@ class Answer extends Model
         'questionnaire_id',
         'answer',
         'score',
+        'delivery_mode',
+        'timeline',
+        'achieved',
+        'not_achieved',
+        'date_of_review',
+        'facilitator'
     ];
 
     public function questionnaire(): HasOne

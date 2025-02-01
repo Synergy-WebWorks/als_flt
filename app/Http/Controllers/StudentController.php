@@ -71,7 +71,7 @@ class StudentController extends Controller
 
     public function show($id)
     {
-      $user=  User::where('id', $id)->with(['score_sheet'])->first();
+      $user=  User::where('id', $id)->with(['score_sheet','examiner'])->first();
         return response()->json([
             'response' =>  $user,
         ], 200);
