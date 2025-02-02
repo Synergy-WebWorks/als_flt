@@ -8,7 +8,10 @@ export const appSlice = createSlice({
   initialState: {
     isModalOpen: false,
     pathname:'/'+window.location.pathname.split("/")[2],
-    user:{}
+    user:{},
+    timeLeft:parseInt(localStorage.getItem("timer")??0)??5400,
+    timerActive:false,
+    data:[]
   },
   reducers: {
     setIsModalOpen: (state, action) => {
@@ -20,11 +23,24 @@ export const appSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload
     },
+    setTimeLeft: (state, action) => {
+      localStorage.setItem("timer", action.payload);
+      state.timeLeft = parseInt(localStorage.getItem("timer"))
+    },
+    setTimerActive:(state, action) => {
+      state.timerActive = action.payload
+    },
+    setData:(state, action) => {
+      state.data = action.payload
+    },
   },
 })
 export const { 
   setPathname,
-  setUser
+  setUser,
+  setTimeLeft,
+  setTimerActive,
+  setData
  } = appSlice.actions
 
 export default appSlice.reducer

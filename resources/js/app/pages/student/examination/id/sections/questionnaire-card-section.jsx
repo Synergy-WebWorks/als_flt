@@ -5,7 +5,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
     CardMedia,
     FormControl,
@@ -21,14 +21,19 @@ import store from "@/app/pages/store/store";
 import { store_answers_thunk } from "@/app/pages/admin/students/redux/students-thunk";
 import moment from "moment";
 import { get_user_login_thunk } from "@/app/redux/app-thunk";
+import { setData, setTimeLeft } from "@/app/redux/app-slice";
+import { router } from "@inertiajs/react";
+import { useEffect } from "react";
 
 export default function QuestionnaireCardSection() {
     const { questionnaires } = useSelector((store) => store.questionnaires);
     const { booklet } = useSelector((store) => store.booklets);
-    const { user } = useSelector((store) => store.app);
-    const [data, setData] = useState([]);
+    const { user, data, timeLeft, timerActive } = useSelector(
+        (store) => store.app,
+    );
     const [loading, setLoading] = useState(false);
     const booklet_id = window.location.pathname.split("/")[3];
+    const dispatch = useDispatch();
     const HtmlRenderer = ({ htmlContent }) => (
         <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
     );
@@ -38,47 +43,46 @@ export default function QuestionnaireCardSection() {
     const handleClose = () => setOpen(false);
 
     const handleOptionChange = (dataValue, value) => {
-        setData((prevData) => {
-            // Ensure answers is always an array, defaulting to an empty array if undefined
-            const answers = prevData.answers || [];
+        const prevData = store.getState().app.data; // Get current state directly
+        const answers = prevData?.answers || []; // Ensure it's always an array
 
-            const existingAnswerIndex = answers.findIndex(
-                (answer) => answer.questionnaire_id === dataValue.id,
+        const existingAnswerIndex = answers.findIndex(
+            (answer) => answer.questionnaire_id === dataValue.id,
+        );
+
+        let updatedAnswers;
+
+        if (existingAnswerIndex !== -1) {
+            // Update existing answer
+            updatedAnswers = answers.map((answer, index) =>
+                index === existingAnswerIndex
+                    ? {
+                          ...answer,
+                          answer: value,
+                          isCorrect: dataValue.answer_key === value,
+                      }
+                    : answer,
             );
+        } else {
+            // Add a new answer
+            updatedAnswers = [
+                ...answers,
+                {
+                    questionnaire_id: dataValue.id,
+                    answer: value,
+                    isCorrect: dataValue.answer_key === value, // Check correctness
+                },
+            ];
+        }
 
-            let updatedAnswers;
-
-            if (existingAnswerIndex !== -1) {
-                // Update the existing answer
-                updatedAnswers = answers.map((answer, index) =>
-                    index === existingAnswerIndex
-                        ? {
-                              ...answer,
-                              answer: value,
-                              isCorrect: dataValue.answer_key === value,
-                          }
-                        : answer,
-                );
-            } else {
-                // Add new answer if questionnaire_id does not exist
-                updatedAnswers = [
-                    ...answers,
-                    {
-                        questionnaire_id: dataValue.id,
-                        answer: value,
-                        isCorrect: dataValue.answer_key === value, // Check if the new answer is correct
-                    },
-                ];
-            }
-
-            return {
-                ...prevData,
-                answers: updatedAnswers,
-            };
-        });
+        dispatch(setData({ ...prevData, answers: updatedAnswers })); // Dispatch as an object
     };
 
-    console.log(data);
+    useEffect(() => {
+        if (timeLeft == 0 && timerActive) {
+            submit_answer();
+        }
+    }, [timeLeft]);
 
     function submit_answer(params) {
         setLoading(true);
@@ -92,7 +96,10 @@ export default function QuestionnaireCardSection() {
                     booklet_id: booklet_id,
                 }),
             );
+            dispatch(setTimeLeft(0));
             store.dispatch(get_user_login_thunk());
+            localStorage.clear();
+            router.visit("/student/examination");
             setOpen(false);
             setLoading(false);
         } catch (error) {
@@ -128,159 +135,175 @@ export default function QuestionnaireCardSection() {
                                 );
                             }
                             return (
-                                <Box sx={{ borderBottom: 2,borderColor: 'primary.main' }}>
-                                <div className="px-3 mt-6" key={i}>
-                                    <div className="flex gap-3 ">
-                                        <div>{ress.item_number}.</div>
-                                        <div className="-mt-4">
-                                            <HtmlRenderer
-                                                htmlContent={ress.question}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="w-full flex items-center justify-center">
-                                        <div className="w-1/2">
-                                            {ress.image_a && (
-                                                <CardMedia
-                                                    component="img"
-                                                    height="full"
-                                                    image={ress.image_a}
-                                                    alt="Question header image"
+                                <Box
+                                    sx={{
+                                        borderBottom: 2,
+                                        borderColor: "primary.main",
+                                    }}
+                                >
+                                    <div className="px-3 mt-6" key={i}>
+                                        <div className="flex gap-3 ">
+                                            <div>{ress.item_number}.</div>
+                                            <div className="-mt-4">
+                                                <HtmlRenderer
+                                                    htmlContent={ress.question}
                                                 />
-                                            )}
-
-                                            {ress.image_header && (
-                                                <CardMedia
-                                                    component="img"
-                                                    height="full"
-                                                    image={ress.image_header}
-                                                    alt="Question header image"
-                                                />
-                                            )}
+                                            </div>
                                         </div>
-                                    </div>
-
-                                    <CardActions>
-                                        <div className="flex items-start justify-start w-full px-3">
-                                            {ress.isEssay == "true" && (
-                                                <>
-                                                    <TextField
-                                                        onChange={(e) =>
-                                                            handleOptionChange(
-                                                                ress,
-                                                                e.target.value,
-                                                            )
-                                                        }
-                                                        disabled={
-                                                            find_answer?.answer
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        value={
-                                                            find_answer?.answer
-                                                        }
-                                                        multiline
-                                                        rows={3}
-                                                        name="answer"
-                                                        type="text"
-                                                        id="outlined-basic"
-                                                        label="Write Here..."
-                                                        variant="outlined"
-                                                        className="w-full"
+                                        <div className="w-full flex items-center justify-center">
+                                            <div className="w-1/2">
+                                                {ress.image_a && (
+                                                    <CardMedia
+                                                        component="img"
+                                                        height="full"
+                                                        image={ress.image_a}
+                                                        alt="Question header image"
                                                     />
-                                                </>
-                                            )}
-                                            {ress.isEssay != "true" && (
-                                                <FormControl>
-                                                    <RadioGroup
-                                                        onChange={(e) =>
-                                                            handleOptionChange(
-                                                                ress,
-                                                                e.target.value,
-                                                            )
+                                                )}
+
+                                                {ress.image_header && (
+                                                    <CardMedia
+                                                        component="img"
+                                                        height="full"
+                                                        image={
+                                                            ress.image_header
                                                         }
-                                                        row
-                                                        aria-labelledby="demo-row-radio-buttons-group-label"
-                                                        name="answer_key"
-                                                    >
-                                                        <FormControlLabel
-                                                            value="A"
-                                                            control={<Radio />}
-                                                            label="A"
-                                                            checked={
-                                                                find_answer?.answer ==
-                                                                "A"
-                                                                    ? true
-                                                                    : undefined
-                                                            }
-                                                            disabled={
-                                                                find_answer?.answer ==
-                                                                "A"
-                                                                    ? true
-                                                                    : false
-                                                            }
-                                                        />{" "}
-                                                        <FormControlLabel
-                                                            value="B"
-                                                            control={<Radio />}
-                                                            label="B"
-                                                            checked={
-                                                                find_answer?.answer ==
-                                                                "B"
-                                                                    ? true
-                                                                    : undefined
-                                                            }
-                                                            disabled={
-                                                                find_answer?.answer ==
-                                                                "B"
-                                                                    ? true
-                                                                    : false
-                                                            }
-                                                        />
-                                                        <FormControlLabel
-                                                            value="C"
-                                                            control={<Radio />}
-                                                            label="C"
-                                                            checked={
-                                                                find_answer?.answer ==
-                                                                "C"
-                                                                    ? true
-                                                                    : undefined
-                                                            }
-                                                            disabled={
-                                                                find_answer?.answer ==
-                                                                "C"
-                                                                    ? true
-                                                                    : false
-                                                            }
-                                                        />
-                                                        <FormControlLabel
-                                                            value="D"
-                                                            control={<Radio />}
-                                                            label="D"
-                                                            checked={
-                                                                find_answer?.answer ==
-                                                                "D"
-                                                                    ? true
-                                                                    : undefined
-                                                            }
-                                                            disabled={
-                                                                find_answer?.answer ==
-                                                                "D"
-                                                                    ? true
-                                                                    : false
-                                                            }
-                                                        />
-                                                    </RadioGroup>
-                                                </FormControl>
-                                            )}
+                                                        alt="Question header image"
+                                                    />
+                                                )}
+                                            </div>
                                         </div>
-                                    </CardActions>
-                                </div>
+
+                                        <CardActions>
+                                            <div className="flex items-start justify-start w-full px-3">
+                                                {ress.isEssay == "true" && (
+                                                    <>
+                                                        <TextField
+                                                            onChange={(e) =>
+                                                                handleOptionChange(
+                                                                    ress,
+                                                                    e.target
+                                                                        .value,
+                                                                )
+                                                            }
+                                                            disabled={
+                                                                find_answer?.answer
+                                                                    ? true
+                                                                    : false
+                                                            }
+                                                            value={
+                                                                find_answer?.answer
+                                                            }
+                                                            multiline
+                                                            rows={3}
+                                                            name="answer"
+                                                            type="text"
+                                                            id="outlined-basic"
+                                                            label="Write Here..."
+                                                            variant="outlined"
+                                                            className="w-full"
+                                                        />
+                                                    </>
+                                                )}
+                                                {ress.isEssay != "true" && (
+                                                    <FormControl>
+                                                        <RadioGroup
+                                                            onChange={(e) =>
+                                                                handleOptionChange(
+                                                                    ress,
+                                                                    e.target
+                                                                        .value,
+                                                                )
+                                                            }
+                                                            row
+                                                            aria-labelledby="demo-row-radio-buttons-group-label"
+                                                            name="answer_key"
+                                                        >
+                                                            <FormControlLabel
+                                                                value="A"
+                                                                control={
+                                                                    <Radio />
+                                                                }
+                                                                label="A"
+                                                                checked={
+                                                                    find_answer?.answer ==
+                                                                    "A"
+                                                                        ? true
+                                                                        : undefined
+                                                                }
+                                                                disabled={
+                                                                    find_answer?.answer ==
+                                                                    "A"
+                                                                        ? true
+                                                                        : false
+                                                                }
+                                                            />{" "}
+                                                            <FormControlLabel
+                                                                value="B"
+                                                                control={
+                                                                    <Radio />
+                                                                }
+                                                                label="B"
+                                                                checked={
+                                                                    find_answer?.answer ==
+                                                                    "B"
+                                                                        ? true
+                                                                        : undefined
+                                                                }
+                                                                disabled={
+                                                                    find_answer?.answer ==
+                                                                    "B"
+                                                                        ? true
+                                                                        : false
+                                                                }
+                                                            />
+                                                            <FormControlLabel
+                                                                value="C"
+                                                                control={
+                                                                    <Radio />
+                                                                }
+                                                                label="C"
+                                                                checked={
+                                                                    find_answer?.answer ==
+                                                                    "C"
+                                                                        ? true
+                                                                        : undefined
+                                                                }
+                                                                disabled={
+                                                                    find_answer?.answer ==
+                                                                    "C"
+                                                                        ? true
+                                                                        : false
+                                                                }
+                                                            />
+                                                            <FormControlLabel
+                                                                value="D"
+                                                                control={
+                                                                    <Radio />
+                                                                }
+                                                                label="D"
+                                                                checked={
+                                                                    find_answer?.answer ==
+                                                                    "D"
+                                                                        ? true
+                                                                        : undefined
+                                                                }
+                                                                disabled={
+                                                                    find_answer?.answer ==
+                                                                    "D"
+                                                                        ? true
+                                                                        : false
+                                                                }
+                                                            />
+                                                        </RadioGroup>
+                                                    </FormControl>
+                                                )}
+                                            </div>
+                                        </CardActions>
+                                    </div>
                                 </Box>
                             );
                         })}
-                        
                     </Card>
                 );
             })}

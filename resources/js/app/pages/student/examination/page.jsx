@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { get_examiner_by_examiner_id_thunk } from '../../admin/schedule/redux/schedule-thunk';
 import ExaminationSection from './sections/examination-section';
 
+
 export default function ExaminationPage() {
   const { user } = useSelector((store) => store.app)
   console.log('user', user)

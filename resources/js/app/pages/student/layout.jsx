@@ -14,10 +14,23 @@ import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { router as route } from "@inertiajs/react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPathname } from "@/app/redux/app-slice";
-import { AssignmentInd, Diversity1, Diversity3, Engineering, FolderShared, Groups, Groups2, HistoryEdu, PowerSettingsNew, School, SupervisedUserCircle } from "@mui/icons-material";
+import {
+    AssignmentInd,
+    Diversity1,
+    Diversity3,
+    Engineering,
+    FolderShared,
+    Groups,
+    Groups2,
+    HistoryEdu,
+    PowerSettingsNew,
+    School,
+    SupervisedUserCircle,
+} from "@mui/icons-material";
 import LogoutSection from "../_sections/logout-section";
 import store from "../store/store";
 import { get_user_login_thunk } from "@/app/redux/app-thunk";
+import TimerSection from "./examination/id/sections/timer-section";
 
 const NAVIGATION = [
     {
@@ -29,7 +42,7 @@ const NAVIGATION = [
         title: "Dashboard",
         icon: <DashboardIcon />,
     },
- 
+
     {
         segment: "examination",
         title: "Examinations",
@@ -60,9 +73,9 @@ const NAVIGATION = [
 ];
 
 const demoTheme = createTheme({
-    cssVariables: {
-        colorSchemeSelector: "data-toolpad-color-scheme",
-    },
+    // cssVariables: {
+    //     colorSchemeSelector: "data-toolpad-color-scheme",
+    // },
     colorSchemes: { light: true, dark: true },
     breakpoints: {
         values: {
@@ -75,38 +88,48 @@ const demoTheme = createTheme({
     },
 });
 function StudentLayout({ children }, props) {
-    const { pathname,user } = useSelector((state) => state.app);
-    const { window } = props;
+    const { pathname, timeLeft, timerActive } = useSelector(
+        (state) => state.app,
+    );
+    const { window: windows } = props;
     const dispatch = useDispatch();
     const [open, setOpen] = React.useState(false);
 
-
-    useEffect(()=>{
-        store.dispatch(get_user_login_thunk())
-    },[])
+    useEffect(() => {
+        store.dispatch(get_user_login_thunk());
+    }, []);
 
     const router = React.useMemo(() => {
         return {
             pathname,
             searchParams: new URLSearchParams(),
             navigate: (path) => {
-                if (path == '/logout') {
-                    setOpen(true)
-                }else{  
-                    if (path == '/student' || path == '/students/registered' || path == '/students/enrollment') {
-                        route.visit(String("/student" + path+'?page=1'));
-                    }else{
+                if (path == "/logout") {
+                    setOpen(true);
+                } else {
+                    if (
+                        path == "/student" ||
+                        path == "/students/registered" ||
+                        path == "/students/enrollment"
+                    ) {
+                        route.visit(String("/student" + path + "?page=1"));
+                    } else {
                         route.visit(String("/student" + path));
                     }
                     dispatch(setPathname(path));
                 }
-               
             },
         };
     }, [pathname]);
-
+    function formatTime(seconds) {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+        return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+    }
     // Remove this const when copying and pasting into your project.
-    const demoWindow = window !== undefined ? window() : undefined;
+    const demoWindow = windows !== undefined ? window() : undefined;
+    // localStorage.clear()
     return (
         // preview-start
         <AppProvider
@@ -116,11 +139,20 @@ function StudentLayout({ children }, props) {
             window={demoWindow}
             branding={{
                 logo: <img src="/images/logo.png" />,
-                title: "Alternative Learning System",
+                title: (
+                    <div className="flex w-full items-center justify-between">
+                        {timerActive && timeLeft ? (
+                            <>Examination Timer: {formatTime(timeLeft)}</>
+                        ) : (
+                            <div>Alternative Learning System</div>
+                        )}
+                    </div>
+                ),
             }}
         >
             <DashboardLayout>
-                <LogoutSection open={open} setOpen={setOpen}/>
+              <TimerSection />
+                <LogoutSection open={open} setOpen={setOpen} />
                 <div className="p-4">{children}</div>
             </DashboardLayout>
         </AppProvider>

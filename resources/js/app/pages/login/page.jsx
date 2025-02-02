@@ -19,7 +19,7 @@ export default function LoginPage() {
     };
     return (
         <>
-            <div className="absolute inset-0 -z-10 items-center px-5 py-24 bg-gray-300"></div>
+            <div className="absolute inset-0 -z-10 items-center px-5 py-24 bg-blue-800"></div>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 ">
                 <div className="mt-20 sm:mx-auto sm:w-full sm:max-w-sm bg-white p-5 rounded-md">
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm flex w-full items-center justify-center">
