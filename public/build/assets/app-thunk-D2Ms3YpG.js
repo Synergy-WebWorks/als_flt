@@ -1,0 +1,1 @@
+import{g as r}from"./user-service-CDCzK4VR.js";import{n}from"./app-BLp5CkAg.js";function a(){return async function(t,o){const e=await r();return console.log("res",e),t(n.actions.setUser(e)),e}}export{a as g};
