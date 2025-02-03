@@ -22,13 +22,13 @@ admin
 - display total student, teacher --done
 - add edit in ILA grades--done
 - dashboard add mission vision.
-
+- add timer when taking an exam 1 hour and 30 mins and automatic submit
 ALS
 admin
 
 
 student
-- add timer when taking an exam 1 hour and 30 mins and automatic submit
+
 
 teacher 
 - in dashboard add total number of student and teacher profile

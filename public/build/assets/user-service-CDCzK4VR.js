@@ -1,1 +1,0 @@
-import{b as a}from"./app-BLp5CkAg.js";async function s(r){try{return await a.post("/api/approved_account",r)}catch(t){return t}}async function c(){try{return(await a.get("/api/user")).data}catch(r){return r}}export{s as a,c as g};
