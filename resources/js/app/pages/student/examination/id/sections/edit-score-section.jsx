@@ -13,7 +13,7 @@ export default function EditScoreSection({ data }) {
     const [score, setScore] = useState(0);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
-        setScore(data.score);
+        setScore(data?.score??0);
     }, []);
 
     const student_id = window.location.pathname.split("/")[4];

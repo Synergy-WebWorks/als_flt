@@ -62,7 +62,7 @@ export default function ScoreSheetForm() {
                                     (resp) =>
                                         resp.questionnaire_id === question.id,
                                 );
-                                return total + (parseInt(answer?.score) ?? 0);
+                                return total??0 + (parseInt(answer?.score??0) ?? 0);
                             },
                             0,
                         );
@@ -101,7 +101,7 @@ export default function ScoreSheetForm() {
                                                     <div className="flex items-center gap-2">
                                                         <span>
                                                             {answer?.answer ||
-                                                                "N/A"}
+                                                                "No Answer"}
                                                         </span>
                                                         {isCorrect ? (
                                                             <Check
@@ -114,10 +114,10 @@ export default function ScoreSheetForm() {
                                                                 aria-label="Incorrect"
                                                             />
                                                         )}
-                                                        {user.user_type == '1' && answer.answer.length !=
+                                                        {user.user_type == '1' && answer?.answer?.length !=
                                                             1 && (
                                                             <>
-                                                                {answer.score}{" "}
+                                                                {answer?.score??0}{" "}
                                                                 <EditScoreSection
                                                                     data={
                                                                         answer
