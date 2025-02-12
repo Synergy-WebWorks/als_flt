@@ -12,9 +12,9 @@ export default function DasboardCardSection() {
     const { dashboard } = useSelector((store) => store.dashboard);
     console.log("dashboard", dashboard);
     return (
-        <Box className="flex w-full gap-3" sx={{ minWidth: 275 }}>
+        <Box className="flex w-full gap-3 " sx={{ minWidth: 275 }}>
             <Card className="w-full" variant="outlined">
-                <CardContent>
+                <CardContent className="bg-blue-800 text-white">
                     <Typography variant="h5" component="div">
                         TOTAL NUMBER OF STUDENT
                     </Typography>
@@ -24,12 +24,12 @@ export default function DasboardCardSection() {
                 </CardContent>
                 <CardActions>
                     <Link href="/administrator/students">
-                        <Button size="small">Show More</Button>
+                        <Button  variant="contained" size="small">Show More</Button>
                     </Link>
                 </CardActions>
             </Card>
             <Card className="w-full" variant="outlined">
-                <CardContent>
+                <CardContent  className="bg-blue-800 text-white">
                     <Typography variant="h5" component="div">
                         TOTAL NUMBER OF TEACHER
                     </Typography>
@@ -39,7 +39,7 @@ export default function DasboardCardSection() {
                 </CardContent>
                 <CardActions>
                     <Link href="/administrator/teachers">
-                        <Button size="small">Show More</Button>
+                        <Button variant="contained" size="small">Show More</Button>
                     </Link>
                 </CardActions>
             </Card>
