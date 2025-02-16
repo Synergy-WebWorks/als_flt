@@ -9,14 +9,14 @@ export default function EditIlaFormComponents({ data, column }) {
     const [isEdit, setIsEdit] = useState(false);
     const [text, setText] = useState("");
     const { user } = useSelector((state) => state.app);
-    const student_id = window.location.pathname.split("/")[4];
+    const student_id = window.location.pathname.split("/")[5];
 
-    console.log("studentsssssss", user);
+    
     useEffect(() => {
         setText(data[column]);
     }, []);
     async function edit_ila_function(e) {
-        if (e.key == "Enter") {
+        if (user.user_type == '2' && e.key == "Enter") {
             try {
                 const res = await edit_ila_service({
                     ...data,
@@ -32,7 +32,7 @@ export default function EditIlaFormComponents({ data, column }) {
     }
 
     function double_tap(params) {
-        if (user.user_type != "3") {
+        if (user.user_type == "2") {
             setIsEdit(true);
         }
     }

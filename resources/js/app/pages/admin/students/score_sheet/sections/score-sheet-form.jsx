@@ -12,23 +12,23 @@ const HtmlRenderer = ({ htmlContent }) => (
 );
 
 export default function ScoreSheetForm() {
-    const { student } = useSelector((store) => store.students);
+    const { student,scoresheet } = useSelector((store) => store.students);
     const { user } = useSelector((store) => store.app);
     const [overall, setOverall] = useState(0);
-    const scoreSheet = student?.score_sheet;
+    const scoreSheet = scoresheet;
     const examinations = scoreSheet?.booklet?.examinations ?? [];
     const answers = scoreSheet?.answers || [];
-    console.log("userusedadsadr", user.user_type);
 
     useEffect(() => {
         store.dispatch(get_user_login_thunk());
     }, []);
+    console.log('scoresheet',scoresheet)
     useEffect(() => {
         const totalScore = examinations.reduce((totalExamScore, exam) => {
             return (
                 totalExamScore +
                 exam.question.reduce((total, question) => {
-                    const answer = answers.find(
+                    const answer = answers?.find(
                         (resp) => resp.questionnaire_id === question.id,
                     );
                     return total + (parseInt(answer?.score) || 0);
@@ -44,10 +44,10 @@ export default function ScoreSheetForm() {
             <div className="sm:mx-auto sm:w-full sm:max-w-xl p-5 rounded-md border border-gray-300 shadow-lg bg-white">
                 <div className="flex flex-col gap-2">
                     <div className="text-xl font-black text-center">
-                        FLT LEATHER SCORESHEET
+                      FLT LEARNER SCORESHEETS
                     </div>
                     <div className="flex items-center justify-between">
-                        <div>Name: {student?.name || "N/A"}</div>
+                        <div>Name: {scoresheet?.user?.name || "N/A"}</div>
                         <div>Date: {scoreSheet?.date || "N/A"}</div>
                     </div>
                     <div>Overall Score: {overall ?? "0"}</div>
@@ -114,10 +114,10 @@ export default function ScoreSheetForm() {
                                                                 aria-label="Incorrect"
                                                             />
                                                         )}
-                                                        {user.user_type == '1' && answer?.answer?.length !=
+                                                        {answer?.answer?.length !== undefined && user.user_type == '2' && answer?.answer?.length !=
                                                             1 && (
                                                             <>
-                                                                {answer?.score??0}{" "}
+                                                                {answer?.score??0}
                                                                 <EditScoreSection
                                                                     data={
                                                                         answer

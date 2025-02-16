@@ -12,7 +12,17 @@ export default function AdminDashboardPage() {
     return (
         <AdminLayout>
             <DasboardCardSection />
+
             <div className="relative flex-col w-full h-full flex items-center justify-center">
+                <div className="w-2/3 -mt-36">
+                    <lottie-player
+                        src="/images/admin.json"
+                        background="transparent"
+                        speed="1"
+                        loop
+                        autoPlay
+                    ></lottie-player>
+                </div>
                 <div className="w-full flex gap-5">
                     <div className="flex-1">
                         <img

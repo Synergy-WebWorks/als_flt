@@ -1,36 +1,24 @@
-Landing Page
-- in register page add birthdate --done
-- remove verify email --done
+ang scoresheet sa student ug teacher dili pariah ug result --done
+dapat ang teacher ray maka edit sa scoresheet sa student dili ang admin --done
+sa teacher na portal dili ma view ang ila sa student. --done
+ibold ang mga title sa table sa tanang portal --done
+ang image sa examination sa ls:6 number8 sa student portal --done
+sa teacher ug student kay guba ang start ug end time and date --done
+and instructions sa exam  kay Nawala(sa student) --done
+e remove ng leaning center sa teacher portal --done
+ang timer sa student examination kay 1hr and 30mins--done
+naa japun timer biskan nahuman nag exam ang student portal --done
+ang scoresheet wrong spelling sa ( FLT LEARNER SCORESHEETS) --done
+ang profile sa student ug ang sa teacher --done
+creat sched sa admin portal, pag click sa als level mugawas ang booklet na same sa als level --done
+anag dashboard sa student portal kay paaddan u isa ka pic ug sa about als --done
+ilisan ang gif sa registration --done
+butangan ug page para sa ila ug scoresheet sa student na portal -pending (DILI NI PWDI KAY MAG CONFLICT KUNG KINSA ANG MO RETAKE)
+sa dashboard sa teacher portal add total of student --done
+maedit ang learning center sa ila --done
 
-admin
-- remove learning center --done
-- learning center add edit and delete --done
-- add district page (add, delete update)--done
-- add district when adding a teacher & remove action add edit and delete --done
-- add delete student --done
-- in teacher, add action that will redirect in specific schedules from the teacher --done
-- add edit in booklet https://capstone-elearning.site/administrator/booklet/9 --done
-- add admin approval for teacher and students --done
-- add breadcrumbs every pages --done
-- examination title has bugs in https://capstone-elearning.site/administrator/booklet/9 --done
-- student can show their ILA--done
-- student add show ILA and scoresheet--done
-- add score for essay in https://capstone-elearning.site/administrator/students/score_sheet/2 --done
-- fix ila border form  of student--done
-- add confirmation "do you want to submit" --done
-- add bordor in scoresheet of student --done
-- display total student, teacher --done
-- add edit in ILA grades--done
-- dashboard add mission vision.
-- add timer when taking an exam 1 hour and 30 mins and automatic submit
-ALS
-admin
+ang ila and scoresheet fix margin
 
 
-student
-
-
-teacher 
-- in dashboard add total number of student and teacher profile
 
 

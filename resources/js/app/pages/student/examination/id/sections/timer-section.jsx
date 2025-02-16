@@ -23,26 +23,16 @@ export default function TimerSection() {
     const { timeLeft, timerActive, user } = useSelector((store) => store.app);
     const dispatch = useDispatch();
     const handleOpen = () => setOpen(true);
+        const { booklet } = useSelector((store) => store.booklets);
     const handleClose = () => setOpen(false);
 
     const path = window.location.pathname.split("/")[3];
 
-    useEffect(() => {
-        if (user.score_sheet) {
-            setOpen(false);
-        } 
-        else if (user.score_sheet && path == undefined) {
-            setOpen(false);
-        } else if (!user.score_sheet && path != undefined) {
-            setOpen(true);
-        }
-        if (timeLeft != 0) {
-            start_timer();
-        }
-    }, []);
-    console.log("user", user);
+   
+    console.log('bookletbooklet',booklet.id)
+
     function start_timer() {
-        const start = timeLeft == 0 ? 120 : timeLeft;
+        const start = timeLeft == 0 ? 5400 : timeLeft;
         dispatch(setTimeLeft(start)); // Set timer for 1 hour and 30 minutes (5400 seconds)
         dispatch(setTimerActive(true));
         setOpen(false);
@@ -55,6 +45,21 @@ export default function TimerSection() {
             return () => clearTimeout(timer);
         }
     }, [timeLeft, timerActive, dispatch]);
+
+
+    useEffect(() => {
+        if (user.score_sheet) {
+            setOpen(false);
+        }  else if (user.score_sheet && path == undefined) {
+            setOpen(false);
+        } else if (booklet.id !== undefined && user.score_sheet == null && path != undefined) {
+            console.log('path',path)
+            setOpen(true);
+        }
+        if (timeLeft != 0) {
+            start_timer();
+        }
+    }, [booklet.id]);
 
     return (
         <div>

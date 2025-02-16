@@ -20,7 +20,7 @@ use App\Http\Controllers\TeacherController;
 use App\Models\User;
 
 Route::get('/user', function (Request $request) {
-    return User::where('id',$request->user()['id'])->with(['score_sheet'])->first();
+    return User::where('id',$request->user()['id'])->with(['score_sheet','schedules'])->first();
 })->middleware('auth:sanctum');
 
 // Route::get('/user', function (Request $request) {
@@ -50,6 +50,8 @@ Route::resource('district', DistrictController::class);
 
 Route::resource('examiner', ExaminerController::class);
 Route::get('/get_examiner_by_examiner_id/{id}', [ExaminerController::class, 'get_examiner_by_examiner_id']);
+Route::post('/update_examiner_center', [ExaminerController::class, 'update_examiner_center']);
+
 
 
 

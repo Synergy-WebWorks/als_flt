@@ -1,9 +1,9 @@
 import React from 'react'
 import { useEffect } from 'react';
 import store from '@/app/pages/store/store';
-import ScoreSheetForm from './sections/score-sheet-form';
 import { useSelector } from 'react-redux';
 import { get_students_by_id_thunk } from '@/app/pages/admin/students/redux/students-thunk';
+import ScoreSheetForm from '@/app/pages/admin/students/score_sheet/sections/score-sheet-form';
 
 export default function ScoreSheet() {
 const student_id =window.location.pathname.split('/')[5]
@@ -14,7 +14,7 @@ const student_id =window.location.pathname.split('/')[5]
   }, []);
   return (
     <>
-      <ScoreSheetForm />
+    <ScoreSheetForm />
     </>
   )
 }

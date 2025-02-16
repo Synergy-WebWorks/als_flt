@@ -54,3 +54,13 @@ export async function get_examiner_by_examiner_id_service(id) {
     }
 }
 
+
+
+export async function update_examiner_center_service(data) {
+    try {
+        const res = await axios.post(`/api/update_examiner_center`,data);
+        return res;
+    } catch (error) {
+        return error;
+    }
+}

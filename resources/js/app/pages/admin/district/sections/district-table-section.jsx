@@ -23,9 +23,9 @@ export default function DisctrictTableSection() {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>District Name</TableCell>
-                        <TableCell>Created At</TableCell>
-                        <TableCell>Action</TableCell>
+                        <TableCell><div className='font-bold'> District Name</div></TableCell>
+                        <TableCell><div className='font-bold'>Created At</div> </TableCell>
+                        <TableCell><div className='font-bold'>Action</div> </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

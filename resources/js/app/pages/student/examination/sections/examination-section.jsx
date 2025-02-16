@@ -68,7 +68,7 @@ export default function ExaminationSection() {
                     <DeleteSection data={res} /> */}
                                         <a
                                             target="_blank"
-                                            href={`/student/examination/ila_assessment_form/${res.examiner_id}`}
+                                            href={`/student/examination/ila_assessment_form/${res.examiner_id}/${res.schedule.booklet_id}?examiner=${res?.schedule?.teacher?.name}`}
                                         >
                                             <Button
                                                 size="small"
@@ -80,7 +80,7 @@ export default function ExaminationSection() {
                                         </a>
                                         <a
                                             target="_blank"
-                                            href={`/student/examination/score_sheet/${res.examiner_id}`}
+                                            href={`/student/examination/score_sheet/${res.examiner_id}/${res.schedule.booklet_id}`}
                                         >
                                             <Button
                                                 size="small"

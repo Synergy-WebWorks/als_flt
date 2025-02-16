@@ -14,7 +14,7 @@ import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { router as route } from "@inertiajs/react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPathname } from "@/app/redux/app-slice";
-import { AssignmentInd, CalendarMonth, Diversity1, Diversity3, Engineering, FolderShared, Groups, Groups2, HistoryEdu, PowerSettingsNew, School, SupervisedUserCircle } from "@mui/icons-material";
+import { AccountCircle, AssignmentInd, CalendarMonth, Diversity1, Diversity3, Engineering, FolderShared, Groups, Groups2, HistoryEdu, PowerSettingsNew, School, SupervisedUserCircle } from "@mui/icons-material";
 import LogoutSection from "../_sections/logout-section";
 import store from "../store/store";
 import { get_user_login_thunk } from "@/app/redux/app-thunk";
@@ -39,6 +39,11 @@ const NAVIGATION = [
         segment: "schedule",
         title: "Schedule FLT Test",
         icon: <CalendarMonth />,
+    },
+    {
+        segment: "profile",
+        title: "Profile",
+        icon: <AccountCircle />,
     },
     {
         kind: "divider",

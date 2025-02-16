@@ -3,18 +3,63 @@ import { Box } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { get_user_login_thunk } from "@/app/redux/app-thunk";
 import EditIlaFormComponents from "../components/edit-ila-form-components";
+import { useState } from "react";
+import { update_examiner_center_service } from "@/app/services/examiner-service";
+import store from "@/app/pages/store/store";
+import { get_score_sheets_by_id_thunk } from "../../redux/students-thunk";
 
 export default function ILAFormSection() {
     const dispatch = useDispatch();
-    const { student } = useSelector((state) => state.students);
+    const { student, scoresheet } = useSelector((state) => state.students);
+    const { user } = useSelector((state) => state.app);
     const data = student?.score_sheet?.answers;
-    const zeroScoreArray = data?.filter((item) => item.score == 0);
-    const facilitator = student?.examiner?.schedule?.teacher?.name ?? "";
+    const [text, setText] = useState("");
+    const zeroScoreArray = scoresheet?.answers?.filter(
+        (item) => item.score == 0,
+    );
+    const [isEdit, setIsEdit] = useState(false);
+    const params = new URLSearchParams(window.location.search);
 
+
+    
+  const student_id =window.location.pathname.split('/')[4]
+  const booklet_id =window.location.pathname.split('/')[5]
+
+
+
+    const examiner = params.get("examiner");
+    const facilitator = examiner;
     useEffect(() => {
         dispatch(get_user_login_thunk());
+        
     }, [dispatch]);
-    
+
+    useEffect(()=>{
+        setText(scoresheet?.examiner?.learning_center??'')
+    },[isEdit])
+    console.log('texttext',text)
+
+    function double_tap(params) {
+        if (user.user_type == "2") {
+            setIsEdit(true);
+        }
+    }
+
+    async function edit_ila_function(e) {
+        if (user.user_type == '2' && e.key == "Enter") {
+            try {
+                await update_examiner_center_service({
+                  id:scoresheet.examiner.id,
+                  learning_center:text
+                });
+                store.dispatch(get_score_sheets_by_id_thunk(student_id,booklet_id))
+                setIsEdit(false);
+            } catch (error) {
+                setIsEdit(false);
+            }
+        }
+    }
+
     return (
         <div className="flex flex-col py-3 mx-12">
             <div className="uppercase flex items-center justify-center text-xl font-black">
@@ -22,13 +67,30 @@ export default function ILAFormSection() {
             </div>
 
             <div className="flex gap-3 items-center justify-between">
-                <div>Name of Learner: {student?.name}</div>
+                <div>Name of Learner: {scoresheet?.user?.name}</div>
                 <div>Community Learning Center: ALS</div>
+                {/* learning_center */}
             </div>
 
             <div className="flex gap-3 items-center justify-between">
-                <div>Level: {student?.score_sheet?.als_level}</div>
-                <div>Name of Learning Facilitator: {facilitator}</div>
+                <div>Level: {scoresheet?.als_level}</div>
+                <div className="flex gap-2">
+                    <div>Name of Learning Facilitator:</div>
+                    {isEdit ? (
+                        <input
+                            onKeyUp={edit_ila_function}
+                            className="w-full h-full  "
+                            value={text}
+                            onChange={(e) => setText(e.target.value)}
+                            onBlur={() => setIsEdit(false)} // Exit edit mode when losing focus
+                            autoFocus
+                        />
+                    ) : (
+                        <div onDoubleClick={() => double_tap()}>
+                           { scoresheet?.examiner?.learning_center??'No Learning Center'}
+                        </div>
+                    )}
+                </div>
             </div>
 
             <div className="py-5">
@@ -102,7 +164,6 @@ export default function ILAFormSection() {
             </Box>
 
             {zeroScoreArray?.map((res, i) => (
-                
                 <Box
                     key={i}
                     sx={{ borderLeft: 1, borderRight: 1, borderBottom: 1 }}

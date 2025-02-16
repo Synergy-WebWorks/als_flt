@@ -8,7 +8,17 @@ use Illuminate\Http\Request;
 class ExaminerController extends Controller
 {
 
-    
+    public function update_examiner_center(Request $request){
+        $examiner = Examiner::where('id',$request->id)->first();
+        if ($examiner) {
+            $examiner->update([
+                'learning_center'=>$request->learning_center
+            ]);
+        }
+        return response()->json([
+            'response' => $examiner,
+        ], 200);
+    }
 
     public function get_examiner_by_examiner_id($id)
     {

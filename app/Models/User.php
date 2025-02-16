@@ -71,7 +71,7 @@ class User extends Authenticatable // Implement MustVerifyEmail
 
     public function schedules(): HasMany
     {
-        return $this->hasMany(Schedule::class,'teacher_id','id');
+        return $this->hasMany(Schedule::class,'teacher_id','id')->with(['examiners','booklet']);
     }
     public function students(): HasMany
     {

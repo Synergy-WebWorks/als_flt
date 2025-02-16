@@ -99,7 +99,7 @@ export default function QuestionnaireCardSection() {
             dispatch(setTimeLeft(0));
             store.dispatch(get_user_login_thunk());
             localStorage.clear();
-            router.visit("/student/examination");
+            window.location.href = "/student/examination";
             setOpen(false);
             setLoading(false);
         } catch (error) {
@@ -111,8 +111,12 @@ export default function QuestionnaireCardSection() {
     return (
         <div className="flex flex-col gap-5">
             {booklet.examinations?.map((res, i) => {
+                console.log("dawdawdwa", res);
                 return (
                     <Card key={i} sx={{ minWidth: 275 }}>
+                        <div className="p-5 font-black text-xl">
+                            {res.instruction}
+                        </div>
                         <CardContent>
                             <Typography variant="body2">
                                 <div className="flex gap-2 flex-col">
@@ -150,27 +154,33 @@ export default function QuestionnaireCardSection() {
                                                 />
                                             </div>
                                         </div>
-                                        <div className="w-full flex items-center justify-center">
-                                            <div className="w-1/2">
-                                                {ress.image_a && (
+                                        <div className="w-full flex flex-col items-center justify-center">
+                                            <div className="flex w-1/2 items-center justify-center">
+                                                {ress?.image_header && (
                                                     <CardMedia
                                                         component="img"
                                                         height="full"
-                                                        image={ress.image_a}
-                                                        alt="Question header image"
-                                                    />
-                                                )}
-
-                                                {ress.image_header && (
-                                                    <CardMedia
-                                                        component="img"
-                                                        height="full"
+                                                        width="full"
+                                                        className="w-full flex"
                                                         image={
-                                                            ress.image_header
+                                                            ress?.image_header
                                                         }
-                                                        alt="Question header image"
+                                                        alt="Your Image Description"
                                                     />
                                                 )}
+                                            </div>
+                                            <div className="flex items-center justify-center">
+                                                {ress?.image_a && (
+                                                    <CardMedia
+                                                        component="img"
+                                                        height="full"
+                                                        width="full"
+                                                        className="w-full flex"
+                                                        image={ress?.image_a}
+                                                        alt="Your Image Description"
+                                                    />
+                                                )}
+                                                {/* {res.a} */}
                                             </div>
                                         </div>
 

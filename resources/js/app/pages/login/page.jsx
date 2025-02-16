@@ -20,17 +20,18 @@ export default function LoginPage() {
     return (
         <>
             <div className="absolute inset-0 -z-10 items-center px-5 py-24 bg-blue-800"></div>
-            <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 ">
-                <div className="mt-20 sm:mx-auto sm:w-full sm:max-w-sm bg-white p-5 rounded-md">
+            <div className="relative items-center justify-center flex min-h-full flex-1 flex-col px-6 lg:px-8 ">
+               
+                <div className="mt-64 sm:mx-auto sm:w-full sm:max-w-sm bg-white p-5 rounded-md">
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm flex w-full items-center justify-center">
+                    <img
+                    alt="Your Company"
+                    src="/images/login.png"
+                    className="mx-auto h-96 md:w-1/2 sm:w-full xxs:w-full -mt-64  absolute"
+                />
                         <div className="flex items-center justify-center flex-col">
-                            <img
-                                alt="Your Company"
-                                src="/images/logo.png"
-                                className="mx-auto h-32 w-32 "
-                            />
                             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight ">
-                                Educational Portal
+                                {/* Educational Portal */}
                             </h2>
                             {searchQuery == "true" && (
                                 <div className="my-3 text-red-600">
@@ -42,7 +43,7 @@ export default function LoginPage() {
 
                     <form onSubmit={submit} className="space-y-6">
                         <TextField
-                            className="w-full"
+                            className="w-full z-20 bg-white"
                             onChange={(e) => setData("email", e.target.value)}
                             error={errors?.email ? true : false}
                             helperText={errors?.email ?? ""}

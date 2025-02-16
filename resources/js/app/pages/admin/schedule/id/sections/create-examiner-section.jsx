@@ -96,8 +96,8 @@ export default function CreateExaminerSection() {
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Fullname</TableCell>
-                            <TableCell align="right">Action</TableCell>
+                            <TableCell><div className="font-bold">Fullname</div></TableCell>
+                            <TableCell align="right"><div className="font-bold">Action</div></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

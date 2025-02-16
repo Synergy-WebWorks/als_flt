@@ -12,6 +12,9 @@ export default {
 
     theme: {
         extend: {
+            screens: {
+                xxs: '320px', // Define xxs breakpoint (adjust as needed)
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },

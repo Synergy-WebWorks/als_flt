@@ -27,4 +27,13 @@ class ScoreSheet extends Model
     {
         return $this->hasOne(Booklet::class, 'id', 'booklet_id')->with(['examinations']);
     }
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+   
+    public function examiner(): HasOne
+    {
+        return $this->hasOne(Examiner::class, 'examiner_id', 'user_id');
+    }
 }

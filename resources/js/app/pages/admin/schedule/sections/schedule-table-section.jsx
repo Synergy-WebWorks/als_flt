@@ -20,12 +20,12 @@ export default function ScheduleTableSection() {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Reference Test ID</TableCell>
-                        <TableCell>Teacher Assigned</TableCell>
-                        <TableCell>Als Level</TableCell>
-                        <TableCell>Start At</TableCell>
-                        <TableCell>End At</TableCell>
-                        <TableCell>Action</TableCell>
+                        <TableCell><div className="font-bold">Reference Test ID</div></TableCell>
+                        <TableCell><div className="font-bold">Teacher Assigned</div></TableCell>
+                        <TableCell><div className="font-bold">Als Level</div></TableCell>
+                        <TableCell><div className="font-bold">Start At</div></TableCell>
+                        <TableCell><div className="font-bold">End At</div></TableCell>
+                        <TableCell><div className="font-bold">Action</div></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

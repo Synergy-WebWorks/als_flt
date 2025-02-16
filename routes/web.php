@@ -67,10 +67,10 @@ Route::middleware('auth:sanctum', 'administrator', 'verified')->prefix('administ
             return Inertia::render('admin/students/page');
         });
 
-        Route::get('/ila_assessment_form/{id}', function () {
+        Route::get('/ila_assessment_form/{id}/{booklet_id}', function () {
             return Inertia::render('admin/students/ila_assessment_form/page');
         });
-        Route::get('/score_sheet/{id}', function () {
+        Route::get('/score_sheet/{id}/{booklet_id}', function () {
             return Inertia::render('admin/students/score_sheet/page');
         });
         // Route::get('/registered', function () {
@@ -136,6 +136,10 @@ Route::middleware('auth:sanctum', 'teacher', 'verified')->prefix('teacher')->gro
         return Inertia::render('teacher/dashboard/page');
     })->name('teacher.dashboard');
 
+    Route::get('/profile', function () {
+        return Inertia::render('teacher/profile/page');
+    });
+
     Route::prefix('schedule')->group(function () {
         Route::get('/', function () {
             return Inertia::render('teacher/schedule/page');
@@ -144,11 +148,11 @@ Route::middleware('auth:sanctum', 'teacher', 'verified')->prefix('teacher')->gro
             return Inertia::render('teacher/schedule/id/page');
         });
 
-        Route::get('/{id}/ila_assessment_form/{user_id}', function () {
-            return Inertia::render('teacher/schedule/id/ila_assessment_form/page');
+        Route::get('/ila_assessment_form/{user_id}/{booklet_id}', function () {
+            return Inertia::render('admin/students/ila_assessment_form/page');
         });
-        Route::get('/{id}/score_sheet/{user_id}', function () {
-            return Inertia::render('teacher/schedule/id/score_sheet/page');
+        Route::get('/score_sheet/{user_id}/{booklet_id}', function () {
+            return Inertia::render('admin/students/score_sheet/page');
         });
     });
     // Route::prefix('subjects')->group(function () {
@@ -195,21 +199,23 @@ Route::middleware('auth:sanctum', 'student', 'verified')->prefix('student')->gro
         return Inertia::render('student/subjects/page');
     })->name('student.subject');
 
-
+    Route::get('/profile', function () {
+        return Inertia::render('student/profile/page');
+    });
 
     Route::get('/examination', function () {
         return Inertia::render('student/examination/page');
     })->name('student.examination');
 
-    Route::get('/examination/score_sheet/{id}', function () {
+    Route::get('/examination/score_sheet/{id}/{booklet_id}', function () {
         return Inertia::render('admin/students/score_sheet/page');
     });
 
-    Route::get('/examination/ila_assessment_form/{id}', function () {
+    Route::get('/examination/ila_assessment_form/{id}/{booklet_id}', function () {
         return Inertia::render('admin/students/ila_assessment_form/page');
     });
 
-    Route::get('/examination/{reference_id}', function () {
+    Route::get('/examination/{id}', function () {
         return Inertia::render('student/examination/id/page');
     })->name('student.examination.id');
 
@@ -221,10 +227,10 @@ Route::middleware('auth:sanctum', 'student', 'verified')->prefix('student')->gro
 //     return Inertia::render('Dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 require __DIR__ . '/auth.php';

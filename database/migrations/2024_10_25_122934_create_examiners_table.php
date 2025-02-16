@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('examiners', function (Blueprint $table) {
             $table->id();
+            
             $table->string('reference_id')->nullable();
             $table->string('examiner_id')->nullable();
+            $table->longText('learning_center')->nullable();
             $table->timestamps();
         });
     }

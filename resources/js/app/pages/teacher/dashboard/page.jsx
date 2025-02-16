@@ -1,16 +1,62 @@
 import React from "react";
 import InstructorLayout from "../layout";
+import { Button } from "@mui/material";
+import { useSelector } from "react-redux";
+import { router } from "@inertiajs/react";
 
 export default function InstructorDashboardPage() {
+    const { user } = useSelector((store) => store.app);
+    console.log("user", user);
     return (
         <InstructorLayout>
-            <div className="relative flex-col w-full h-full flex items-center justify-center">
-                <img
+            <div className="relative gap-10 flex-col w-full h-full flex items-center justify-center">
+                <div className="flex items-center justify-between w-full gap-3">
+                    <div className="flex flex-col gap-3 h-96 overflow-auto">
+                        {user?.schedules &&
+                            user?.schedules?.map((res) => {
+                                return (
+                                    <div className="bg-blue-800 shadow-xl p-3 flex flex-col items-center justify-center gap-5">
+                                        <div className="text-lg text-white">
+                                            {res.booklet.title}
+                                        </div>
+                                        <div className="text-3xl text-white">
+                                            Total Students:{" "}
+                                            {res.examiners.length}
+                                        </div>
+                                        <Button
+                                            onClick={() =>
+                                                router.visit(
+                                                    "/teacher/schedule/" +
+                                                        res.unique_id,
+                                                )
+                                            }
+                                            variant="contained"
+                                        >
+                                            Show More
+                                        </Button>
+                                    </div>
+                                );
+                            })}
+                    </div>
+
+                    <div>
+                        <lottie-player
+                            src="/images/teacher.json"
+                            background="transparent"
+                            speed="1"
+                            // style={{ width: "200px", height: "200px" }}
+                            className="w-full h-full"
+                            loop
+                            autoPlay
+                        ></lottie-player>
+                    </div>
+                </div>
+                {/* <img
                     alt="Animated loading icon"
                     src="/images/dyn.gif"
                     className="w-96 h-96 max-w-full max-h-full"
-                />
-                <div className="bg-blue-800 p-3 text-white my-3 text-center px-10 rounded-xl shadow-xl">
+                /> */}
+                {/* <div className="bg-blue-800 p-3 text-white my-3 text-center px-10 rounded-xl shadow-xl">
                     What is Alternative Learning System or ALS? It is a parallel
                     learning system in the Philippines that provides a practical
                     option to the existing formal instruction. When one does not
@@ -49,7 +95,7 @@ export default function InstructorDashboardPage() {
                     flexible. This means that learning can take place anytime
                     and any place, depending on the convenience and availability
                     of the learners.
-                </div>
+                </div> */}
                 <div className="w-full flex gap-5">
                     <div className="flex-1">
                         <img

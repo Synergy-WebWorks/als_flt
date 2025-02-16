@@ -12,6 +12,7 @@ class Examiner extends Model
     protected $fillable = [
         'reference_id',
         'examiner_id',
+        'learning_center'
     ];
     public function user(): HasOne
     {
@@ -19,7 +20,7 @@ class Examiner extends Model
     }
     public function schedule(): HasOne
     {
-        return $this->hasOne(Schedule::class,'unique_id','reference_id')->with(['learning_center','teacher']);
+        return $this->hasOne(Schedule::class,'unique_id','reference_id')->with(['learning_center','booklet','teacher']);
     }
 }
 

@@ -27,11 +27,26 @@ export default function TableSection() {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Fullname</TableCell>
-                        <TableCell>Email</TableCell>
-                        <TableCell>Age</TableCell>
-                        <TableCell>Phone #</TableCell>
-                        <TableCell>Action</TableCell>
+                        <TableCell>
+                            {" "}
+                            <div className="font-bold">Fullname</div>
+                        </TableCell>
+                        <TableCell>
+                            {" "}
+                            <div className="font-bold">Email</div>
+                        </TableCell>
+                        <TableCell>
+                            {" "}
+                            <div className="font-bold">Age</div>
+                        </TableCell>
+                        <TableCell>
+                            {" "}
+                            <div className="font-bold">Phone #</div>
+                        </TableCell>
+                        <TableCell>
+                            {" "}
+                            <div className="font-bold">Action</div>
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -62,7 +77,7 @@ export default function TableSection() {
                      */}
                                         <UpdateSection datas={res} />
                                         <DeleteSection data={res} />
-                                        <a
+                                        {/* <a
                                             target="_blank"
                                             href={`/administrator/students/ila_assessment_form/${res.id}`}
                                         >
@@ -85,7 +100,7 @@ export default function TableSection() {
                                             >
                                                 <Checklist />
                                             </Button>
-                                        </a>
+                                        </a> */}
                                         {res.isApproved !== "true" && (
                                             <IsApprovedSection data={res} />
                                         )}

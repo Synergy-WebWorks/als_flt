@@ -10,7 +10,8 @@ export const studentsSlice = createSlice({
       data:[]
     },
     student: {},
-    answers:[]
+    answers:[],
+    scoresheet:{}
   },
   reducers: {
     setStudents: (state, action) => {
@@ -21,6 +22,9 @@ export const studentsSlice = createSlice({
     },
     setAnswers: (state, action) => {
       state.answers = action.payload
+    },
+    setScoreSheet: (state, action) => {
+      state.scoresheet = action.payload
     },
   },
 })

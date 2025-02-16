@@ -17,7 +17,7 @@ export default function ScoreSheetForm() {
             <div className="sm:mx-auto sm:w-full  sm:max-w-xl  p-5 rounded-md">
                 <div className='flex flex-col gap-2'>
                     <div className='flex items-center justify-center text-xl font-black'>
-                        FLT LEATHER SCORESHEET
+                      FLT LEARNER SCORESHEETS
                     </div>
                     <div className='flex items-center justify-between'>
                         <div>

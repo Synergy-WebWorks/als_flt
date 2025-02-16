@@ -42,8 +42,11 @@ export default function CreateScheduleSection() {
     const [loading, setLoading] = useState(false);
     const { teachers } = useSelector((store) => store.teachers);
     const { learning_centers } = useSelector((state) => state.learning_centers);
-    const { booklets } = useSelector((state) => state.booklets);
-    console.log("booklets", booklets);
+    const { booklets: dataBooks } = useSelector((state) => state.booklets);
+    const [booklets, setBooklets] = useState([]);
+    const { literacyTests } = useSelector((store) => store.literacyTests);
+
+    console.log("literacyTests", literacyTests);
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -74,11 +77,7 @@ export default function CreateScheduleSection() {
 
     async function als_level_function(e) {
         setLoading(true);
-        if ("Elementary Level" == e.target.value) {
-            await store.dispatch(get_examinations_thunk("Elementary"));
-        } else if ("Junior High Level" == e.target.value) {
-            await store.dispatch(get_examinations_thunk("Junior High School"));
-        }
+        setBooklets(dataBooks.filter((res) => res.als_level == e.target.value));
         setData({
             ...data,
             [e.target.name]: e.target.value,
@@ -108,43 +107,7 @@ export default function CreateScheduleSection() {
                         <CloseIcon />
                     </IconButton>
                 </Toolbar>
-                {/* <Toolbar className="flex gap-3 mb-2 w-full">
-                    <TextField
-                        name="referrence_id"
-                        type="text"
-                        id="outlined-basic"
-                        label="Referrence ID"
-                        variant="outlined"
-                        className="w-1/2 mr-2"
-                        readOnly
-                    />
-                    <FormControl fullWidth error={!!error?.literacy_level}>
-                        <InputLabel id="demo-simple-select-label">
-                            Literacy Level
-                        </InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            name="literacy_level"
-                            label="Literacy Level"
-                            onChange={(e) =>
-                                setData({
-                                    ...data,
-                                    [e.target.name]: e.target.value,
-                                })
-                            }
-                            value={data.specification ?? ""}
-                        >
-                            <MenuItem selected disabled></MenuItem>
-                        
-                        </Select>
-                        {error?.specification && (
-                            <FormHelperText>
-                                {error.specification}
-                            </FormHelperText>
-                        )}
-                    </FormControl>
-                </Toolbar> */}
+
                 <Toolbar className="flex-col gap-3 flex w-full">
                     <TextField
                         onChange={(e) =>
@@ -215,38 +178,7 @@ export default function CreateScheduleSection() {
                         )}
                     </FormControl>
                 </Toolbar>
-                {/* <Toolbar className="flex-col gap-3 flex w-full ">
-                    <FormControl fullWidth error={!!error?.learning_center}>
-                        <InputLabel id="demo-simple-select-label">
-                            Community Center
-                        </InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            name="learning_center"
-                            label="Community Center"
-                            onChange={(e) =>
-                                setData({
-                                    ...data,
-                                    [e.target.name]: e.target.value,
-                                })
-                            }
-                            value={data.learning_center ?? ""}
-                        >
-                            <MenuItem selected disabled></MenuItem>
-                            {learning_centers.map((res, i) => (
-                                <MenuItem key={i} value={res.id}>
-                                    {res.name}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                        {error?.specification && (
-                            <FormHelperText>
-                                {error.specification}
-                            </FormHelperText>
-                        )}
-                    </FormControl>
-                </Toolbar> */}
+
                 <Toolbar className="flex-col gap-3 flex w-full mt-2">
                     <FormControl fullWidth error={!!error?.als_level}>
                         <InputLabel id="demo-simple-select-label">
@@ -267,10 +199,6 @@ export default function CreateScheduleSection() {
                             <MenuItem value="Junior High Level">
                                 Junior High Level
                             </MenuItem>
-                            {/* Uncomment and use the map to dynamically render options from departments */}
-                            {/* {specifications.data.map((res, i) => (
-                                <MenuItem key={i} value={res.specification}>{res.specification}</MenuItem>
-                            ))} */}
                         </Select>
                         {error?.specification && (
                             <FormHelperText>

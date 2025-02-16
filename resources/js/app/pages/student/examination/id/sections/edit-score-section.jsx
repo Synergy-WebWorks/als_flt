@@ -1,5 +1,5 @@
 import { get_booklet_by_id_thunk } from "@/app/pages/admin/booklet/redux/booklet-thunk";
-import { get_students_by_id_thunk } from "@/app/pages/admin/students/redux/students-thunk";
+import { get_score_sheets_by_id_thunk, get_students_by_id_thunk } from "@/app/pages/admin/students/redux/students-thunk";
 import store from "@/app/pages/store/store";
 import { update_answers_service } from "@/app/services/answer-service";
 import { Edit, Save } from "@mui/icons-material";
@@ -12,20 +12,24 @@ export default function EditScoreSection({ data }) {
     const [isEdit, setIsEdit] = useState(false);
     const [score, setScore] = useState(0);
     const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         setScore(data?.score??0);
     }, []);
-
     const student_id = window.location.pathname.split("/")[4];
+    const booklet_id = window.location.pathname.split("/")[5];
+
+ 
     async function submit_edit_score(event) {
         setLoading(true);
         if (event.key === "Enter") {
             try {
+            
                 await update_answers_service({
                     ...data,
-                    score: score ?? 0,
+                    score: score,
                 });
-                await store.dispatch(get_students_by_id_thunk(student_id));
+                store.dispatch(get_score_sheets_by_id_thunk(student_id, booklet_id));
                 setIsEdit(false);
                 setLoading(false);
             } catch (error) {
@@ -34,6 +38,7 @@ export default function EditScoreSection({ data }) {
             }
         }
     }
+    console.log('badododo',data)
     return (
         <div>
             {isEdit && (

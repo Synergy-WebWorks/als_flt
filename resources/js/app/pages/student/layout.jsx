@@ -15,6 +15,7 @@ import { router as route } from "@inertiajs/react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPathname } from "@/app/redux/app-slice";
 import {
+    AccountCircle,
     AssignmentInd,
     Diversity1,
     Diversity3,
@@ -47,6 +48,11 @@ const NAVIGATION = [
         segment: "examination",
         title: "Examinations",
         icon: <HistoryEdu />,
+    },
+    {
+        segment: "profile",
+        title: "Profile",
+        icon: <AccountCircle />,
     },
     // {
     //     segment: "subjects",
