@@ -12,7 +12,7 @@ export default function DasboardCardSection() {
     const { dashboard } = useSelector((store) => store.dashboard);
     console.log("dashboard", dashboard);
     return (
-        <Box className="flex w-full gap-3 " sx={{ minWidth: 275 }}>
+        <Box className="flex w-full gap-3 mb-10" sx={{ minWidth: 275 }}>
             <Card className="w-full" variant="outlined">
                 <CardContent className="bg-blue-800 text-white">
                     <Typography variant="h5" component="div">
