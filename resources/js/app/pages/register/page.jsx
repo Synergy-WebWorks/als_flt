@@ -22,11 +22,7 @@ export default function Register() {
         e.preventDefault();
 
         post(route("register"), {
-            onFinish: () => {
-                reset("password", "password_confirmation");
-
-                router.visit("/");
-            },
+            onFinish: () => reset("password", "password_confirmation"),
         });
     };
     return (
