@@ -46,7 +46,10 @@ class ExaminerController extends Controller
     }
     public function store(Request $request)
     {
-        $examiner = Examiner::where('examiner_id', $request->examiner_id)->first();
+        $examiner = Examiner::where([
+            ['examiner_id','=',$request->examiner_id],
+            ['reference_id','=',$request->reference_id],
+        ])->first();
         if (!$examiner) {
             Examiner::create($request->all());
             return response()->json([
