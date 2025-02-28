@@ -66,7 +66,7 @@ export default function ScoreSheetForm() {
                                     })}
                                 </div>
                                 {/* Display the final exam score */}
-                                <div className='font-bold flex items-end justify-end'>Score: {examScore}</div>
+                                {/* <div className='font-bold flex items-end justify-end'>Score: {examScore}</div> */}
                             </li>
                         )
                     })}

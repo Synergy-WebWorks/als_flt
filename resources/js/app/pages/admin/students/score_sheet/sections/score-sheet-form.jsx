@@ -132,7 +132,7 @@ export default function ScoreSheetForm() {
                                     )}
                                 </div>
                                 <div className="font-bold text-right mt-2">
-                                    Score: {parseInt(examScore)}
+                                    {/* Score: {parseInt(examScore)} */}
                                 </div>
                             </li>
                         );

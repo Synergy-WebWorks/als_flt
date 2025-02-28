@@ -20,24 +20,19 @@ export default function ILAFormSection() {
     const [isEdit, setIsEdit] = useState(false);
     const params = new URLSearchParams(window.location.search);
 
-
-    
-  const student_id =window.location.pathname.split('/')[4]
-  const booklet_id =window.location.pathname.split('/')[5]
-
-
+    const student_id = window.location.pathname.split("/")[4];
+    const booklet_id = window.location.pathname.split("/")[5];
 
     const examiner = params.get("examiner");
     const facilitator = examiner;
     useEffect(() => {
         dispatch(get_user_login_thunk());
-        
     }, [dispatch]);
 
-    useEffect(()=>{
-        setText(scoresheet?.examiner?.learning_center??'')
-    },[isEdit])
-    console.log('texttext',text)
+    useEffect(() => {
+        setText(scoresheet?.examiner?.learning_center ?? "");
+    }, [isEdit]);
+    console.log("texttext", text);
 
     function double_tap(params) {
         if (user.user_type == "2") {
@@ -46,13 +41,15 @@ export default function ILAFormSection() {
     }
 
     async function edit_ila_function(e) {
-        if (user.user_type == '2' && e.key == "Enter") {
+        if (user.user_type == "2" && e.key == "Enter") {
             try {
                 await update_examiner_center_service({
-                  id:scoresheet.examiner.id,
-                  learning_center:text
+                    id: scoresheet.examiner.id,
+                    learning_center: text,
                 });
-                store.dispatch(get_score_sheets_by_id_thunk(student_id,booklet_id))
+                store.dispatch(
+                    get_score_sheets_by_id_thunk(student_id, booklet_id),
+                );
                 setIsEdit(false);
             } catch (error) {
                 setIsEdit(false);
@@ -87,7 +84,8 @@ export default function ILAFormSection() {
                         />
                     ) : (
                         <div onDoubleClick={() => double_tap()}>
-                           { scoresheet?.examiner?.learning_center??'No Learning Center'}
+                            {scoresheet?.examiner?.learning_center ??
+                                "No Learning Center"}
                         </div>
                     )}
                 </div>
@@ -163,63 +161,85 @@ export default function ILAFormSection() {
                 </div>
             </Box>
 
-            {zeroScoreArray?.map((res, i) => (
-                <Box
-                    key={i}
-                    sx={{ borderLeft: 1, borderRight: 1, borderBottom: 1 }}
-                >
-                    <div className="flex">
-                        <Box className="w-[28%]  flex flex-col items-center justify-center">
-                            <div className=" text-sm m-2">
-                                {res.questionnaire.specification}
-                            </div>
-                        </Box>
-                        <Box className="w-[18%] " sx={{ borderLeft: 1 }}>
-                            <EditIlaFormComponents
-                                column="delivery_mode"
-                                data={res}
-                            />
-                        </Box>
-                        <Box className="w-[18%]" sx={{ borderLeft: 1 }}>
-                            <EditIlaFormComponents
-                                column="timeline"
-                                data={res}
-                            />
-                        </Box>
-                        <Box className="w-[18%]" sx={{ borderLeft: 1 }}>
-                            <Box className="flex items-center w-full h-full justify-center">
-                                <Box
-                                    sx={{ borderRight: 1 }}
-                                    className="h-full w-[33.33%]"
-                                >
-                                    <EditIlaFormComponents
-                                        column="achieved"
-                                        data={res}
-                                    />
-                                </Box>
-                                <Box
-                                    sx={{ borderRight: 1 }}
-                                    className="h-full w-[33.33%]"
-                                >
-                                    <EditIlaFormComponents
-                                        column="not_achieved"
-                                        data={res}
-                                    />
-                                </Box>
-                                <Box className="w-[33.33%] h-full">
-                                    <EditIlaFormComponents
-                                        column="date_of_review"
-                                        data={res}
-                                    />
-                                </Box>
+            {zeroScoreArray?.map((res, i) => {
+                return (
+                    <>
+                        {res.questionnaire.specification && (
+                            <Box
+                                key={i}
+                                sx={{
+                                    borderLeft: 1,
+                                    borderRight: 1,
+                                    borderBottom: 1,
+                                }}
+                            >
+                                <div className="flex">
+                                    <Box className="w-[28%]  flex flex-col items-center justify-center">
+                                        <div className=" text-sm m-2">
+                                            {res.questionnaire.specification}
+                                        </div>
+                                    </Box>
+                                    <Box
+                                        className="w-[18%] "
+                                        sx={{ borderLeft: 1 }}
+                                    >
+                                        <EditIlaFormComponents
+                                            column="delivery_mode"
+                                            data={res}
+                                        />
+                                    </Box>
+                                    <Box
+                                        className="w-[18%]"
+                                        sx={{ borderLeft: 1 }}
+                                    >
+                                        <EditIlaFormComponents
+                                            column="timeline"
+                                            data={res}
+                                        />
+                                    </Box>
+                                    <Box
+                                        className="w-[18%]"
+                                        sx={{ borderLeft: 1 }}
+                                    >
+                                        <Box className="flex items-center w-full h-full justify-center">
+                                            <Box
+                                                sx={{ borderRight: 1 }}
+                                                className="h-full w-[33.33%]"
+                                            >
+                                                <EditIlaFormComponents
+                                                    column="achieved"
+                                                    data={res}
+                                                />
+                                            </Box>
+                                            <Box
+                                                sx={{ borderRight: 1 }}
+                                                className="h-full w-[33.33%]"
+                                            >
+                                                <EditIlaFormComponents
+                                                    column="not_achieved"
+                                                    data={res}
+                                                />
+                                            </Box>
+                                            <Box className="w-[33.33%] h-full">
+                                                <EditIlaFormComponents
+                                                    column="date_of_review"
+                                                    data={res}
+                                                />
+                                            </Box>
+                                        </Box>
+                                    </Box>
+                                    <Box
+                                        className="w-[18%] "
+                                        sx={{ borderLeft: 1 }}
+                                    >
+                                        <EditIlaFormComponents data={res} />
+                                    </Box>
+                                </div>
                             </Box>
-                        </Box>
-                        <Box className="w-[18%] " sx={{ borderLeft: 1 }}>
-                            <EditIlaFormComponents data={res} />
-                        </Box>
-                    </div>
-                </Box>
-            ))}
+                        )}
+                    </>
+                );
+            })}
         </div>
     );
 }
