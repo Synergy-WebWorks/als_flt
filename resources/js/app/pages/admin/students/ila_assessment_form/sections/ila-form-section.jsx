@@ -7,6 +7,7 @@ import { useState } from "react";
 import { update_examiner_center_service } from "@/app/services/examiner-service";
 import store from "@/app/pages/store/store";
 import { get_score_sheets_by_id_thunk } from "../../redux/students-thunk";
+import { Print } from "@mui/icons-material";
 
 export default function ILAFormSection() {
     const dispatch = useDispatch();
@@ -59,6 +60,13 @@ export default function ILAFormSection() {
 
     return (
         <div className="flex flex-col py-3 mx-12">
+            <div>
+                <a 
+                href={`/get_ila/${student_id}/${booklet_id}`}
+                target="_blank">
+                      <Print/>  Print
+                </a>
+            </div>
             <div className="uppercase flex items-center justify-center text-xl font-black">
                 Individual Learning Agreement
             </div>
@@ -232,7 +240,9 @@ export default function ILAFormSection() {
                                         className="w-[18%] "
                                         sx={{ borderLeft: 1 }}
                                     >
-                                        <EditIlaFormComponents data={res} />
+                                        <EditIlaFormComponents 
+                                         column="facilitator"
+                                        data={res} />
                                     </Box>
                                 </div>
                             </Box>

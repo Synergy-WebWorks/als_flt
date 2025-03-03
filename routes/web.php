@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SpecificationController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,7 @@ Route::middleware('redirectBasedOnRole')->get('/register', function () {
 })->name('register');
 
 
+Route::get('/get_ila/{user_id}/{booket_id}', [SpecificationController::class, 'get_ila']);
 
 
 Route::middleware('auth:sanctum', 'administrator', 'verified')->prefix('administrator')->group(function () {
