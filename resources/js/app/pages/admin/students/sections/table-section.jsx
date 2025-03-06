@@ -37,6 +37,10 @@ export default function TableSection() {
                         </TableCell>
                         <TableCell>
                             {" "}
+                            <div className="font-bold">Date of Birth</div>
+                        </TableCell>
+                        <TableCell>
+                            {" "}
                             <div className="font-bold">Age</div>
                         </TableCell>
                         <TableCell>
@@ -65,7 +69,8 @@ export default function TableSection() {
                             >
                                 <TableCell>{res.name}</TableCell>
                                 <TableCell>{res.email}</TableCell>
-                                <TableCell>{res?.dob ?? ""}</TableCell>
+                                <TableCell>{moment(res.dob).format('LL') ?? ""}</TableCell>
+                                <TableCell>{age ?? ""}</TableCell>
                                 <TableCell>{res?.mobile ?? ""}</TableCell>
                                 {/* <TableCell>{age}</TableCell> */}
                                 {/* <TableCell>{res.address}</TableCell> */}
