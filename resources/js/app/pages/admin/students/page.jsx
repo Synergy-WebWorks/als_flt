@@ -23,7 +23,6 @@ export default function StudentsPage() {
         </div>
         <div className="flex flex-col items-center justify-between h-[82vh] w-full">
           <TableSection />
-          <PaginationSection />
         </div>
 
       </div>

@@ -36,6 +36,15 @@ export async function update_answers_service(data) {
     }
 }
 
+
+export async function edit_all_ila_service(data) {
+    try {
+        const res = await axios.put(`/api/edit_all_ila/${data.id}`, data);
+        return res;
+    } catch (error) {
+        return error;
+    }
+}
 export async function edit_ila_service(data) {
     try {
         const res = await axios.put(`/api/edit_ila/${data.id}`, data);

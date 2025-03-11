@@ -9,6 +9,24 @@ use Illuminate\Http\Request;
 class AnswerController extends Controller
 {
 
+    public function edit_all_ila(Request $request)
+    {
+        $score_sheet = ScoreSheet::where([
+            ['user_id', '=', $request->student_id],
+            ['booklet_id', '=', $request->booklet_id],
+        ])->first();
+        $answers = Answer::where('score_sheet_id', $score_sheet->id)->get();
+        foreach ($answers as $key => $value) {
+            if ($value) {
+                $value->update([
+                    'delivery_mode' => $request->value
+                ]);
+            }
+        }
+        return response()->json([
+            'response' => 'success',
+        ], 200);
+    }
     public function edit_ila(Request $request, $id)
     {
         Answer::where('id', $id)->update([

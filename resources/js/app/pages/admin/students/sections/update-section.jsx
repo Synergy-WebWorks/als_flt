@@ -1,74 +1,95 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
-import { Alert, CircularProgress, FormControl, FormHelperText, InputLabel, MenuItem, Select, Snackbar, TextField } from '@mui/material';
-import { useState } from 'react';
-import { Edit } from '@mui/icons-material';
-import { useEffect } from 'react';
-import store from '@/app/pages/store/store';
-import { useSelector } from 'react-redux';
-import { get_students_thunk, update_students_thunk } from '../redux/students-thunk';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import Button from "@mui/material/Button";
+import {
+    Alert,
+    CircularProgress,
+    FormControl,
+    FormHelperText,
+    InputLabel,
+    MenuItem,
+    Select,
+    Snackbar,
+    TextField,
+} from "@mui/material";
+import { useState } from "react";
+import { Edit } from "@mui/icons-material";
+import { useEffect } from "react";
+import store from "@/app/pages/store/store";
+import { useSelector } from "react-redux";
+import {
+    get_students_thunk,
+    update_students_thunk,
+} from "../redux/students-thunk";
 
 export default function UpdateSection({ datas }) {
     const [open, setOpen] = React.useState(false);
-    const [form, setForm] = useState({})
-    const [error, setError] = useState({})
-    const [notify, setNotify] = useState(false)
-    const [loading, setLoading] = useState(false)
-    const { districts } = useSelector((state) => state.districts)
-    const [data,setData] =useState({})
+    const [form, setForm] = useState({});
+    const [error, setError] = useState({});
+    const [notify, setNotify] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const { districts } = useSelector((state) => state.districts);
+    const [data, setData] = useState({});
     useEffect(() => {
-        setData(datas)
-    }, [])
-    console.log('datadata',data)
+        setData(datas);
+    }, []);
+    console.log("datadata", data);
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
     };
 
     async function submitForm(params) {
-        setLoading(true)
-        const result = await store.dispatch(update_students_thunk(data))
+        setLoading(true);
+        const result = await store.dispatch(update_students_thunk(data));
         if (result.status == 200) {
-            await store.dispatch(get_students_thunk())
-            setNotify(true)
-            setError({})
-            setLoading(false)
+            await store.dispatch(get_students_thunk());
+            setNotify(true);
+            setError({});
+            setLoading(false);
         } else {
-            setLoading(false)
-            setError(result.response.data.errors)
+            setLoading(false);
+            setError(result.response.data.errors);
         }
     }
     const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
+        if (reason === "clickaway") {
             return;
         }
-        setNotify(false)
+        setNotify(false);
         setOpen(false);
     };
 
     return (
         <div>
-            <Snackbar open={notify}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                autoHideDuration={3000} onClose={handleClose}>
+            <Snackbar
+                open={notify}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                autoHideDuration={3000}
+                onClose={handleClose}
+            >
                 <Alert
                     onClose={handleClose}
                     severity="success"
                     variant="filled"
-                    sx={{ width: '100%' }}
+                    sx={{ width: "100%" }}
                 >
                     Successfully Updated!
-                    
                 </Alert>
             </Snackbar>
-            <Button size='small' variant='contained' onClick={toggleDrawer(true)}><Edit /></Button>
+            <Button
+                size="small"
+                variant="contained"
+                onClick={toggleDrawer(true)}
+            >
+                <Edit />
+            </Button>
             <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
                 <Box className="w-[500px] h-full flex" role="presentation">
                     <div className="pt-20 px-3 w-full flex flex-col items-center justify-between pb-5">
                         <div className="flex flex-col gap-3  w-full">
                             <div className="text-2xl font-black">
-                                Edit Teacher
+                                Edit Student
                             </div>
 
                             <form onSubmit={submitForm}>
@@ -107,47 +128,23 @@ export default function UpdateSection({ datas }) {
                                         label="Email"
                                         variant="outlined"
                                     />
-                                    <FormControl
-                                        fullWidth
-                                        error={!!error?.district_id}
-                                    >
-                                        <InputLabel id="demo-simple-select-label">
-                                            District
-                                        </InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            name="district_id"
-                                            label="District"
-                                            onChange={(e) =>
-                                                setData({
-                                                    ...data,
-                                                    [e.target.name]:
-                                                        e.target.value,
-                                                })
-                                            }
-                                            value={data?.district_id ?? ""}
-                                        >
-                                            <MenuItem
-                                                selected
-                                                disabled
-                                            ></MenuItem>
-                                            {/* Uncomment and use the map to dynamically render options from departments */}
-                                            {districts.map((res, i) => (
-                                                <MenuItem
-                                                    key={i}
-                                                    value={res.id}
-                                                >
-                                                    {res.name}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                        {error?.district_id && (
-                                            <FormHelperText>
-                                                {error.district_id}
-                                            </FormHelperText>
-                                        )}
-                                    </FormControl>
+                                    <TextField
+                                        value={data.mobile}
+                                        className="w-full"
+                                        onChange={(e) =>
+                                            setData({
+                                                ...data,
+                                                [e.target.name]: e.target.value,
+                                            })
+                                        }
+                                        error={error.mobile ? true : false}
+                                        helperText={error.mobile ?? ""}
+                                        name="mobile"
+                                        type="number"
+                                        id="outlined-basic"
+                                        label="Mobile"
+                                        variant="outlined"
+                                    />
                                     <TextField
                                         value={data?.dob}
                                         className="w-full"
@@ -183,7 +180,6 @@ export default function UpdateSection({ datas }) {
                                         label="Password"
                                         variant="outlined"
                                     />
-                                    
                                 </div>
                             </form>
                         </div>

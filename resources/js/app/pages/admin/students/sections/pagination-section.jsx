@@ -21,11 +21,12 @@ export default function PaginationSection() {
     router.visit(newUrl)
   }
   return (
-    <div className='flex w-full items-center justify-end'>
+    <div className='p-3 flex w-full items-center justify-end'>
        <Pagination
         onChange={page_handler}
         count={students.last_page}
         defaultPage={currentPage}
+        variant="outlined"
         color="primary"
         shape="rounded"
       />

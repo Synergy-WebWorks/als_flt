@@ -36,7 +36,9 @@ export default function DeleteSection({ data }) {
             await store.dispatch(get_students_thunk());
             setNotify(true);
             setLoading(false);
+            handleClose()
         } else {
+            handleClose()
             setLoading(false);
         }
     }

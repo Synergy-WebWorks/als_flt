@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box } from "@mui/material";
+import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { get_user_login_thunk } from "@/app/redux/app-thunk";
 import EditIlaFormComponents from "../components/edit-ila-form-components";
@@ -8,6 +8,8 @@ import { update_examiner_center_service } from "@/app/services/examiner-service"
 import store from "@/app/pages/store/store";
 import { get_score_sheets_by_id_thunk } from "../../redux/students-thunk";
 import { Print } from "@mui/icons-material";
+import { edit_all_ila_service } from "@/app/services/answer-service";
+import { router } from "@inertiajs/react";
 
 export default function ILAFormSection() {
     const dispatch = useDispatch();
@@ -57,14 +59,26 @@ export default function ILAFormSection() {
             }
         }
     }
+    console.log("scoresheet", scoresheet);
 
+    async function select_handler(e) {
+        await edit_all_ila_service({
+            id: 0,
+            booklet_id: booklet_id,
+            student_id: student_id,
+            value: e.target.value,
+        });
+
+       router.visit(window.location.href)
+    }
     return (
         <div className="flex flex-col py-3 mx-12">
             <div>
-                <a 
-                href={`/get_ila/${student_id}/${booklet_id}`}
-                target="_blank">
-                      <Print/>  Print
+                <a
+                    href={`/get_ila/${student_id}/${booklet_id}`}
+                    target="_blank"
+                >
+                    <Print /> Print
                 </a>
             </div>
             <div className="uppercase flex items-center justify-center text-xl font-black">
@@ -92,8 +106,8 @@ export default function ILAFormSection() {
                         />
                     ) : (
                         <div onDoubleClick={() => double_tap()}>
-                            {scoresheet?.examiner?.learning_center ??
-                                "No Learning Center"}
+                            {scoresheet?.examiner?.schedule?.teacher?.name ??
+                                "No Examiner"}
                         </div>
                     )}
                 </div>
@@ -119,8 +133,29 @@ export default function ILAFormSection() {
                             Delivery Mode
                         </div>
                         <div className="w-full text-xs text-center">
-                            Mga Pamamaraan sa Pagkatuto (Face to face,
-                            Independent Learning, BRI, eLearning/Eskwela)
+                            {/* Mga Pamamaraan sa Pagkatuto (Face to face,
+                            Independent Learning, BRI, eLearning/Eskwela) */}
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label"></InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    // value={age}
+                                    label=""
+                                    onChange={select_handler}
+                                >
+                                    <MenuItem value="BRI">BRI</MenuItem>
+                                    <MenuItem value="Face to face">
+                                        Face to face
+                                    </MenuItem>
+                                    <MenuItem value="eLearning/Eskwela">
+                                        eLearning/Eskwela
+                                    </MenuItem>
+                                    <MenuItem value="Independent Learning">
+                                        Independent Learning
+                                    </MenuItem>
+                                </Select>
+                            </FormControl>
                         </div>
                     </Box>
                     <Box className="w-[18%] " sx={{ borderLeft: 1 }}>
@@ -240,9 +275,10 @@ export default function ILAFormSection() {
                                         className="w-[18%] "
                                         sx={{ borderLeft: 1 }}
                                     >
-                                        <EditIlaFormComponents 
-                                         column="facilitator"
-                                        data={res} />
+                                        <EditIlaFormComponents
+                                            column="facilitator"
+                                            data={res}
+                                        />
                                     </Box>
                                 </div>
                             </Box>

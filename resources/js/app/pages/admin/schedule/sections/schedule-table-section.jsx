@@ -9,15 +9,19 @@ import Paper from '@mui/material/Paper';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { router } from '@inertiajs/react';
-import { Button } from '@mui/material';
+import { Button, Pagination } from '@mui/material';
 import { Visibility } from '@mui/icons-material';
+import PaginationSection from './pagination-section';
+import DeleteSection from './delete-section';
 
 
 export default function ScheduleTableSection() {
     const { schedules } = useSelector((state) => state.schedule)
+    console.log('schedules',schedules)
     return (
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table 
+            sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
                         <TableCell><div className="font-bold">Reference Test ID</div></TableCell>
@@ -50,6 +54,7 @@ export default function ScheduleTableSection() {
                                 </TableCell>
                                 <TableCell>
                                     <div className='flex gap-2'>
+                                        <DeleteSection data={res} />
                                         {/* {
                       !res.enrollment && <AddEnrollmentSection data={res}/>
                     }
@@ -70,6 +75,10 @@ export default function ScheduleTableSection() {
                     })}
                 </TableBody>
             </Table>
+            <br />
+      <div className='p-3 flex w-full items-center justify-end'>
+        <PaginationSection />
+      </div>
         </TableContainer>
     );
 }

@@ -34,6 +34,7 @@ export default function DeleteSection({ data }) {
     if (result.status == 200) {
       await store.dispatch(get_teachers_thunk())
       setNotify(true)
+      handleClose()
       setLoading(false)
     } else {
       setLoading(false)

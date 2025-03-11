@@ -1,24 +1,18 @@
-ang scoresheet sa student ug teacher dili pariah ug result --done
-dapat ang teacher ray maka edit sa scoresheet sa student dili ang admin --done
-sa teacher na portal dili ma view ang ila sa student. --done
-ibold ang mga title sa table sa tanang portal --done
-ang image sa examination sa ls:6 number8 sa student portal --done
-sa teacher ug student kay guba ang start ug end time and date --done
-and instructions sa exam  kay Nawala(sa student) --done
-e remove ng leaning center sa teacher portal --done
-ang timer sa student examination kay 1hr and 30mins--done
-naa japun timer biskan nahuman nag exam ang student portal --done
-ang scoresheet wrong spelling sa ( FLT LEARNER SCORESHEETS) --done
-ang profile sa student ug ang sa teacher --done
-creat sched sa admin portal, pag click sa als level mugawas ang booklet na same sa als level --done
-anag dashboard sa student portal kay paaddan u isa ka pic ug sa about als --done
-ilisan ang gif sa registration --done
-butangan ug page para sa ila ug scoresheet sa student na portal -pending (DILI NI PWDI KAY MAG CONFLICT KUNG KINSA ANG MO RETAKE)
-sa dashboard sa teacher portal add total of student --done
-maedit ang learning center sa ila --done
-
-ang ila and scoresheet fix margin
+Admin portal
+sa admin student page e rename ang edit title sa student. --done
+e remove ang district sa pag edit sa student. --done
+add mobile number sa pag edit sa student  --done
+add pagination sa schedule  --done
+add delete schedule --done
+add delete  --done
+sa schudule dili na maka add ug student basta ma overdue ang date.  --done
+sa ILA sa left dapat learner signature over printed name  --done
+sa ILA sa right dapat naay name over printed name sa facilitator  --done
+sa ILA Delivery Mode add select option face to face,Face to face, Independent Learning, BRI, eLearning/Eskwela --done
 
 
+Teacher Portal
+sa ila automatic ma assign sa facilitator. --done
+e PDF pud ang Scoreshot
 
 

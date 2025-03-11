@@ -43,8 +43,8 @@ export default function ExaminerTableSection() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {examiners &&
-                        examiners?.map((res, i) => {
+                    {examiners?.response &&
+                        examiners?.response?.map((res, i) => {
                             const dob = moment(res.dob, "YYYY-MM-DD"); // Replace with actual date of birth
                             const age = moment().diff(dob, "years");
                             return (

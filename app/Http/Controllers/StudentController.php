@@ -34,7 +34,8 @@ class StudentController extends Controller
         // Define validation rules for the incoming data
         $validatedData = $request->validate([
             'dob' => 'required|date', // Example validation for date of birth
-            'district_id' => 'required|integer',
+            'mobile' => 'required',
+            'district_id' => 'nullable|integer',
             'email' => 'required|email|unique:users,email,' . $id, // Ensure email is unique except for the current user
             'name' => 'required|string',  // Assuming 'name' is passed instead of 'distnamerict_id'
             'password' => 'nullable|string|min:8',  // Password is optional
@@ -49,8 +50,9 @@ class StudentController extends Controller
             'district_id' => $validatedData['district_id']??'',
             'email' => $validatedData['email'],
             'name' => $validatedData['name'],
+            'mobile' => $validatedData['mobile'],
         ];
-
+        
         // Check if password is provided and update it
         if ($request->filled('password')) {
             $dataToUpdate['password'] = Hash::make($validatedData['password']);

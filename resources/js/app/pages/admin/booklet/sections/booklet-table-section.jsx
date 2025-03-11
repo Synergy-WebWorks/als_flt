@@ -14,6 +14,7 @@ import { router } from "@inertiajs/react";
 import { Button } from "@mui/material";
 import { Visibility } from "@mui/icons-material";
 import BookletEditSection from "./booklet-edit-section";
+import DeleteSection from "./delete-section";
 // import { Visibility } from '@mui/icons-material';
 // import { Button } from '@mui/material';
 // import { router } from '@inertiajs/react';
@@ -61,6 +62,8 @@ export default function BookletTableSection() {
                                 </TableCell>
                                 <TableCell>
                                     <div className="flex gap-2">
+                                        <DeleteSection data={res} />
+                                        <BookletEditSection datas={res} />
                                         <Button
                                             onClick={() =>
                                                 router.visit(
@@ -73,7 +76,6 @@ export default function BookletTableSection() {
                                         >
                                             <Visibility />
                                         </Button>
-                                        <BookletEditSection datas={res} />
                                     </div>
                                 </TableCell>
                             </TableRow>

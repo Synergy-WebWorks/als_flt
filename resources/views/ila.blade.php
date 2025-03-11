@@ -47,7 +47,34 @@
             padding: 10px;
             border: 1px solid black;
         }
+
+        @page {
+            size: legal landscape;
+            margin: 20mm 10mm 30mm 10mm;
+            /* Ensure enough space for the footer */
+        }
+
+        @page {
+            @bottom-center {
+                content: element(footer);
+            }
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .footer table {
+            width: 100%;
+            border-collapse: collapse;
+        }
     </style>
+
 </head>
 
 <body>
@@ -63,32 +90,35 @@
         </tr>
         <tr>
             <td style="text-align: left;">Level: {{ $scoresheet->als_level ?? '' }}</td>
-            <td style="text-align: right;">Name of Learning Facilitator: {{ $scoresheet->examiner->learning_center ?? '' }}</td>
+            <td style="text-align: right;">Name of Learning Facilitator: {{ $scoresheet->examiner->schedule->teacher->name ?? '' }}</td>
         </tr>
     </table>
-
+    <!-- {scoresheet?.examiner?.schedule?.teacher?.name ??
+        "No Examiner"} -->
 
     <div style="margin: 10px 0;">
         <b>Direction:</b> Write your learning goals, your learning activities or strategies in order to attain these goals, and the timeline.
     </div>
 
     <!-- Learning Goals Table -->
-    <table>
-        <tr class="bg-gray">
-            <td style="width: 25%;"><b>Learning Goals</b> <br> (Kasanayang Gusto Kong Matutunan)</td>
-            <td style="max-width: 25%;"><b>Delivery Mode</b> <br> (Face-to-face, BRI, eLearning, etc.)</td>
-            <td style="max-width: 15%;"><b>Timeline</b> <br> (Kailan mo ito gustong matutunan?)</td>
-            <td style="max-width: 25%;"><b>Review of Learning Goals</b><br />
-                <table>
-                    <tr>
-                        <td style="width: 33%;">Achieved<br />(Nakamtan)</td>
-                        <td style="width: 33%;">Not Achieved<br />(Hindi Nakamtan)</td>
-                        <td style="width: 33%;">Date of Review<br />(Petsa ng pagsusuri)</td>
-                    </tr>
-                </table>
-            </td>
-            <td style="max-width: 10%;"><b>Learning Facilitators</b><br />(Payo ng Learning Facilitator)</td>
-        </tr>
+    <table style="margin-bottom: 10px !important;">
+        <thead>
+            <tr class="bg-gray">
+                <td style="width: 25%;"><b>Learning Goals</b> <br> (Kasanayang Gusto Kong Matutunan)</td>
+                <td style="max-width: 25%;"><b>Delivery Mode</b> <br> (Face-to-face, BRI, eLearning, etc.)</td>
+                <td style="max-width: 15%;"><b>Timeline</b> <br> (Kailan mo ito gustong matutunan?)</td>
+                <td style="max-width: 25%;"><b>Review of Learning Goals</b><br />
+                    <table>
+                        <tr>
+                            <td style="width: 33%;">Achieved<br />(Nakamtan)</td>
+                            <td style="width: 33%;">Not Achieved<br />(Hindi Nakamtan)</td>
+                            <td style="width: 33%;">Date of Review<br />(Petsa ng pagsusuri)</td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="max-width: 10%;"><b>Learning Facilitators</b><br />(Payo ng Learning Facilitator)</td>
+            </tr>
+        </thead>
         <tbody>
             @php
             $zeroScoreArray = collect($scoresheet->answers ?? [])->filter(function ($item) {
@@ -112,13 +142,6 @@
                         </tr>
                     </table>
                     @endif
-                    <!-- <table>
-                        <tr>
-                            <td style="width: 33%;">{{ $res->achieved ?? '' }}</td>
-                            <td style="width: 33%;">{{ $res->not_achieved ?? '' }}</td>
-                            <td style="width: 33%;">{{ $res->date_of_review ?? '' }}</td>
-                        </tr>
-                    </table> -->
                 </td>
                 <td style="max-width: 10%;">{{ $res->facilitator ?? '' }}</td>
             </tr>
@@ -128,6 +151,25 @@
 
     </table>
 
+    <div class="footer" id="footer">
+        <table class="header-table" style="width: 100%;">
+            <tfoot>
+                <tr>
+                    <td style="width: 50%; text-align: left; padding-top: 10px;">
+                        <div style="margin-left: 100px !important;margin-right: 250px !important; border-top: 2px solid black;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Learner's Signature over Printed Name)
+                        </div>
+                    </td>
+                    <td style="width: 50%; text-align: right; padding-top: 10px;">
+                        <div style="margin-left: 250px !important; margin-right: 100px !important; border-top: 2px solid black;">
+                            (Learning Facilitator's Signature over Printed Name)
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
 </body>
 
 </html>

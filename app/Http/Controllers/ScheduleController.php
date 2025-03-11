@@ -10,7 +10,7 @@ class ScheduleController extends Controller
 
     public function index()
     {
-        $users = Schedule::with(['user','learning_center'])->paginate(10);
+        $users = Schedule::with(['user','learning_center'])->orderBy('id','desc')->paginate(10);
         return response()->json([
             'response' => $users,
         ], 200);
@@ -43,4 +43,11 @@ class ScheduleController extends Controller
         ], 200);
     }
     
+    public function destroy($id)
+    {
+        Schedule::where('id', $id)->delete();
+        return response()->json([
+            'response' => 'success',
+        ], 200);
+    }
 }

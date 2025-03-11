@@ -45,7 +45,7 @@ export function store_schedule_thunk(data) {
   export function get_examiner_by_id_thunk(id) {
     return async function (dispatch, getState) {
       const res = await get_examiner_by_id_service(id)
-      dispatch(scheduleSlice.actions.setExaminers(res.data.response));
+      dispatch(scheduleSlice.actions.setExaminers(res.data));
       return res
     };
   }

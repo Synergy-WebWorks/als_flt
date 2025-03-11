@@ -10,6 +10,7 @@ class ScoreSheetController extends Controller
     
     public function show(Request $request,$id)
     {
+        
         $scoresheet = ScoreSheet::where([
             ['user_id','=',$id],
             ['booklet_id','=',$request->booklet_id],

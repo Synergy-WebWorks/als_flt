@@ -17,6 +17,7 @@ import { Checklist, ListAlt } from "@mui/icons-material";
 import DeleteSection from "./delete-section";
 import UpdateSection from "./update-section";
 import IsApprovedSection from "./is-approved-section";
+import PaginationSection from "./pagination-section";
 // import { router } from '@inertiajs/react';
 // import AddEnrollmentSection from './add-enrollment-section';
 
@@ -116,6 +117,8 @@ export default function TableSection() {
                     })}
                 </TableBody>
             </Table>
+            
+          <PaginationSection />
         </TableContainer>
     );
 }
