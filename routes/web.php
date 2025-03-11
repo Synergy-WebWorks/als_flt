@@ -27,6 +27,7 @@ Route::middleware('redirectBasedOnRole')->get('/register', function () {
 
 
 Route::get('/get_ila/{user_id}/{booket_id}', [SpecificationController::class, 'get_ila']);
+Route::get('/scoresheet/{user_id}/{booket_id}', [SpecificationController::class, 'scoresheet']);
 
 
 Route::middleware('auth:sanctum', 'administrator', 'verified')->prefix('administrator')->group(function () {

@@ -10,6 +10,20 @@ use Illuminate\Http\Request;
 class SpecificationController extends Controller
 {
 
+    public function scoresheet($user_id, $booklet_id){
+        $scoresheet = ScoreSheet::where([
+            ['user_id', '=', $user_id],
+            ['booklet_id', '=', $booklet_id],
+        ])->with(['answers', 'booklet', 'user', 'examiner'])->first();
+
+        if (!$scoresheet) {
+            abort(404, 'Scoresheet not found');
+        }
+        $pdf = Pdf::loadView('scoresheet', compact('scoresheet'));
+
+        return $pdf->stream('scoresheet.pdf');
+    }
+
     public function get_ila($user_id, $booklet_id)
     {
         $scoresheet = ScoreSheet::where([

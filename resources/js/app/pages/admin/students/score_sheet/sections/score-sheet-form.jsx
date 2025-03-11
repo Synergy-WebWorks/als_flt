@@ -1,7 +1,7 @@
 import store from "@/app/pages/store/store";
 import EditScoreSection from "@/app/pages/student/examination/id/sections/edit-score-section";
 import { get_user_login_thunk } from "@/app/redux/app-thunk";
-import { Check, Close } from "@mui/icons-material";
+import { Check, Close, Print } from "@mui/icons-material";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -11,6 +11,7 @@ const HtmlRenderer = ({ htmlContent }) => (
     <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
 );
 
+
 export default function ScoreSheetForm() {
     const { student,scoresheet } = useSelector((store) => store.students);
     const { user } = useSelector((store) => store.app);
@@ -18,6 +19,9 @@ export default function ScoreSheetForm() {
     const scoreSheet = scoresheet;
     const examinations = scoreSheet?.booklet?.examinations ?? [];
     const answers = scoreSheet?.answers || [];
+
+    const student_id = window.location.pathname.split("/")[4];
+    const booklet_id = window.location.pathname.split("/")[5];
 
     useEffect(() => {
         store.dispatch(get_user_login_thunk());
@@ -43,6 +47,14 @@ export default function ScoreSheetForm() {
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-xl p-5 rounded-md border border-gray-300 shadow-lg bg-white">
                 <div className="flex flex-col gap-2">
+                     <div>
+                                    <a
+                                        href={`/scoresheet/${student_id}/${booklet_id}`}
+                                        target="_blank"
+                                    >
+                                        <Print /> Print
+                                    </a>
+                                </div>
                     <div className="text-xl font-black text-center">
                       FLT LEARNER SCORESHEETS
                     </div>
