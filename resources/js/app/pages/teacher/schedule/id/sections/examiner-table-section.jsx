@@ -22,7 +22,7 @@ import { Checklist, ListAlt, Visibility } from "@mui/icons-material";
 export default function ExaminerTableSection() {
     const { examiners } = useSelector((state) => state.schedule);
 
-    console.log("examiners", examiners);
+    console.log("examiners", examiners.response);
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -45,47 +45,55 @@ export default function ExaminerTableSection() {
                 <TableBody>
                     {examiners?.response &&
                         examiners?.response?.map((res, i) => {
-                            const dob = moment(res.dob, "YYYY-MM-DD"); // Replace with actual date of birth
+                            const dob = moment(res?.dob, "YYYY-MM-DD"); // Replace with actual date of birth
                             const age = moment().diff(dob, "years");
                             return (
-                                <TableRow
-                                    key={i}
-                                    sx={{
-                                        "&:last-child td, &:last-child th": {
-                                            border: 0,
-                                        },
-                                    }}
-                                >
-                                    <TableCell>{res.reference_id}</TableCell>
-                                    <TableCell>{res.user.name}</TableCell>
-                                    <TableCell>
-                                        {res?.user?.mobile ?? ""}
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="flex gap-2">
-                                            <Button
-                                                target="_blank"
-                                                
-                                                href={`/teacher/schedule/ila_assessment_form/${res.examiner_id}/${res.schedule.booklet_id}?examiner=${res?.schedule?.teacher?.name}`}
-                                                size="small"
-                                                variant="contained"
-                                                color="primary"
-                                            >
-                                                <ListAlt />
-                                            </Button>
-                                            <Button
-                                                target="_blank"
-                                                href={`/teacher/schedule/score_sheet/${res.examiner_id}/${res.schedule.booklet_id}`}
-                                                size="small"
-                                                variant="contained"
-                                                color="success"
-                                            >
-                                                <Checklist />
-                                            </Button>
-                                            {/* <DeleteExaminerSection data={res}/> */}
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
+                                <>
+                                    {res.user && (
+                                        <TableRow
+                                            key={i}
+                                            sx={{
+                                                "&:last-child td, &:last-child th":
+                                                    {
+                                                        border: 0,
+                                                    },
+                                            }}
+                                        >
+                                            <TableCell>
+                                                {res?.reference_id}
+                                            </TableCell>
+                                            <TableCell>
+                                                {res?.user?.name}
+                                            </TableCell>
+                                            <TableCell>
+                                                {res?.user?.mobile ?? ""}
+                                            </TableCell>
+                                            <TableCell>
+                                                <div className="flex gap-2">
+                                                    <Button
+                                                        target="_blank"
+                                                        href={`/teacher/schedule/ila_assessment_form/${res?.examiner_id}/${res?.schedule.booklet_id}?examiner=${res?.schedule?.teacher?.name}`}
+                                                        size="small"
+                                                        variant="contained"
+                                                        color="primary"
+                                                    >
+                                                        <ListAlt />
+                                                    </Button>
+                                                    <Button
+                                                        target="_blank"
+                                                        href={`/teacher/schedule/score_sheet/${res?.examiner_id}/${res?.schedule.booklet_id}`}
+                                                        size="small"
+                                                        variant="contained"
+                                                        color="success"
+                                                    >
+                                                        <Checklist />
+                                                    </Button>
+                                                    {/* <DeleteExaminerSection data={res}/> */}
+                                                </div>
+                                            </TableCell>
+                                        </TableRow>
+                                    )}
+                                </>
                             );
                         })}
                 </TableBody>

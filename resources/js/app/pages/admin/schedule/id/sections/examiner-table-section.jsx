@@ -21,7 +21,7 @@ import DeleteExaminerSection from "./delete-examiner-section";
 
 export default function ExaminerTableSection() {
     const { examiners } = useSelector((state) => state.schedule);
-    
+
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -46,58 +46,69 @@ export default function ExaminerTableSection() {
                         examiners?.response?.map((res, i) => {
                             const dob = moment(res.dob, "YYYY-MM-DD"); // Replace with actual date of birth
                             const age = moment().diff(dob, "years");
-                            console.log('resresres',res)
+                            console.log("resresres", res);
                             return (
-                                <TableRow
-                                    key={i}
-                                    sx={{
-                                        "&:last-child td, &:last-child th": {
-                                            border: 0,
-                                        },
-                                    }}
-                                >
-                                    <TableCell>{res.reference_id}</TableCell>
-                                    <TableCell>{res.user.name}</TableCell>
-                                    <TableCell>
-                                        {res?.user?.mobile ?? ""}
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="flex gap-2">
-                                            <a
-                                                target="_blank"
-                                                href={`/administrator/students/ila_assessment_form/${res.examiner_id}/${res.schedule.booklet_id}?examiner=${res?.schedule?.teacher?.name}`}
-                                            >
-                                                <Button
-                                                    size="small"
-                                                    variant="contained"
-                                                    color="primary"
-                                                >
-                                                    <ListAlt />
-                                                </Button>
-                                            </a>
-                                            <a
-                                                target="_blank"
-                                                href={`/administrator/students/score_sheet/${res.examiner_id}/${res.schedule.booklet_id}`}
-                                            >
-                                                <Button
-                                                    size="small"
-                                                    variant="contained"
-                                                    color="success"
-                                                >
-                                                    <Checklist />
-                                                </Button>
-                                            </a>
-                                            {/* <Button
-                                            onClick={() => router.visit(`/administrator/schedule/${res.id}`)}
-                                            size='small'
-                                            variant='contained'
-                                            color='success'>
-                                            <Visibility />
-                                        </Button> */}
-                                            <DeleteExaminerSection data={res} />
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
+                                <>
+                                    {res.user && (
+                                        <TableRow
+                                            key={i}
+                                            sx={{
+                                                "&:last-child td, &:last-child th":
+                                                    {
+                                                        border: 0,
+                                                    },
+                                            }}
+                                        >
+                                            <TableCell>
+                                                {res.reference_id}
+                                            </TableCell>
+                                            <TableCell>
+                                                {res.user.name}
+                                            </TableCell>
+                                            <TableCell>
+                                                {res?.user?.mobile ?? ""}
+                                            </TableCell>
+                                            <TableCell>
+                                                <div className="flex gap-2">
+                                                    <a
+                                                        target="_blank"
+                                                        href={`/administrator/students/ila_assessment_form/${res.examiner_id}/${res.schedule.booklet_id}?examiner=${res?.schedule?.teacher?.name}`}
+                                                    >
+                                                        <Button
+                                                            size="small"
+                                                            variant="contained"
+                                                            color="primary"
+                                                        >
+                                                            <ListAlt />
+                                                        </Button>
+                                                    </a>
+                                                    <a
+                                                        target="_blank"
+                                                        href={`/administrator/students/score_sheet/${res.examiner_id}/${res.schedule.booklet_id}`}
+                                                    >
+                                                        <Button
+                                                            size="small"
+                                                            variant="contained"
+                                                            color="success"
+                                                        >
+                                                            <Checklist />
+                                                        </Button>
+                                                    </a>
+                                                    {/* <Button
+                                        onClick={() => router.visit(`/administrator/schedule/${res.id}`)}
+                                        size='small'
+                                        variant='contained'
+                                        color='success'>
+                                        <Visibility />
+                                    </Button> */}
+                                                    <DeleteExaminerSection
+                                                        data={res}
+                                                    />
+                                                </div>
+                                            </TableCell>
+                                        </TableRow>
+                                    )}
+                                </>
                             );
                         })}
                 </TableBody>

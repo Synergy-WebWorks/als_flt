@@ -48,7 +48,7 @@ export default function ScheduleTableSection() {
                 </TableHead>
                 <TableBody>
                     {schedules?.map((res, i) => {
-                        const dob = moment(res.dob, "YYYY-MM-DD"); // Replace with actual date of birth
+                        const dob = moment(res?.dob, "YYYY-MM-DD"); // Replace with actual date of birth
                         const age = moment().diff(dob, "years");
                         return (
                             <TableRow
@@ -59,19 +59,19 @@ export default function ScheduleTableSection() {
                                     },
                                 }}
                             >
-                                <TableCell>{res.unique_id}</TableCell>
-                                <TableCell>{res.user.name}</TableCell>
+                                <TableCell>{res?.unique_id}</TableCell>
+                                <TableCell>{res?.user?.name}</TableCell>
                                 <TableCell>{res?.als_level ?? ""}</TableCell>
                                 <TableCell>
-                                    {moment(res.start_at).format("LLLL")}
+                                    {moment(res?.start_at).format("LLLL")}
                                 </TableCell>
                                 <TableCell>
-                                    {moment(res.end_at).format("LLLL")}
+                                    {moment(res?.end_at).format("LLLL")}
                                 </TableCell>
                                 <TableCell>
                                     <div className="flex gap-2">
                                         {/* {
-                      !res.enrollment && <AddEnrollmentSection data={res}/>
+                      !res?.enrollment && <AddEnrollmentSection data={res}/>
                     }
                      */}
                                         {/* <UpdateSection data={res} />
@@ -79,7 +79,7 @@ export default function ScheduleTableSection() {
                                         <Button
                                             onClick={() =>
                                                 router.visit(
-                                                    `/teacher/schedule/${res.unique_id}`,
+                                                    `/teacher/schedule/${res?.unique_id}`,
                                                 )
                                             }
                                             size="small"
