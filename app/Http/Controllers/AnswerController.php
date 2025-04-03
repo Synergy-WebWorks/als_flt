@@ -14,7 +14,9 @@ class AnswerController extends Controller
         $score_sheet = ScoreSheet::where([
             ['user_id', '=', $request->student_id],
             ['booklet_id', '=', $request->booklet_id],
+            ['reference_id','=',$request->reference_id]
         ])->first();
+        
         $answers = Answer::where('score_sheet_id', $score_sheet->id)->get();
         foreach ($answers as $key => $value) {
             if ($value) {

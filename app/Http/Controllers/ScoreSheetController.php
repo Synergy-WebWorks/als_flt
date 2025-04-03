@@ -14,6 +14,7 @@ class ScoreSheetController extends Controller
         $scoresheet = ScoreSheet::where([
             ['user_id','=',$id],
             ['booklet_id','=',$request->booklet_id],
+            ['reference_id','=',$request->reference_id],
         ])->with(['answers','booklet','user','examiner'])->first();
         return response()->json([
             'response' =>$scoresheet,

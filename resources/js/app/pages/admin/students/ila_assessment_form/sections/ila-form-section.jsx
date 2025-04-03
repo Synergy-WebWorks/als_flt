@@ -22,6 +22,7 @@ export default function ILAFormSection() {
     );
     const [isEdit, setIsEdit] = useState(false);
     const params = new URLSearchParams(window.location.search);
+    const reference_id = params.get("reference_id");
 
     const student_id = window.location.pathname.split("/")[4];
     const booklet_id = window.location.pathname.split("/")[5];
@@ -67,6 +68,7 @@ export default function ILAFormSection() {
             booklet_id: booklet_id,
             student_id: student_id,
             value: e.target.value,
+            reference_id:reference_id
         });
 
        router.visit(window.location.href)
@@ -75,7 +77,7 @@ export default function ILAFormSection() {
         <div className="flex flex-col py-3 mx-12">
             <div>
                 <a
-                    href={`/get_ila/${student_id}/${booklet_id}`}
+                    href={`/get_ila/${student_id}/${booklet_id}?reference_id=${reference_id}`}
                     target="_blank"
                 >
                     <Print /> Print

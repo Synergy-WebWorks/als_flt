@@ -30,12 +30,12 @@ export default function TimerSection() {
     const path = window.location.pathname.split("/")[3];
 
    
-    console.log('bookletbooklet',user)
+    console.log('bookletbookletssss',scoresheet)
 
     function start_timer() {
         const start = timeLeft == 0 ? 5400 : timeLeft;
         dispatch(setTimeLeft(start)); // Set timer for 1 hour and 30 minutes (5400 seconds)
-        dispatch(setTimerActive(true));
+        dispatch(setTimerActive(true)); 
         setOpen(false);
     }
     React.useEffect(() => {

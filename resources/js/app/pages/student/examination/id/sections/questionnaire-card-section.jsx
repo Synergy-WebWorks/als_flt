@@ -32,7 +32,7 @@ export default function QuestionnaireCardSection() {
         (store) => store.app,
     );
     const params = new URLSearchParams(window.location.search);
-const reference_id = params.get("reference_id");
+    const reference_id = params.get("reference_id");
 
     const [loading, setLoading] = useState(false);
     const booklet_id = window.location.pathname.split("/")[3];
@@ -97,7 +97,7 @@ const reference_id = params.get("reference_id");
                     date: moment().format("LLLL"),
                     als_level: booklet.als_level,
                     booklet_id: booklet_id,
-                    reference_id:reference_id
+                    reference_id: reference_id,
                 }),
             );
             dispatch(setTimeLeft(0));

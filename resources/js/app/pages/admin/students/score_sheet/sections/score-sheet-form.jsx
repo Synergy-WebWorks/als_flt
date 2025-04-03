@@ -22,7 +22,8 @@ export default function ScoreSheetForm() {
 
     const student_id = window.location.pathname.split("/")[4];
     const booklet_id = window.location.pathname.split("/")[5];
-
+    const params = new URLSearchParams(window.location.search);
+    const reference_id = params.get("reference_id");
     useEffect(() => {
         store.dispatch(get_user_login_thunk());
     }, []);
@@ -49,7 +50,7 @@ export default function ScoreSheetForm() {
                 <div className="flex flex-col gap-2">
                      <div>
                                     <a
-                                        href={`/scoresheet/${student_id}/${booklet_id}`}
+                                        href={`/scoresheet/${student_id}/${booklet_id}?reference_id=${reference_id}`}
                                         target="_blank"
                                     >
                                         <Print /> Print

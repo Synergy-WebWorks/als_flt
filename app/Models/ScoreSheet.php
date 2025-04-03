@@ -14,6 +14,7 @@ class ScoreSheet extends Model
         'user_id',
         'booklet_id',
         'overall_score',
+        'reference_id',
         'als_level',
         'date',
     ];
