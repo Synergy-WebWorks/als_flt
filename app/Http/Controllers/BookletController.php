@@ -16,7 +16,7 @@ class BookletController extends Controller
     }
 
 
-    public function show($id)
+    public function show(Request $request,$id)
     {
         $booklet = Booklet::where('id', $id)->with(['examinations'])
         ->orderBy('created_at', 'asc')->first();

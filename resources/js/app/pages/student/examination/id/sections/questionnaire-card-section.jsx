@@ -26,11 +26,14 @@ import { router } from "@inertiajs/react";
 import { useEffect } from "react";
 
 export default function QuestionnaireCardSection() {
-    const { questionnaires } = useSelector((store) => store.questionnaires);
+    const { scoresheet } = useSelector((state) => state.students);
     const { booklet } = useSelector((store) => store.booklets);
     const { user, data, timeLeft, timerActive } = useSelector(
         (store) => store.app,
     );
+    const params = new URLSearchParams(window.location.search);
+const reference_id = params.get("reference_id");
+
     const [loading, setLoading] = useState(false);
     const booklet_id = window.location.pathname.split("/")[3];
     const dispatch = useDispatch();
@@ -94,10 +97,11 @@ export default function QuestionnaireCardSection() {
                     date: moment().format("LLLL"),
                     als_level: booklet.als_level,
                     booklet_id: booklet_id,
+                    reference_id:reference_id
                 }),
             );
             dispatch(setTimeLeft(0));
-            store.dispatch(get_user_login_thunk());
+            // store.dispatch(get_user_login_thunk());
             localStorage.clear();
             window.location.href = "/student/examination";
             setOpen(false);
@@ -107,7 +111,8 @@ export default function QuestionnaireCardSection() {
             setLoading(false);
         }
     }
-    console.log("datassss", data);
+    console.log("datasssdadadkjs", scoresheet?.answers);
+
     return (
         <div className="flex flex-col gap-5">
             {booklet.examinations?.map((res, i) => {
@@ -132,10 +137,10 @@ export default function QuestionnaireCardSection() {
 
                         {res.question.map((ress, i) => {
                             let find_answer = {};
-                            if (user?.score_sheet?.answers && ress.id) {
-                                find_answer = user.score_sheet.answers.find(
+                            if (scoresheet?.answers && ress.id) {
+                                find_answer = scoresheet?.answers.find(
                                     (answer) =>
-                                        answer.questionnaire_id === ress.id,
+                                        answer.questionnaire_id == ress.id,
                                 );
                             }
                             return (
@@ -318,7 +323,7 @@ export default function QuestionnaireCardSection() {
                 );
             })}
 
-            {!user.score_sheet && (
+            {!scoresheet && (
                 <Button onClick={handleOpen} variant="contained">
                     SUBMIT ANSWER
                 </Button>

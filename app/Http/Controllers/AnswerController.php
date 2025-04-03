@@ -66,7 +66,11 @@ class AnswerController extends Controller
     public function store(Request $request)
     {
 
-        $score_sheet = ScoreSheet::where('user_id', '=', $request->user['id'])->first();
+        $score_sheet = ScoreSheet::where([
+            ['user_id', '=', $request->user['id']],
+            ['booklet_id', '=', $request->booklet_id],
+            ['reference_id','=',$request->reference_id]
+        ])->first();
 
         if (!$score_sheet) {
             $ss = ScoreSheet::create([
@@ -75,6 +79,7 @@ class AnswerController extends Controller
                 'overall_score' => 0,
                 'als_level' => $request->als_level,
                 'date' => $request->date,
+                'reference_id' => $request->reference_id,
             ]);
 
             foreach ($request->answers as $key => $value) {

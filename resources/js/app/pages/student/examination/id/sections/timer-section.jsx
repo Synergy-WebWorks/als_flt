@@ -21,6 +21,7 @@ const style = {
 export default function TimerSection() {
     const [open, setOpen] = React.useState(false);
     const { timeLeft, timerActive, user } = useSelector((store) => store.app);
+        const { scoresheet } = useSelector((state) => state.students);
     const dispatch = useDispatch();
     const handleOpen = () => setOpen(true);
         const { booklet } = useSelector((store) => store.booklets);
@@ -29,7 +30,7 @@ export default function TimerSection() {
     const path = window.location.pathname.split("/")[3];
 
    
-    console.log('bookletbooklet',booklet.id)
+    console.log('bookletbooklet',user)
 
     function start_timer() {
         const start = timeLeft == 0 ? 5400 : timeLeft;
@@ -46,19 +47,19 @@ export default function TimerSection() {
         }
     }, [timeLeft, timerActive, dispatch]);
 
-
     useEffect(() => {
-        if (user.score_sheet) {
+        if (scoresheet) {
             setOpen(false);
-        }  else if (user.score_sheet && path == undefined) {
+        }  else if (scoresheet && path == undefined) {
             setOpen(false);
-        } else if (booklet.id !== undefined && user.score_sheet == null && path != undefined) {
-            console.log('path',path)
+        } else if (booklet.id !== undefined && scoresheet == null && path != undefined) {
+          
             setOpen(true);
         }
         if (timeLeft != 0) {
             start_timer();
         }
+        
     }, [booklet.id]);
 
     return (

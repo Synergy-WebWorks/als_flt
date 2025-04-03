@@ -93,7 +93,7 @@ export default function ExaminationSection() {
                                         <Button
                                             onClick={() =>
                                                 router.visit(
-                                                    `/student/examination/${res.schedule.booklet_id}`,
+                                                    `/student/examination/${res.schedule.booklet_id}?reference_id=${res.reference_id}`,
                                                 )
                                             }
                                             size="small"

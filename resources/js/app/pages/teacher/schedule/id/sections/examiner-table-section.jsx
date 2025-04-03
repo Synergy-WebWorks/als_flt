@@ -47,6 +47,7 @@ export default function ExaminerTableSection() {
                         examiners?.response?.map((res, i) => {
                             const dob = moment(res?.dob, "YYYY-MM-DD"); // Replace with actual date of birth
                             const age = moment().diff(dob, "years");
+                            console.log('res',res)
                             return (
                                 <>
                                     {res.user && (
@@ -72,7 +73,7 @@ export default function ExaminerTableSection() {
                                                 <div className="flex gap-2">
                                                     <Button
                                                         target="_blank"
-                                                        href={`/teacher/schedule/ila_assessment_form/${res?.examiner_id}/${res?.schedule.booklet_id}?examiner=${res?.schedule?.teacher?.name}`}
+                                                        href={`/teacher/schedule/ila_assessment_form/${res?.examiner_id}/${res?.schedule.booklet_id}?examiner=${res?.schedule?.teacher?.name}&reference_id=${res.reference_id}`}
                                                         size="small"
                                                         variant="contained"
                                                         color="primary"
@@ -81,7 +82,7 @@ export default function ExaminerTableSection() {
                                                     </Button>
                                                     <Button
                                                         target="_blank"
-                                                        href={`/teacher/schedule/score_sheet/${res?.examiner_id}/${res?.schedule.booklet_id}`}
+                                                        href={`/teacher/schedule/score_sheet/${res?.examiner_id}/${res?.schedule.booklet_id}?reference_id=${res.reference_id}`}
                                                         size="small"
                                                         variant="contained"
                                                         color="success"

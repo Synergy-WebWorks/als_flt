@@ -10,8 +10,10 @@ export async function get_score_sheets_service() {
 }
 
 export async function get_score_sheets_by_id_service(id,booklet_id) {
+    const params = new URLSearchParams(window.location.search);
+    const reference_id = params.get("reference_id");
     try {
-        const res = await axios.get(`/api/score_sheets/${id}?booklet_id=${booklet_id}`);
+        const res = await axios.get(`/api/score_sheets/${id}?booklet_id=${booklet_id}&reference_id=${reference_id}`);
         return res;
     } catch (error) {
         return error;
