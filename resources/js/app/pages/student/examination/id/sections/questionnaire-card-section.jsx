@@ -25,7 +25,7 @@ import { setData, setTimeLeft } from "@/app/redux/app-slice";
 import { router } from "@inertiajs/react";
 import { useEffect } from "react";
 
-export default function QuestionnaireCardSection() {
+export default function QuestionnaireCardSection({loadingData}) {
     const { scoresheet } = useSelector((state) => state.students);
     const { booklet } = useSelector((store) => store.booklets);
     const { user, data, timeLeft, timerActive } = useSelector(

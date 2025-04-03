@@ -20,22 +20,24 @@ const style = {
 
 export default function TimerSection() {
     const [open, setOpen] = React.useState(false);
-    const { timeLeft, timerActive, user } = useSelector((store) => store.app);
-        const { scoresheet } = useSelector((state) => state.students);
+    const {
+        timeLeft,
+        timerActive,
+        loading: loadingData,
+    } = useSelector((store) => store.app);
+
+    const { scoresheet } = useSelector((state) => state.students);
     const dispatch = useDispatch();
     const handleOpen = () => setOpen(true);
-        const { booklet } = useSelector((store) => store.booklets);
+    const { booklet } = useSelector((store) => store.booklets);
     const handleClose = () => setOpen(false);
 
     const path = window.location.pathname.split("/")[3];
 
-   
-    console.log('bookletbookletssss',scoresheet)
-
     function start_timer() {
         const start = timeLeft == 0 ? 5400 : timeLeft;
         dispatch(setTimeLeft(start)); // Set timer for 1 hour and 30 minutes (5400 seconds)
-        dispatch(setTimerActive(true)); 
+        dispatch(setTimerActive(true));
         setOpen(false);
     }
     React.useEffect(() => {
@@ -48,19 +50,26 @@ export default function TimerSection() {
     }, [timeLeft, timerActive, dispatch]);
 
     useEffect(() => {
-        if (scoresheet) {
-            setOpen(false);
-        }  else if (scoresheet && path == undefined) {
-            setOpen(false);
-        } else if (booklet.id !== undefined && scoresheet == null && path != undefined) {
-          
+        console.log("bookletbookletssss", scoresheet?.id);
+        console.log("bookletbookletssss", loadingData);
+        if (scoresheet?.id == undefined && path !== undefined && !loadingData) {
             setOpen(true);
+        } else {
+            setOpen(false);
         }
-        if (timeLeft != 0) {
-            start_timer();
-        }
-        
-    }, [booklet.id]);
+        // if (scoresheet) {
+        //     setOpen(false);
+        // }  else if (scoresheet && path == undefined) {
+        //     setOpen(false);
+        // } else if (booklet.id !== undefined && scoresheet == null && path != undefined) {
+        //     setOpen(true);
+        // }else if(scoresheet == null){
+        //     setOpen(true);
+        // }
+        // if (timeLeft != 0) {
+        //     start_timer();
+        // }
+    }, [loadingData]);
 
     return (
         <div>

@@ -11,11 +11,15 @@ export const appSlice = createSlice({
     user:{},
     timeLeft:parseInt(localStorage.getItem("timer")??0)??5400,
     timerActive:false,
-    data:[]
+    data:[],
+    loading:true
   },
   reducers: {
     setIsModalOpen: (state, action) => {
       state.isModalOpen = action.payload
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload
     },
     setPathname: (state, action) => {
       state.pathname = action.payload
@@ -40,7 +44,8 @@ export const {
   setUser,
   setTimeLeft,
   setTimerActive,
-  setData
+  setData,
+  setLoading
  } = appSlice.actions
 
 export default appSlice.reducer
