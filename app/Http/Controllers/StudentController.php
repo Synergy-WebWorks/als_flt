@@ -11,7 +11,7 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search'); // Get search input
-        $query = User::where('user_type', 3)->with(['district']); // Filter by user_type
+        $query = User::where('user_type', 3)->orderBy('id', 'desc')->with(['district']); // Filter by user_type
 
         // Check if there's a search query, and if so, apply search across columns
         if (!empty($search)) {

@@ -10,7 +10,7 @@ class TeacherController extends Controller
 {
     public function index()
     {
-        $users = User::where('user_type', 2)->with(['district'])->paginate(10);
+        $users = User::where('user_type', 2)->with(['district'])->orderBy('id', 'desc')->paginate(10);
         return response()->json([
             'response' => $users,
         ], 200);
