@@ -70,37 +70,42 @@ export default function ExaminerTableSection() {
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex gap-2">
-                                                    <a
-                                                        target="_blank"
-                                                        href={`/administrator/students/ila_assessment_form/${res.examiner_id}/${res.schedule.booklet_id}?examiner=${res?.schedule?.teacher?.name}`}
-                                                    >
-                                                        <Button
-                                                            size="small"
-                                                            variant="contained"
-                                                            color="primary"
-                                                        >
-                                                            <ListAlt />
-                                                        </Button>
-                                                    </a>
-                                                    <a
-                                                        target="_blank"
-                                                        href={`/administrator/students/score_sheet/${res.examiner_id}/${res.schedule.booklet_id}`}
-                                                    >
-                                                        <Button
-                                                            size="small"
-                                                            variant="contained"
-                                                            color="success"
-                                                        >
-                                                            <Checklist />
-                                                        </Button>
-                                                    </a>
-                                                    {/* <Button
-                                        onClick={() => router.visit(`/administrator/schedule/${res.id}`)}
-                                        size='small'
-                                        variant='contained'
-                                        color='success'>
-                                        <Visibility />
-                                    </Button> */}
+                                                    {res.score_sheet !=
+                                                        null && (
+                                                        <>
+                                                            <a
+                                                                target="_blank"
+                                                                href={`/administrator/students/ila_assessment_form/${res.examiner_id}/${res.schedule.booklet_id}?examiner=${res?.schedule?.teacher?.name}&reference_id=${res.reference_id}`}
+                                                            >
+                                                                <Button
+                                                                    size="small"
+                                                                    variant="contained"
+                                                                    color="primary"
+                                                                >
+                                                                    <ListAlt />
+                                                                </Button>
+                                                            </a>
+                                                            <a
+                                                                target="_blank"
+                                                                href={`/administrator/students/score_sheet/${res.examiner_id}/${res.schedule.booklet_id}?reference_id=${res.reference_id}`}
+                                                            >
+                                                                <Button
+                                                                    size="small"
+                                                                    variant="contained"
+                                                                    color="success"
+                                                                >
+                                                                    <Checklist />
+                                                                </Button>
+                                                            </a>
+                                                        </>
+                                                    )}
+                                                    {res.score_sheet ==
+                                                        null && (
+                                                        <div className="bg-red-500 px-2.5 py-1.5 text-white rounded-md">
+                                                            No Answer Sheets
+                                                        </div>
+                                                    )}
+                                               
                                                     <DeleteExaminerSection
                                                         data={res}
                                                     />

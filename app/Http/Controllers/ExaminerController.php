@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Examiner;
 use App\Models\Schedule;
+use App\Models\ScoreSheet;
 use Illuminate\Http\Request;
 
 class ExaminerController extends Controller
@@ -40,14 +41,30 @@ class ExaminerController extends Controller
 
     public function show($id)
     {
-        $examiner = Examiner::where('reference_id', $id)->with(['user', 'schedule'])
-            ->orderBy('created_at', 'asc')->get();
+        $examiners = Examiner::where('reference_id', $id)
+            ->with(['user', 'schedule'])
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        foreach ($examiners as $examiner) {
+            $userId = optional($examiner->user)->id;
+
+            $scoreSheet = ScoreSheet::where('reference_id', $examiner->reference_id)
+                ->where('user_id', $userId)
+                ->first();
+
+            // Attach the score sheet directly to the examiner model
+            $examiner->score_sheet = $scoreSheet;
+        }
+
         $schedule = Schedule::where('unique_id', $id)->first();
+
         return response()->json([
             'schedule' => $schedule,
-            'response' => $examiner,
+            'response' => $examiners,
         ], 200);
     }
+
     public function store(Request $request)
     {
         $examiner = Examiner::where([

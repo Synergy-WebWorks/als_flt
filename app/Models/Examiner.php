@@ -22,5 +22,10 @@ class Examiner extends Model
     {
         return $this->hasOne(Schedule::class,'unique_id','reference_id')->with(['learning_center','booklet','teacher']);
     }
+    public function score_sheet(): HasOne
+    {
+        return $this->hasOne(ScoreSheet::class,'reference_id','reference_id')->with('answers');
+    }
+    
 }
 

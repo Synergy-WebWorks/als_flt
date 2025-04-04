@@ -47,7 +47,7 @@ export default function ExaminerTableSection() {
                         examiners?.response?.map((res, i) => {
                             const dob = moment(res?.dob, "YYYY-MM-DD"); // Replace with actual date of birth
                             const age = moment().diff(dob, "years");
-                            console.log('res',res)
+                            console.log("res", res);
                             return (
                                 <>
                                     {res.user && (
@@ -71,24 +71,35 @@ export default function ExaminerTableSection() {
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex gap-2">
-                                                    <Button
-                                                        target="_blank"
-                                                        href={`/teacher/schedule/ila_assessment_form/${res?.examiner_id}/${res?.schedule.booklet_id}?examiner=${res?.schedule?.teacher?.name}&reference_id=${res.reference_id}`}
-                                                        size="small"
-                                                        variant="contained"
-                                                        color="primary"
-                                                    >
-                                                        <ListAlt />
-                                                    </Button>
-                                                    <Button
-                                                        target="_blank"
-                                                        href={`/teacher/schedule/score_sheet/${res?.examiner_id}/${res?.schedule.booklet_id}?reference_id=${res.reference_id}`}
-                                                        size="small"
-                                                        variant="contained"
-                                                        color="success"
-                                                    >
-                                                        <Checklist />
-                                                    </Button>
+                                                    {res.score_sheet !=
+                                                        null && (
+                                                        <>
+                                                            <Button
+                                                                target="_blank"
+                                                                href={`/teacher/schedule/ila_assessment_form/${res?.examiner_id}/${res?.schedule.booklet_id}?examiner=${res?.schedule?.teacher?.name}&reference_id=${res.reference_id}`}
+                                                                size="small"
+                                                                variant="contained"
+                                                                color="primary"
+                                                            >
+                                                                <ListAlt />
+                                                            </Button>
+                                                            <Button
+                                                                target="_blank"
+                                                                href={`/teacher/schedule/score_sheet/${res?.examiner_id}/${res?.schedule.booklet_id}?reference_id=${res.reference_id}`}
+                                                                size="small"
+                                                                variant="contained"
+                                                                color="success"
+                                                            >
+                                                                <Checklist />
+                                                            </Button>
+                                                        </>
+                                                    )}
+                                                    {res.score_sheet ==
+                                                        null && (
+                                                        <div className="bg-red-500 px-2.5 py-1.5 text-white rounded-md">
+                                                            No Answer Sheets
+                                                        </div>
+                                                    )}
                                                     {/* <DeleteExaminerSection data={res}/> */}
                                                 </div>
                                             </TableCell>
