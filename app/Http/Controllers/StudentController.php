@@ -35,7 +35,7 @@ class StudentController extends Controller
         $validatedData = $request->validate([
             'dob' => 'required|date', // Example validation for date of birth
             'mobile' => 'required',
-            'district_id' => 'nullable|integer',
+            'district_id' => 'nullable',
             'email' => 'required|email|unique:users,email,' . $id, // Ensure email is unique except for the current user
             'name' => 'required|string',  // Assuming 'name' is passed instead of 'distnamerict_id'
             'password' => 'nullable|string|min:8',  // Password is optional
@@ -47,7 +47,7 @@ class StudentController extends Controller
         // Prepare data for update
         $dataToUpdate = [
             'dob' => $validatedData['dob'],
-            'district_id' => $validatedData['district_id']??'',
+            'district_id' => $validatedData['district_id']??null,
             'email' => $validatedData['email'],
             'name' => $validatedData['name'],
             'mobile' => $validatedData['mobile'],

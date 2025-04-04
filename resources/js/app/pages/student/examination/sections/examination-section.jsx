@@ -48,7 +48,7 @@ export default function ExaminationSection() {
                                 }}
                             >
                                 <TableCell>{res.reference_id}</TableCell>
-                                <TableCell>{res.user.name}</TableCell>
+                                <TableCell>{res?.schedule?.teacher?.name}</TableCell>
                                 <TableCell>
                                     {res?.schedule?.als_level ?? ""}
                                 </TableCell>
