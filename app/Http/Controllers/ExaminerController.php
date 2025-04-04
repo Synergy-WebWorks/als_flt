@@ -25,10 +25,23 @@ class ExaminerController extends Controller
 
     public function get_examiner_by_examiner_id($id)
     {
-        $examiner = Examiner::where('examiner_id', $id)->with(['user', 'schedule'])->get();
+        $examiners = Examiner::where('examiner_id', $id)->with(['user', 'schedule'])->get();
+
+        foreach ($examiners as $examiner) {
+            $userId = optional($examiner->user)->id;
+
+            $scoreSheet = ScoreSheet::where('reference_id', $examiner->reference_id)
+                ->where('user_id', $userId)
+                ->first();
+
+            // Attach the score sheet directly to the examiner model
+            $examiner->score_sheet = $scoreSheet;
+        }
+
         return response()->json([
-            'response' => $examiner,
+            'response' =>$examiners,
         ], 200);
+
     }
     public function index()
     {

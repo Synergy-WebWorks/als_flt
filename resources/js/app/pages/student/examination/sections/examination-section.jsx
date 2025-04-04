@@ -38,6 +38,14 @@ export default function ExaminationSection() {
                     {examiners?.map((res, i) => {
                         const dob = moment(res.dob, "YYYY-MM-DD"); // Replace with actual date of birth
                         const age = moment().diff(dob, "years");
+
+                        function isOverdue(obj) {
+                            const endDate = new Date(obj.end_at);
+                            const now = new Date();
+                            return endDate < now;
+                        }
+                        const over_due = isOverdue(res.schedule ?? {});
+                        console.log('over_due',over_due)
                         return (
                             <TableRow
                                 key={i}
@@ -48,15 +56,19 @@ export default function ExaminationSection() {
                                 }}
                             >
                                 <TableCell>{res.reference_id}</TableCell>
-                                <TableCell>{res?.schedule?.teacher?.name}</TableCell>
+                                <TableCell>
+                                    {res?.schedule?.teacher?.name}
+                                </TableCell>
                                 <TableCell>
                                     {res?.schedule?.als_level ?? ""}
                                 </TableCell>
                                 <TableCell>
-                                    {moment(res.start_at).format("LLLL")}
+                                    {moment(res.schedule.start_at).format(
+                                        "LLLL",
+                                    )}
                                 </TableCell>
                                 <TableCell>
-                                    {moment(res.end_at).format("LLLL")}
+                                    {moment(res.schedule.end_at).format("LLLL")}
                                 </TableCell>
                                 <TableCell>
                                     <div className="flex gap-2">
@@ -66,36 +78,47 @@ export default function ExaminationSection() {
                      */}
                                         {/* <UpdateSection data={res} />
                     <DeleteSection data={res} /> */}
-                                        <a
-                                            target="_blank"
-                                            href={`/student/examination/ila_assessment_form/${res.examiner_id}/${res.schedule.booklet_id}?examiner=${res?.schedule?.teacher?.name}&reference_id=${res.reference_id}`}
-                                        >
-                                            <Button
-                                                size="small"
-                                                variant="contained"
-                                                color="primary"
-                                            >
-                                                <ListAlt />
-                                            </Button>
-                                        </a>
-                                        <a
-                                            target="_blank"
-                                            href={`/student/examination/score_sheet/${res.examiner_id}/${res.schedule.booklet_id}?reference_id=${res.reference_id}`}
-                                        >
-                                            <Button
-                                                size="small"
-                                                variant="contained"
-                                                color="success"
-                                            >
-                                                <Checklist />
-                                            </Button>
-                                        </a>
+
+                                        {res.score_sheet != null && (
+                                            <>
+                                                <a
+                                                    target="_blank"
+                                                    href={`/student/examination/ila_assessment_form/${res.examiner_id}/${res.schedule.booklet_id}?examiner=${res?.schedule?.teacher?.name}&reference_id=${res.reference_id}`}
+                                                >
+                                                    <Button
+                                                        size="small"
+                                                        variant="contained"
+                                                        color="primary"
+                                                    >
+                                                        <ListAlt />
+                                                    </Button>
+                                                </a>
+                                                <a
+                                                    target="_blank"
+                                                    href={`/student/examination/score_sheet/${res.examiner_id}/${res.schedule.booklet_id}?reference_id=${res.reference_id}`}
+                                                >
+                                                    <Button
+                                                        size="small"
+                                                        variant="contained"
+                                                        color="success"
+                                                    >
+                                                        <Checklist />
+                                                    </Button>
+                                                </a>
+                                            </>
+                                        )}
+                                        {res.score_sheet == null && (
+                                            <div className="bg-red-500 text-center px-8 py-1.5 text-white rounded-md">
+                                                No Answer
+                                            </div>
+                                        )}
                                         <Button
                                             onClick={() =>
                                                 router.visit(
                                                     `/student/examination/${res.schedule.booklet_id}?reference_id=${res.reference_id}`,
                                                 )
                                             }
+                                            disabled={over_due}
                                             size="small"
                                             variant="contained"
                                             color="success"
