@@ -37,4 +37,9 @@ class ScoreSheet extends Model
     {
         return $this->hasOne(Examiner::class, 'examiner_id', 'user_id')->with(['schedule']);
     }
+
+    public function schedule(): HasOne
+    {
+        return $this->hasOne(Schedule::class, 'unique_id', 'reference_id')->with('teacher');
+    }
 }

@@ -95,7 +95,7 @@
                 </tr>
                 <tr>
                     <td style="text-align: left;">Level: {{ $scoresheet->als_level ?? '' }}</td>
-                    <td style="text-align: right;">Name of Learning Facilitator: {{ $scoresheet->examiner->schedule->teacher->name ?? '' }}</td>
+                    <td style="text-align: right;">Name of Learning Facilitator: {{ $scoresheet->schedule->teacher->name ?? 'No Teacher' }}</td>
                 </tr>
             </table>
             <!-- {scoresheet?.examiner?.schedule?.teacher?.name ??

@@ -45,89 +45,98 @@ export default function ExaminationSection() {
                             return endDate < now;
                         }
                         const over_due = isOverdue(res?.schedule ?? {});
-                        console.log('over_due',res)
+                        console.log("over_due", res);
                         return (
-                            <TableRow
-                                key={i}
-                                sx={{
-                                    "&:last-child td, &:last-child th": {
-                                        border: 0,
-                                    },
-                                }}
-                            >
-                                <TableCell>{res.reference_id}</TableCell>
-                                <TableCell>
-                                    {res?.schedule?.teacher?.name}
-                                </TableCell>
-                                <TableCell>
-                                    {res?.schedule?.als_level ?? ""}
-                                </TableCell>
-                                <TableCell>
-                                    {moment(res?.schedule?.start_at).format(
-                                        "LLLL",
-                                    )}
-                                </TableCell>
-                                <TableCell>
-                                    {moment(res?.schedule?.end_at).format("LLLL")}
-                                </TableCell>
-                                <TableCell>
-                                    <div className="flex gap-2">
-                                        {/* {
-                      !res.enrollment && <AddEnrollmentSection data={res}/>
-                    }
-                     */}
-                                        {/* <UpdateSection data={res} />
-                    <DeleteSection data={res} /> */}
+                            <>
+                                {res?.schedule?.teacher && res?.schedule && (
+                                    <TableRow
+                                        key={i}
+                                        sx={{
+                                            "&:last-child td, &:last-child th":
+                                                {
+                                                    border: 0,
+                                                },
+                                        }}
+                                    >
+                                        <TableCell>
+                                            {res.reference_id}
+                                        </TableCell>
+                                        <TableCell>
+                                            {res?.schedule?.teacher?.name}
+                                        </TableCell>
+                                        <TableCell>
+                                            {res?.schedule?.als_level ?? ""}
+                                        </TableCell>
+                                        <TableCell>
+                                            {moment(
+                                                res?.schedule?.start_at,
+                                            ).format("LLLL")}
+                                        </TableCell>
+                                        <TableCell>
+                                            {moment(
+                                                res?.schedule?.end_at,
+                                            ).format("LLLL")}
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex gap-2">
+                                                {/* {
+                  !res.enrollment && <AddEnrollmentSection data={res}/>
+                }
+                 */}
+                                                {/* <UpdateSection data={res} />
+                <DeleteSection data={res} /> */}
 
-                                        {res.score_sheet != null && (
-                                            <>
-                                                <a
-                                                    target="_blank"
-                                                    href={`/student/examination/ila_assessment_form/${res.examiner_id}/${res.schedule?.booklet_id}?examiner=${res?.schedule?.teacher?.name}&reference_id=${res.reference_id}`}
+                                                {res.score_sheet != null && (
+                                                    <>
+                                                        <a
+                                                            target="_blank"
+                                                            href={`/student/examination/ila_assessment_form/${res.examiner_id}/${res.schedule?.booklet_id}?examiner=${res?.schedule?.teacher?.name}&reference_id=${res.reference_id}`}
+                                                        >
+                                                            <Button
+                                                                size="small"
+                                                                variant="contained"
+                                                                color="primary"
+                                                            >
+                                                                <ListAlt />
+                                                            </Button>
+                                                        </a>
+                                                        <a
+                                                            target="_blank"
+                                                            href={`/student/examination/score_sheet/${res.examiner_id}/${res.schedule?.booklet_id}?reference_id=${res.reference_id}`}
+                                                        >
+                                                            <Button
+                                                                size="small"
+                                                                variant="contained"
+                                                                color="success"
+                                                            >
+                                                                <Checklist />
+                                                            </Button>
+                                                        </a>
+                                                    </>
+                                                )}
+                                                {res.score_sheet == null && (
+                                                    <div className="bg-red-500 text-center px-8 py-1.5 text-white rounded-md">
+                                                        No Answer
+                                                    </div>
+                                                )}
+                                                <Button
+                                                    onClick={() =>
+                                                        router.visit(
+                                                            `/student/examination/${res.schedule?.booklet_id}?reference_id=${res.reference_id}`,
+                                                        )
+                                                    }
+                                                    disabled={over_due}
+                                                    size="small"
+                                                    variant="contained"
+                                                    color="success"
                                                 >
-                                                    <Button
-                                                        size="small"
-                                                        variant="contained"
-                                                        color="primary"
-                                                    >
-                                                        <ListAlt />
-                                                    </Button>
-                                                </a>
-                                                <a
-                                                    target="_blank"
-                                                    href={`/student/examination/score_sheet/${res.examiner_id}/${res.schedule?.booklet_id}?reference_id=${res.reference_id}`}
-                                                >
-                                                    <Button
-                                                        size="small"
-                                                        variant="contained"
-                                                        color="success"
-                                                    >
-                                                        <Checklist />
-                                                    </Button>
-                                                </a>
-                                            </>
-                                        )}
-                                        {res.score_sheet == null && (
-                                            <div className="bg-red-500 text-center px-8 py-1.5 text-white rounded-md">
-                                                No Answer
+                                                    <Visibility />
+                                                </Button>
                                             </div>
-                                        )}
-                                        <Button
-                                            onClick={() =>
-                                                router.visit(
-                                                    `/student/examination/${res.schedule?.booklet_id}?reference_id=${res.reference_id}`,
-                                                )
-                                            }
-                                            disabled={over_due}
-                                            size="small"
-                                            variant="contained"
-                                            color="success"
-                                        >
-                                            <Visibility />
-                                        </Button>
-                                    </div>
-                                </TableCell>
-                            </TableRow>
+                                        </TableCell>
+                                    </TableRow>
+                                )}
+                            </>
                         );
                     })}
                 </TableBody>

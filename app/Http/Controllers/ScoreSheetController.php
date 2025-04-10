@@ -15,7 +15,7 @@ class ScoreSheetController extends Controller
             ['user_id','=',$id],
             ['booklet_id','=',$request->booklet_id],
             ['reference_id','=',$request->reference_id],
-        ])->with(['answers','booklet','user','examiner'])->first();
+        ])->with(['answers','booklet','user','examiner','schedule'])->first();
         return response()->json([
             'response' =>$scoresheet,
         ], 200);

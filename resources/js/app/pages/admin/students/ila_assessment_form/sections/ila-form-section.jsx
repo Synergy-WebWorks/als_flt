@@ -60,7 +60,6 @@ export default function ILAFormSection() {
             }
         }
     }
-    console.log("scoresheet", scoresheet);
 
     async function select_handler(e) {
         await edit_all_ila_service({
@@ -108,7 +107,7 @@ export default function ILAFormSection() {
                         />
                     ) : (
                         <div onDoubleClick={() => double_tap()}>
-                            {scoresheet?.examiner?.schedule?.teacher?.name ??
+                            {scoresheet?.schedule?.teacher?.name ??
                                 "No Examiner"}
                         </div>
                     )}
