@@ -36,7 +36,7 @@ export default function ExaminationSection() {
                 </TableHead>
                 <TableBody>
                     {examiners?.map((res, i) => {
-                        const dob = moment(res.dob, "YYYY-MM-DD"); // Replace with actual date of birth
+                        const dob = moment(res?.dob, "YYYY-MM-DD"); // Replace with actual date of birth
                         const age = moment().diff(dob, "years");
 
                         function isOverdue(obj) {
@@ -44,8 +44,8 @@ export default function ExaminationSection() {
                             const now = new Date();
                             return endDate < now;
                         }
-                        const over_due = isOverdue(res.schedule ?? {});
-                        console.log('over_due',over_due)
+                        const over_due = isOverdue(res?.schedule ?? {});
+                        console.log('over_due',res)
                         return (
                             <TableRow
                                 key={i}
@@ -63,12 +63,12 @@ export default function ExaminationSection() {
                                     {res?.schedule?.als_level ?? ""}
                                 </TableCell>
                                 <TableCell>
-                                    {moment(res.schedule.start_at).format(
+                                    {moment(res?.schedule?.start_at).format(
                                         "LLLL",
                                     )}
                                 </TableCell>
                                 <TableCell>
-                                    {moment(res.schedule.end_at).format("LLLL")}
+                                    {moment(res?.schedule?.end_at).format("LLLL")}
                                 </TableCell>
                                 <TableCell>
                                     <div className="flex gap-2">
@@ -83,7 +83,7 @@ export default function ExaminationSection() {
                                             <>
                                                 <a
                                                     target="_blank"
-                                                    href={`/student/examination/ila_assessment_form/${res.examiner_id}/${res.schedule.booklet_id}?examiner=${res?.schedule?.teacher?.name}&reference_id=${res.reference_id}`}
+                                                    href={`/student/examination/ila_assessment_form/${res.examiner_id}/${res.schedule?.booklet_id}?examiner=${res?.schedule?.teacher?.name}&reference_id=${res.reference_id}`}
                                                 >
                                                     <Button
                                                         size="small"
@@ -95,7 +95,7 @@ export default function ExaminationSection() {
                                                 </a>
                                                 <a
                                                     target="_blank"
-                                                    href={`/student/examination/score_sheet/${res.examiner_id}/${res.schedule.booklet_id}?reference_id=${res.reference_id}`}
+                                                    href={`/student/examination/score_sheet/${res.examiner_id}/${res.schedule?.booklet_id}?reference_id=${res.reference_id}`}
                                                 >
                                                     <Button
                                                         size="small"
@@ -115,7 +115,7 @@ export default function ExaminationSection() {
                                         <Button
                                             onClick={() =>
                                                 router.visit(
-                                                    `/student/examination/${res.schedule.booklet_id}?reference_id=${res.reference_id}`,
+                                                    `/student/examination/${res.schedule?.booklet_id}?reference_id=${res.reference_id}`,
                                                 )
                                             }
                                             disabled={over_due}

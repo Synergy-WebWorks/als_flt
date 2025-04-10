@@ -1,1 +1,0 @@
-import{g as r}from"./user-service-D2W1I46J.js";import{m as o}from"./app-lH_rqYJx.js";function a(){return async function(t,s){const e=await r();return console.log("res",e),t(o.actions.setUser(e)),e}}export{a as g};

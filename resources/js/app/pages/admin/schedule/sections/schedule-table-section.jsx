@@ -44,11 +44,11 @@ export default function ScheduleTableSection() {
                 </TableHead>
                 <TableBody>
                     {schedules?.data?.map((res, i) => {
-                        const dob = moment(res.dob, "YYYY-MM-DD"); // Replace with actual date of birth
+                        const dob = moment(res?.dob, "YYYY-MM-DD"); // Replace with actual date of birth
                         const age = moment().diff(dob, "years");
                         return (
                             <>
-                                {res.user && (
+                                {res?.user && (
                                     <TableRow
                                         key={i}
                                         sx={{
@@ -56,24 +56,24 @@ export default function ScheduleTableSection() {
                                                 { border: 0 },
                                         }}
                                     >
-                                        <TableCell>{res.unique_id}</TableCell>
-                                        <TableCell>{res.user.name}</TableCell>
+                                        <TableCell>{res?.unique_id}</TableCell>
+                                        <TableCell>{res?.user?.name}</TableCell>
                                         <TableCell>
                                             {res?.als_level ?? ""}
                                         </TableCell>
                                         <TableCell>
-                                            {moment(res.start_at).format(
+                                            {moment(res?.start_at).format(
                                                 "LLLL",
                                             )}
                                         </TableCell>
                                         <TableCell>
-                                            {moment(res.end_at).format("LLLL")}
+                                            {moment(res?.end_at).format("LLLL")}
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex gap-2">
                                                 <DeleteSection data={res} />
                                                 {/* {
-                  !res.enrollment && <AddEnrollmentSection data={res}/>
+                  !res?.enrollment && <AddEnrollmentSection data={res}/>
                 }
                  */}
                                                 {/* <UpdateSection data={res} />
@@ -81,7 +81,7 @@ export default function ScheduleTableSection() {
                                                 <Button
                                                     onClick={() =>
                                                         router.visit(
-                                                            `/administrator/schedule/${res.unique_id}`,
+                                                            `/administrator/schedule/${res?.unique_id}`,
                                                         )
                                                     }
                                                     size="small"

@@ -6,9 +6,13 @@ import TextInput from "@/Components/TextInput";
 import { Head, Link, router, useForm } from "@inertiajs/react";
 import { FormControl, MenuItem, Select, TextField } from "@mui/material";
 import moment from "moment";
+import Swal from "sweetalert2";
+import { create_account_service } from "@/app/services/user-service";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function Register() {
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const [data, setData] = useState({
         name: "",
         email: "",
         password: "",
@@ -17,14 +21,42 @@ export default function Register() {
         dob: moment().format("d-m-Y"),
         password_confirmation: "",
     });
+    const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState({});
 
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
 
-        post(route("register"), {
-            onFinish: () => reset("password", "password_confirmation"),
-        });
+        try {
+            setLoading(true);
+            const res = await create_account_service(data);
+
+            if (res.status == 200) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Your work has been saved",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                setData({
+                    name: "",
+                    email: "",
+                    password: "",
+                    mobile: "",
+                    user_type: "",
+                    dob: moment().format("d-m-Y"),
+                    password_confirmation: "",
+                });
+            } else {
+                setErrors(res.response.data.errors);
+            }
+
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+        }
     };
+
     return (
         <>
             <div className="flex h-screen flex-1">
@@ -66,7 +98,11 @@ export default function Register() {
                                             value={data.name}
                                             className="w-full"
                                             onChange={(e) =>
-                                                setData("name", e.target.value)
+                                                setData({
+                                                    ...data,
+                                                    [e.target.name]:
+                                                        e.target.value,
+                                                })
                                             }
                                             error={errors.name ? true : false}
                                             helperText={errors.name ?? ""}
@@ -80,7 +116,11 @@ export default function Register() {
                                             value={data.email}
                                             className="w-full"
                                             onChange={(e) =>
-                                                setData("email", e.target.value)
+                                                setData({
+                                                    ...data,
+                                                    [e.target.name]:
+                                                        e.target.value,
+                                                })
                                             }
                                             error={errors.email ? true : false}
                                             helperText={errors.email ?? ""}
@@ -94,10 +134,11 @@ export default function Register() {
                                             value={data.mobile}
                                             className="w-full"
                                             onChange={(e) =>
-                                                setData(
-                                                    "mobile",
-                                                    e.target.value,
-                                                )
+                                                setData({
+                                                    ...data,
+                                                    [e.target.name]:
+                                                        e.target.value,
+                                                })
                                             }
                                             error={errors.mobile ? true : false}
                                             helperText={errors.mobile ?? ""}
@@ -111,7 +152,11 @@ export default function Register() {
                                             value={data.dob}
                                             className="w-full"
                                             onChange={(e) =>
-                                                setData("dob", e.target.value)
+                                                setData({
+                                                    ...data,
+                                                    [e.target.name]:
+                                                        e.target.value,
+                                                })
                                             }
                                             error={errors.dob ? true : false}
                                             helperText={errors.dob ?? ""}
@@ -133,10 +178,11 @@ export default function Register() {
                                                 name="user_type"
                                                 label="Account Type"
                                                 onChange={(e) =>
-                                                    setData(
-                                                        "user_type",
-                                                        e.target.value,
-                                                    )
+                                                    setData({
+                                                        ...data,
+                                                        [e.target.name]:
+                                                            e.target.value,
+                                                    })
                                                 }
                                             >
                                                 <MenuItem value={2}>
@@ -151,10 +197,11 @@ export default function Register() {
                                             value={data.password}
                                             className="w-full"
                                             onChange={(e) =>
-                                                setData(
-                                                    "password",
-                                                    e.target.value,
-                                                )
+                                                setData({
+                                                    ...data,
+                                                    [e.target.name]:
+                                                        e.target.value,
+                                                })
                                             }
                                             error={
                                                 errors.password ? true : false
@@ -170,10 +217,11 @@ export default function Register() {
                                             value={data.password_confirmation}
                                             className="w-full"
                                             onChange={(e) =>
-                                                setData(
-                                                    "password_confirmation",
-                                                    e.target.value,
-                                                )
+                                                setData({
+                                                    ...data,
+                                                    [e.target.name]:
+                                                        e.target.value,
+                                                })
                                             }
                                             error={
                                                 errors.password_confirmation
@@ -202,7 +250,7 @@ export default function Register() {
 
                                         <PrimaryButton
                                             className="ms-4"
-                                            disabled={processing}
+                                            disabled={loading}
                                         >
                                             Register
                                         </PrimaryButton>

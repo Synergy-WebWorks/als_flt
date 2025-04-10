@@ -27,6 +27,7 @@ export default function DeleteExaminerSection({ data }) {
         setLoading(true)
         await store.dispatch(delete_examiner_thunk(data.id))
         await store.dispatch(get_examiner_by_id_thunk(window.location.pathname.split('/')[3]))
+    setOpen(false)
         setLoading(false)
     }
     return (

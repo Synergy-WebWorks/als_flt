@@ -70,12 +70,6 @@ export default function ScheduleTableSection() {
                                 </TableCell>
                                 <TableCell>
                                     <div className="flex gap-2">
-                                        {/* {
-                      !res?.enrollment && <AddEnrollmentSection data={res}/>
-                    }
-                     */}
-                                        {/* <UpdateSection data={res} />
-                    <DeleteSection data={res} /> */}
                                         <Button
                                             onClick={() =>
                                                 router.visit(

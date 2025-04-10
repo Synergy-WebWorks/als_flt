@@ -31,7 +31,7 @@ export default function ExaminerTableSection() {
                             <div className="font-bold">Reference Test ID</div>
                         </TableCell>
                         <TableCell>
-                            <div className="font-bold">Examiner</div>
+                            <div className="font-bold">Examinee</div>
                         </TableCell>
                         <TableCell>
                             <div className="font-bold">Mobile</div>
@@ -44,12 +44,12 @@ export default function ExaminerTableSection() {
                 <TableBody>
                     {examiners?.response &&
                         examiners?.response?.map((res, i) => {
-                            const dob = moment(res.dob, "YYYY-MM-DD"); // Replace with actual date of birth
+                            const dob = moment(res?.dob, "YYYY-MM-DD"); // Replace with actual date of birth
                             const age = moment().diff(dob, "years");
                             console.log("resresres", res);
                             return (
                                 <>
-                                    {res.user && (
+                                    {res?.user && (
                                         <TableRow
                                             key={i}
                                             sx={{
@@ -60,22 +60,22 @@ export default function ExaminerTableSection() {
                                             }}
                                         >
                                             <TableCell>
-                                                {res.reference_id}
+                                                {res?.reference_id}
                                             </TableCell>
                                             <TableCell>
-                                                {res.user.name}
+                                                {res?.user?.name}
                                             </TableCell>
                                             <TableCell>
                                                 {res?.user?.mobile ?? ""}
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex gap-2">
-                                                    {res.score_sheet !=
+                                                    {res?.score_sheet !=
                                                         null && (
                                                         <>
                                                             <a
                                                                 target="_blank"
-                                                                href={`/administrator/students/ila_assessment_form/${res.examiner_id}/${res.schedule.booklet_id}?examiner=${res?.schedule?.teacher?.name}&reference_id=${res.reference_id}`}
+                                                                href={`/administrator/students/ila_assessment_form/${res?.examiner_id}/${res?.schedule?.booklet_id}?examiner=${res?.schedule?.teacher?.name}&reference_id=${res?.reference_id}`}
                                                             >
                                                                 <Button
                                                                     size="small"
@@ -87,7 +87,7 @@ export default function ExaminerTableSection() {
                                                             </a>
                                                             <a
                                                                 target="_blank"
-                                                                href={`/administrator/students/score_sheet/${res.examiner_id}/${res.schedule.booklet_id}?reference_id=${res.reference_id}`}
+                                                                href={`/administrator/students/score_sheet/${res?.examiner_id}/${res?.schedule?.booklet_id}?reference_id=${res?.reference_id}`}
                                                             >
                                                                 <Button
                                                                     size="small"
@@ -99,13 +99,13 @@ export default function ExaminerTableSection() {
                                                             </a>
                                                         </>
                                                     )}
-                                                    {res.score_sheet ==
+                                                    {res?.score_sheet ==
                                                         null && (
                                                         <div className="bg-red-500 px-2.5 py-1.5 text-white rounded-md">
                                                             No Answer Sheets
                                                         </div>
                                                     )}
-                                               
+
                                                     <DeleteExaminerSection
                                                         data={res}
                                                     />

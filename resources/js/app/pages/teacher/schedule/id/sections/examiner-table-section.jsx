@@ -32,7 +32,7 @@ export default function ExaminerTableSection() {
                             <div className="font-bold">Reference Test ID</div>
                         </TableCell>
                         <TableCell>
-                            <div className="font-bold">Examiner</div>
+                            <div className="font-bold">Examinee</div>
                         </TableCell>
                         <TableCell>
                             <div className="font-bold">Mobile</div>
@@ -76,7 +76,7 @@ export default function ExaminerTableSection() {
                                                         <>
                                                             <Button
                                                                 target="_blank"
-                                                                href={`/teacher/schedule/ila_assessment_form/${res?.examiner_id}/${res?.schedule.booklet_id}?examiner=${res?.schedule?.teacher?.name}&reference_id=${res.reference_id}`}
+                                                                href={`/teacher/schedule/ila_assessment_form/${res?.examiner_id}/${res?.schedule?.booklet_id}?examiner=${res?.schedule?.teacher?.name}&reference_id=${res?.reference_id}`}
                                                                 size="small"
                                                                 variant="contained"
                                                                 color="primary"
@@ -85,7 +85,7 @@ export default function ExaminerTableSection() {
                                                             </Button>
                                                             <Button
                                                                 target="_blank"
-                                                                href={`/teacher/schedule/score_sheet/${res?.examiner_id}/${res?.schedule.booklet_id}?reference_id=${res.reference_id}`}
+                                                                href={`/teacher/schedule/score_sheet/${res?.examiner_id}/${res?.schedule?.booklet_id}?reference_id=${res?.reference_id}`}
                                                                 size="small"
                                                                 variant="contained"
                                                                 color="success"

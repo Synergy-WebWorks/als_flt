@@ -21,6 +21,10 @@ class StudentController extends Controller
                 // ->orWhere('phone', 'LIKE', "%{$search}%")
             });
         }
+        if (!empty($search)) {
+            $query->where('isApproved','true');
+        }
+        
 
         $users = $query->paginate(10);
 

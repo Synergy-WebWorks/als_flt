@@ -6,6 +6,7 @@ use App\Models\ScoreSheet;
 use App\Models\Specification;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class SpecificationController extends Controller
 {
@@ -42,6 +43,10 @@ class SpecificationController extends Controller
             ->setPaper('legal', 'landscape');
 
         return $pdf->stream('individual_learning_agreement.pdf');
+
+        // return Inertia::render('ila/page', [
+        //     'scoresheet' => $scoresheet
+        // ]);
     }
 
     public function index()
