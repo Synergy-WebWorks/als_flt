@@ -17,7 +17,7 @@ export default function Register() {
         email: "",
         password: "",
         mobile: "",
-        user_type: "",
+        user_type: "3",
         dob: moment().format("d-m-Y"),
         password_confirmation: "",
     });
@@ -109,7 +109,7 @@ export default function Register() {
                                             name="name"
                                             type="text"
                                             id="outlined-basic"
-                                            label="Name"
+                                            label="Fullname"
                                             variant="outlined"
                                         />
                                         <TextField
@@ -167,7 +167,7 @@ export default function Register() {
                                             variant="outlined"
                                         />
 
-                                        <FormControl fullWidth>
+                                        {/* <FormControl fullWidth>
                                             <InputLabel id="demo-simple-select-label">
                                                 Account Type
                                             </InputLabel>
@@ -192,7 +192,7 @@ export default function Register() {
                                                     Student
                                                 </MenuItem>
                                             </Select>
-                                        </FormControl>
+                                        </FormControl> */}
                                         <TextField
                                             value={data.password}
                                             className="w-full"

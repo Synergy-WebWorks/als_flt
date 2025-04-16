@@ -1,0 +1,1 @@
+import{b as e}from"./app-B6whuzCY.js";async function c(r){try{return await e.post("/api/approved_account",r)}catch(t){return t}}async function s(r){try{return await e.post("/register",r)}catch(t){return t}}async function n(){try{return(await e.get("/api/user")).data}catch(r){return r}}export{c as a,s as c,n as g};
